@@ -5,6 +5,7 @@ const PORT = 1337;
 // Route imports
 const basicRoutes = require("./routes/basic");
 const logger = require("./middleware/logger");
+const { notFound, errorHandler } = require("./middleware/errorHandler");
 
 // Middleware logging each request
 app.use(logger);
@@ -12,16 +13,9 @@ app.use(logger);
 // Connecting routes
 app.use("/", basicRoutes);
 
-// Middleware: 404 handler
-app.use((req, res, next) => {
-  res.status(404).json({ error: "Not found" });
-});
-
-// Middleware: Error handler
-app.use((err, req, res, next) => {
-  console.error("Error:", err.message);
-  res.status(500).json({ error: "Internal server error" });
-});
+// Error handling
+app.use(notFound);
+app.use(errorHandler);
 
 // Starting the server, if not testing
 if (require.main === module) {
