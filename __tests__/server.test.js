@@ -21,3 +21,9 @@ test("GET /status → { status: 'ok', uptime: number }", async () => {
   expect(res.body).toHaveProperty("status", "ok");
   expect(typeof res.body.uptime).toBe("string"); // Since .toFixed(2) is used
 });
+
+test("GET /unknown → 404 Not Found", async () => {
+  const res = await request(app).get("/unknown");
+  expect(res.statusCode).toBe(404);
+  expect(res.body).toHaveProperty("error", "Not found");
+});
