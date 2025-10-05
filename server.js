@@ -6,12 +6,17 @@ const PORT = 1337;
 const basicRoutes = require("./routes/basic");
 const logger = require("./middleware/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
+const usersRoutes = require("./routes/users");
 
 // Middleware logging each request
 app.use(logger);
 
+// Add a JSON parser to make POST requests work
+app.use(express.json());
+
 // Connecting routes
 app.use("/", basicRoutes);
+app.use("/users", usersRoutes);
 
 // Error handling
 app.use(notFound);

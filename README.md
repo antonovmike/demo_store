@@ -55,3 +55,26 @@ Response:
   "uptime": "123.45"  // server uptime in seconds
 }
 ```
+
+## Users
+
+Registration → POST /users/register
+```bash
+curl -X POST http://127.0.0.1:1337/users/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"Alice","password":"123456"}'
+```
+Response
+```json
+{ "id": 1, "username": "Alice" }
+```
+Login → POST /users/login
+```bash
+curl -X POST http://127.0.0.1:1337/users/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"alice","password":"123456"}'
+```
+Response
+```json
+{ "message": "Login successful (JWT will be added later)" }
+```
