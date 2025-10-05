@@ -1,15 +1,15 @@
 # demo_store
 Training demo project of online store on Node.js + React
 
-Install dependencies:
+## Install dependencies
 ```bash
 npm install
 ```
-Start server:
+## Start server
 ```bash
 npm start
 ```
-Run tests:
+## Run tests
 ```bash
 npm test
 ```
