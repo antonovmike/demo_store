@@ -33,10 +33,28 @@ describe("User routes", () => {
 
   // Test user login
   test("POST /users/login works with valid credentials", async () => {
-    // ADD TEST
+    await request(app)
+      .post("/users/register")
+      .send({ username: "Alice", password: "123456" });
+
+    const res = await request(app)
+      .post("/users/login")
+      .send({ username: "Alice", password: "123456" });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("message", "Login successful (JWT will be added later)");
   });
 
   test("POST /users/login fails with invalid password", async () => {
-    // ADD TEST
+    await request(app)
+      .post("/users/register")
+      .send({ username: "Alice", password: "123456" });
+
+    const res = await request(app)
+      .post("/users/login")
+      .send({ username: "Alice", password: "wrongpassword" });
+
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty("error", "Invalid password");
   });
 });
