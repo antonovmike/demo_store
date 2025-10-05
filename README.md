@@ -13,3 +13,41 @@ npm start
 ```bash
 npm test
 ```
+
+## API Endpoints
+
+## GET /ping
+Check basic server response.
+Request:
+```bash
+GET /ping
+```
+Response:
+```bash
+"pong"
+```
+
+## GET /hello
+Simple hello endpoint.
+Request:
+```bash
+GET /hello
+```
+Response:
+```bash
+"Hello"
+```
+
+## GET /status
+Check server health and uptime.
+Request:
+```bash
+GET /status
+```
+Response:
+```json
+{
+  "status": "ok",
+  "uptime": "123.45"  // server uptime in seconds
+}
+```
