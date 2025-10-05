@@ -14,3 +14,10 @@ describe("DemoStore API", () => {
     expect(res.text).toBe("Hello");
   });
 });
+
+test("GET /status → { status: 'ok', uptime: number }", async () => {
+  const res = await request(app).get("/status");
+  expect(res.statusCode).toBe(200);
+  expect(res.body).toHaveProperty("status", "ok");
+  expect(typeof res.body.uptime).toBe("string"); // Since .toFixed(2) is used
+});

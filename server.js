@@ -2,15 +2,11 @@ const express = require("express");
 const app = express();
 const PORT = 1337;
 
-// Route /ping
-app.get("/ping", (req, res) => {
-  res.send("pong");
-});
+// Route imports
+const basicRoutes = require("./routes/basic");
 
-// Route /hello
-app.get("/hello", (req, res) => {
-  res.send("Hello");
-});
+// Connecting routes
+app.use("/", basicRoutes);
 
 // Starting the server, if not testing
 if (require.main === module) {
