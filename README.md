@@ -50,10 +50,7 @@ GET /status
 ```
 Response:
 ```json
-{
-  "status": "ok",
-  "uptime": "123.45"  // server uptime in seconds
-}
+{ "status": "ok", "uptime": "123.45" }
 ```
 
 ## Users
