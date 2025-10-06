@@ -4,9 +4,9 @@ const PORT = 1337;
 
 // Route imports
 const basicRoutes = require("./routes/basic");
+const usersRoutes = require("./routes/users");
 const logger = require("./middleware/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
-const usersRoutes = require("./routes/users");
 
 // Middleware logging each request
 app.use(logger);
