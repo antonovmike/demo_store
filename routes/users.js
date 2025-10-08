@@ -4,7 +4,7 @@ const { createUser, findUserByUsername } = require("../models/userModel");
 
 const router = express.Router();
 
-// POST /register
+// Registration
 router.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
@@ -25,7 +25,7 @@ router.post("/register", async (req, res) => {
   res.status(201).json({ id: user.id, username: user.username });
 });
 
-// POST /login
+// Login
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
