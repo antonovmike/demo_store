@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middleware/auth");
 
 const { createUser, findUserByUsername } = require("../models/userModel");
 
@@ -8,6 +9,11 @@ const router = express.Router();
 
 // In a real application, use an environment variable for the secret key
 const SECRET_KEY = "mysecretkey";
+
+// Secure route
+router.get("/me", authMiddleware, (req, res) => {
+  res.json({ id: req.user.id, username: req.user.username });
+});
 
 // Registration
 router.post("/register", async (req, res) => {
