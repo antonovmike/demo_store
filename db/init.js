@@ -7,7 +7,9 @@ async function initDb() {
   const schema = fs.readFileSync(schemaPath, "utf8");
   try {
     await pool.query(schema);
-    console.log("✅ Database schema initialized");
+    if (process.env.NODE_ENV !== "test") {
+      console.log("✅ Database schema initialized");
+    }
   } catch (err) {
     console.error("❌ Error initializing schema:", err);
   }
