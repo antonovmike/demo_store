@@ -42,7 +42,6 @@ describe("User routes", () => {
       .send({ username: "Alice", password: "123456" });
 
     expect(res.statusCode).toBe(200);
-    // Write a test to verify the token
     expect(res.body).toHaveProperty("token");
     expect(typeof res.body.token).toBe("string");
   });
