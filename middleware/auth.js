@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-// In a real application, use an environment variable for the secret key
-const SECRET_KEY = "mysecretkey";
+const { SECRET_KEY } = require("../config");
 
 function authMiddleware(req, res, next) {
     const authHeader = req.headers["authorization"];

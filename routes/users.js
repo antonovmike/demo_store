@@ -7,8 +7,7 @@ const { createUser, findUserByUsername } = require("../models/userModel");
 
 const router = express.Router();
 
-// In a real application, use an environment variable for the secret key
-const SECRET_KEY = "mysecretkey";
+const { SECRET_KEY } = require("../config");
 
 // Secure route
 router.get("/me", authMiddleware, (req, res) => {
