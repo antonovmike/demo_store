@@ -1,8 +1,13 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const { createUser, findUserByUsername } = require("../models/userModel");
 
 const router = express.Router();
+
+// In a real application, use an environment variable for the secret key
+const SECRET_KEY = "mysecretkey";
 
 // Registration
 router.post("/register", async (req, res) => {
@@ -42,7 +47,14 @@ router.post("/login", async (req, res) => {
     return res.status(401).json({ error: "Invalid username or password" });
   }
 
-  res.json({ message: "Login successful (JWT will be added later)" });
+  // Generate token
+  const token = jwt.sign(
+    { id: user.id, username: user.username },
+    SECRET_KEY,
+    { expiresIn: "1h" } // The token lives for 1 hour
+  );
+
+  res.json({ token });
 });
 
 module.exports = router;

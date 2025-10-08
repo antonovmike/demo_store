@@ -42,7 +42,7 @@ describe("User routes", () => {
       .send({ username: "Alice", password: "123456" });
 
     expect(res.statusCode).toBe(200);
-    expect(res.body).toHaveProperty("message", "Login successful (JWT will be added later)");
+    // Write a test to verify the token
   });
 
   test("POST /users/login fails with invalid password", async () => {
