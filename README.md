@@ -69,7 +69,7 @@ Login → POST /users/login
 ```bash
 curl -X POST http://127.0.0.1:1337/users/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"alice","password":"123456"}'
+  -d '{"username":"Alice","password":"123456"}'
 ```
 Response
 ```json
