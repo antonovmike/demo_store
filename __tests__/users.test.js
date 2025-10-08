@@ -1,9 +1,16 @@
 const request = require("supertest");
 const app = require("../server");
-const { resetUsers } = require("../models/userModel");
+const pool = require("../db/index");
+const initDb = require("../db/init");
 
-beforeEach(() => {
-  resetUsers(); // Clear users before each test
+// Clean up the database
+beforeEach(async () => {
+  await initDb();
+  await pool.query("DELETE FROM users");
+});
+
+afterAll(async () => {
+  await pool.end(); // Close the database connection
 });
 
 describe("User routes", () => {

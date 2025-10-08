@@ -5,8 +5,10 @@ const PORT = 1337;
 // Route imports
 const basicRoutes = require("./routes/basic");
 const usersRoutes = require("./routes/users");
+
 const logger = require("./middleware/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
+const initDb = require("./db/init");
 
 // Middleware logging each request
 app.use(logger);
@@ -23,11 +25,14 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Starting the server, if not testing
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Server running at http://127.0.0.1:${PORT}`);
-  });
-}
+(async () => {
+  await initDb(); // Initialize the database schema
+  if (require.main === module) {
+    app.listen(PORT, () => {
+      console.log(`Server running at http://127.0.0.1:${PORT}`);
+    });
+  }
+})();
 
 // export for testing
 module.exports = app;

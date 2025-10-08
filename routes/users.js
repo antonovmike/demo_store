@@ -2,8 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middleware/auth");
-
-const { createUser, findUserByUsername } = require("../models/userModel");
+const { createUser, findUserByUsername } = require("../db/users");
 
 const router = express.Router();
 
@@ -23,13 +22,14 @@ router.post("/register", async (req, res) => {
   }
 
   // Check if user exists
-  if (findUserByUsername(username)) {
+  const existing = await findUserByUsername(username); // <--- Added await
+  if (existing) {
     return res.status(400).json({ error: "User already exists" });
   }
 
   // Hash the password
   const passwordHash = await bcrypt.hash(password, 10);
-  const user = createUser(username, passwordHash);
+  const user = await createUser(username, passwordHash);
 
   res.status(201).json({ id: user.id, username: user.username });
 });
@@ -42,12 +42,12 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ error: "Username and password are required" });
   }
 
-  const user = findUserByUsername(username);
+  const user = await findUserByUsername(username);
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
 
-  const valid = await bcrypt.compare(password, user.passwordHash);
+  const valid = await bcrypt.compare(password, user.password_hash);
   if (!valid) {
     return res.status(401).json({ error: "Invalid username or password" });
   }
