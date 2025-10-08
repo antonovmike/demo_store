@@ -13,8 +13,7 @@ router.post("/register", async (req, res) => {
   }
 
   // Check if user exists
-  const existing = findUserByUsername(username);
-  if (existing) {
+  if (findUserByUsername(username)) {
     return res.status(400).json({ error: "User already exists" });
   }
 
