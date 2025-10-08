@@ -44,6 +44,7 @@ describe("User routes", () => {
     expect(res.statusCode).toBe(200);
     // Write a test to verify the token
     expect(res.body).toHaveProperty("token");
+    expect(typeof res.body.token).toBe("string");
   });
 
   test("POST /users/login fails with invalid password", async () => {
