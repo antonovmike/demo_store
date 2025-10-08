@@ -55,6 +55,6 @@ describe("User routes", () => {
       .send({ username: "Alice", password: "wrongpassword" });
 
     expect(res.statusCode).toBe(401);
-    expect(res.body).toHaveProperty("error", "Invalid password");
+    expect(res.body).toHaveProperty("error", "Invalid username or password");
   });
 });
