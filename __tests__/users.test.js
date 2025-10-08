@@ -87,4 +87,14 @@ describe("User routes", () => {
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty("error");
   });
+
+  // Secure route test /me with invalid token
+  test("GET /users/me with invalid token returns 401", async () => {
+    const res = await request(app)
+      .get("/users/me")
+      .set("Authorization", "Bearer invalidtoken123");
+
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty("error");
+  });
 });
