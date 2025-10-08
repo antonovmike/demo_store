@@ -80,4 +80,11 @@ describe("User routes", () => {
     expect(res.body).toHaveProperty("id");
     expect(res.body).toHaveProperty("username", "Alice");
   });
+
+  // Secure route test /me without token
+  test("GET /users/me without token returns 401", async () => {
+    const res = await request(app).get("/users/me");
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty("error");
+  });
 });
