@@ -73,12 +73,12 @@ curl -X POST http://127.0.0.1:1337/users/login \
 ```
 Response
 ```json
-{ "message": "Login successful (JWT will be added later)" }
+{ "token": "your_token" }
 ```
 Request with token
 ```bash
 curl -X GET http://127.0.0.1:1337/users/me \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBbGljZSIsImlhdCI6MTc1OTkxOTQ3NiwiZXhwIjoxNzU5OTIzMDc2fQ.2srXCICNGtrOt2E1rIV-ypiiFxTYhPHf-JmbmktEoLg"
+  -H "Authorization: Bearer your_token"
 ```
 Response
 ```json
