@@ -1,4 +1,5 @@
-// In a real application, use an environment variable for the secret key
+require("dotenv").config();
+
 module.exports = {
-  SECRET_KEY: "mysecretkey", // later replace with process.env.SECRET_KEY
+  SECRET_KEY: process.env.SECRET_KEY || "devsecret", // backup option
 };
