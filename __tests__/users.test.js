@@ -58,4 +58,26 @@ describe("User routes", () => {
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty("error", "Invalid username or password");
   });
+
+  // Secure route test /me with valid token
+  test("GET /users/me returns user data with valid token", async () => {
+    // First, register and log in.
+    await request(app)
+      .post("/users/register")
+      .send({ username: "Alice", password: "123456" });
+
+    const loginRes = await request(app)
+      .post("/users/login")
+      .send({ username: "Alice", password: "123456" });
+
+    const token = loginRes.body.token;
+
+    const res = await request(app)
+      .get("/users/me")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("id");
+    expect(res.body).toHaveProperty("username", "Alice");
+  });
 });
