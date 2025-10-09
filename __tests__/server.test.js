@@ -19,7 +19,11 @@ test("GET /status → { status: 'ok', uptime: number }", async () => {
   const res = await request(app).get("/status");
   expect(res.statusCode).toBe(200);
   expect(res.body).toHaveProperty("status", "ok");
-  expect(typeof res.body.uptime).toBe("string"); // Since .toFixed(2) is used
+  // The value of res.body.uptime is expected to be a string representation of 
+  // the process uptime with two decimal places. This is because the process 
+  // uptime is obtained by calling process.uptime() and then using the 
+  // .toFixed(2) method to format it as a string with two decimal places.
+  expect(typeof res.body.uptime).toBe("string");
 });
 
 test("GET /unknown → 404 Not Found", async () => {
