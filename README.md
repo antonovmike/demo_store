@@ -13,6 +13,15 @@ npm start
 ```bash
 npm test
 ```
+## Create a test database
+```bash
+sudo su postgres
+psql
+CREATE DATABASE demo_store;
+CREATE DATABASE demo_store_test;
+\l
+\c demo_store_test
+```
 
 ## API Endpoints
 
