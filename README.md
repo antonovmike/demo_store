@@ -28,6 +28,16 @@ Creating [Sequelize](https://sequelize.org/docs/v6/other-topics/migrations/#crea
 npx sequelize-cli model:generate --name User --attributes username:string,password_hash:text
 ```
 
+## Managing ORM
+For development
+```bash
+npx sequelize-cli db:migrate --env development
+```
+For test environment
+```bash
+NODE_ENV=test npx sequelize-cli db:migrate
+```
+
 ## API Endpoints
 
 ## GET /ping
