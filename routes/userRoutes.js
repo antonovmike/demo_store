@@ -6,7 +6,7 @@ const { createUser, findUserByUsername } = require("../db/userModel");
 
 const router = express.Router();
 
-const { SECRET_KEY } = require("../config");
+const { SECRET_KEY } = require("../serverConfig.js");
 
 // Secure route
 router.get("/me", authMiddleware, (req, res) => {
