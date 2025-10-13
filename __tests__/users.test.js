@@ -3,6 +3,10 @@ const app = require("../server");
 const pool = require("../db/index");
 const initDb = require("../db/init");
 
+beforeAll(async () => {
+  await initDb(); // Wait for the DB to be initialized
+});
+
 // Clean up the database
 beforeEach(async () => {
   await initDb();
