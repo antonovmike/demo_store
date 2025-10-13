@@ -22,6 +22,11 @@ CREATE DATABASE demo_store_test;
 \l
 \c demo_store_test
 ```
+## ORM
+Creating [Sequelize](https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-model-and-migration) Model (and Migration) via CLI
+```bash
+npx sequelize-cli model:generate --name User --attributes username:string,password_hash:text
+```
 
 ## API Endpoints
 
