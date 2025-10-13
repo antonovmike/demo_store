@@ -1,15 +1,14 @@
-const pool = require("./index");
+const { User } = require('../models'); // models/index.js will auto-load models
+
+// Using Sequelize ORM for user operations
 
 // Create user
 async function createUser(username, passwordHash) {
   try {
-    const result = await pool.query(
-      "INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id, username",
-      [username, passwordHash]
-    );
-    return result.rows[0];
+    const user = await User.create({ username, password_hash: passwordHash });
+    return { id: user.id, username: user.username };
   } catch (err) {
-    console.error("Error creating user:", err);
+    console.error('Error creating user:', err);
     throw err;
   }
 }
@@ -17,13 +16,10 @@ async function createUser(username, passwordHash) {
 // Find user by username
 async function findUserByUsername(username) {
   try {
-    const result = await pool.query(
-      "SELECT * FROM users WHERE username = $1",
-      [username]
-    );
-    return result.rows[0]; // or undefined
+    const user = await User.findOne({ where: { username } });
+    return user ? user.get({ plain: true }) : undefined; // возвращаем plain object
   } catch (err) {
-    console.error("Error finding user:", err);
+    console.error('Error finding user:', err);
     throw err;
   }
 }
@@ -31,9 +27,9 @@ async function findUserByUsername(username) {
 // Clear all users (for testing)
 async function deleteAllUsers() {
   try {
-    await pool.query("DELETE FROM users");
+    await User.destroy({ where: {} });
   } catch (err) {
-    console.error("Error deleting users:", err);
+    console.error('Error deleting users:', err);
     throw err;
   }
 }
@@ -41,5 +37,5 @@ async function deleteAllUsers() {
 module.exports = {
   createUser,
   findUserByUsername,
-  deleteAllUsers,
+  deleteAllUsers
 };
