@@ -1,20 +1,21 @@
 const request = require("supertest");
 const app = require("../server");
-const pool = require("../db/index");
-const initDb = require("../db/init");
+const { sequelize } = require('../models'); // models/index.js exports sequelize
+const { User } = require('../models');
 
+// Ensure the database is in a clean state before tests run
 beforeAll(async () => {
-  await initDb(); // Wait for the DB to be initialized
+  await sequelize.sync({ force: true });
 });
 
 // Clean up the database
 beforeEach(async () => {
-  await initDb();
-  await pool.query("DELETE FROM users");
+  await User.destroy({ where: {} });
 });
 
+// Close Sequelize connection
 afterAll(async () => {
-  await pool.end(); // Close the database connection
+  await sequelize.close();
 });
 
 describe("User routes", () => {
