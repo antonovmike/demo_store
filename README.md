@@ -116,3 +116,11 @@ Response
 ```json
 { "error": "Authorization header missing" }
 ```
+
+## Step 6 — Products CRUD API
+Add the products table and REST API /products:
+`GET /products` — list of all products
+`GET /products/:id` — specific product
+`POST /products` — create a new product
+`PUT /products/:id` — update a product
+`DELETE /products/:id` — delete a product
