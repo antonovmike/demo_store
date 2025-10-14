@@ -124,3 +124,8 @@ Add the products table and REST API /products:
 `POST /products` — create a new product
 `PUT /products/:id` — update a product
 `DELETE /products/:id` — delete a product
+
+## Create Product Model and Migration
+```bash
+npx sequelize-cli model:generate --name Product --attributes name:string,price:float,description:text
+```
