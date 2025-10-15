@@ -129,3 +129,29 @@ Add the products table and REST API /products:
 ```bash
 npx sequelize-cli model:generate --name Product --attributes name:string,price:float,description:text
 ```
+
+## Products
+GET products
+```bash
+curl -X GET http://127.0.0.1:1337/products/
+```
+GET product by id
+```bash
+curl -X GET http://127.0.0.1:1337/products/1
+```
+Add new product
+```bash
+curl -X POST http://127.0.0.1:1337/products \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Donut","price":"123456","description":"Best donut ever"}'
+```
+Update product by id
+```bash
+curl -X PUT http://127.0.0.1:1337/products/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Donut","price":"123456","description":"Probably the best donut ever"}'
+```
+Delete product by id
+```bash
+curl -X DELETE http://127.0.0.1:1337/products/1
+```
