@@ -5,6 +5,7 @@ const PORT = 1337;
 // Route imports
 const basicRoutes = require("./routes/basic");
 const usersRoutes = require("./routes/userRoutes");
+const productsRoutes = require("./routes/productsRoutes");
 
 const logger = require("./middleware/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
@@ -19,6 +20,7 @@ app.use(express.json());
 // Connecting routes
 app.use("/", basicRoutes);
 app.use("/users", usersRoutes);
+app.use("/products", productsRoutes);
 
 // Error handling
 app.use(notFound);
