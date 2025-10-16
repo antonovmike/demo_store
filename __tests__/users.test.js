@@ -2,6 +2,7 @@ const request = require("supertest");
 const app = require("../server");
 const { sequelize } = require('../models'); // models/index.js exports sequelize
 const { User } = require('../models');
+const bcrypt = require("bcrypt");
 
 // Ensure the database is in a clean state before tests run
 beforeAll(async () => {
@@ -19,8 +20,8 @@ afterAll(async () => {
 });
 
 describe("User routes", () => {
-  // Test user registration
-  test("POST /users/register creates a new user", async () => {
+  // Test average user registration
+  test("POST /users/register creates a new user with role 'user'", async () => {
     const res = await request(app)
       .post("/users/register")
       .send({ username: "Alice", password: "123456" });
@@ -28,6 +29,33 @@ describe("User routes", () => {
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
     expect(res.body).toHaveProperty("username", "Alice");
+
+    const dbUser = await User.findOne({ where: { username: "Alice" } });
+    expect(dbUser.role).toBe("user");
+  });
+
+  // Test admin registration
+  test("Manually created admin can log in and has role 'admin'", async () => {
+    const passwordHash = await bcrypt.hash("adminpass", 10);
+
+    // Create admin user directly in DB using ORM
+    await User.create({
+      username: "AdminUser",
+      password_hash: passwordHash,
+      role: "admin",
+    });
+
+    // Log in as admin
+    const loginRes = await request(app)
+      .post("/users/login")
+      .send({ username: "AdminUser", password: "adminpass" });
+
+    expect(loginRes.statusCode).toBe(200);
+    expect(loginRes.body).toHaveProperty("token");
+
+    // Check if it is indeed an admin
+    const dbUser = await User.findOne({ where: { username: "AdminUser" } });
+    expect(dbUser.role).toBe("admin");
   });
 
   test("POST /users/register with existing username fails", async () => {
