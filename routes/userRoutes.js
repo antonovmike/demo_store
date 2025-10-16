@@ -15,7 +15,7 @@ router.get("/me", authMiddleware, (req, res) => {
 
 // Registration
 router.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
 
   if (!username || !password) {
     return res.status(400).json({ error: "Username and password are required" });
@@ -29,7 +29,7 @@ router.post("/register", async (req, res) => {
 
   // Hash the password
   const passwordHash = await bcrypt.hash(password, 10);
-  const user = await createUser(username, passwordHash);
+  const user = await createUser(username, passwordHash, role);
 
   res.status(201).json({ id: user.id, username: user.username });
 });

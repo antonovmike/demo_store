@@ -6,7 +6,7 @@ const { User } = require('../models'); // models/index.js will auto-load models
 async function createUser(username, passwordHash, role = 'user') {
   try {
     const user = await User.create({ username, password_hash: passwordHash, role });
-    return { id: user.id, username: user.username };
+    return { id: user.id, username: user.username, role: user.role };
   } catch (err) {
     console.error('Error creating user:', err);
     throw err;
