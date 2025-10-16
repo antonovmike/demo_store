@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../server");
-const { sequelize } = require('../models'); // models/index.js exports sequelize
+const { sequelize } = require('../models');
 const { User } = require('../models');
 const bcrypt = require("bcrypt");
 

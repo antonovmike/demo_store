@@ -1,4 +1,4 @@
-const { User } = require('../models'); // models/index.js will auto-load models
+const { User } = require('../models');
 
 // Using Sequelize ORM for user operations
 
