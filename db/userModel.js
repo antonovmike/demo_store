@@ -7,7 +7,15 @@ async function createUser(username, passwordHash, roleName = 'user') {
   try {
     const role = await Role.findOne({ where: { name: roleName } });
     if (!role) {
-      throw new Error(`Role with name '${roleName}' not found`);
+      // If "role" not found, fall back to "user" role
+      console.warn(`⚠️ Role '${roleName}' not found. Falling back to 'user'.`);
+      role = await Role.findOne({ where: { name: 'user' } });
+
+      // If even "user" role doesn't exist, create it
+      if (!role) {
+        console.warn("⚠️ Default role 'user' not found. Creating fallback role...");
+        role = await Role.create({ name: 'user' });
+      }
     }
     const user = await User.create({ username, password_hash: passwordHash, roleId: role.id });
     return { id: user.id, username: user.username, role: role.name };
