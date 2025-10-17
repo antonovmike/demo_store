@@ -155,3 +155,9 @@ Delete product by id
 ```bash
 curl -X DELETE http://127.0.0.1:1337/products/1
 ```
+
+## Step 7 — Products CRUD API
+Create users roles (regular user and admin) as a column in Users table.
+
+## Step 8 — Products CRUD API
+Move roles to a new table.
