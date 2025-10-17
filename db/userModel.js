@@ -1,12 +1,16 @@
-const { User } = require('../models');
+const { User, Role } = require('../models');
 
 // Using Sequelize ORM for user operations
 
 // Create user
-async function createUser(username, passwordHash, role = 'user') {
+async function createUser(username, passwordHash, roleName = 'user') {
   try {
-    const user = await User.create({ username, password_hash: passwordHash, role });
-    return { id: user.id, username: user.username, role: user.role };
+    const role = await Role.findOne({ where: { name: roleName } });
+    if (!role) {
+      throw new Error(`Role with name '${roleName}' not found`);
+    }
+    const user = await User.create({ username, password_hash: passwordHash, roleId: role.id });
+    return { id: user.id, username: user.username, role: role.name };
   } catch (err) {
     console.error('Error creating user:', err);
     throw err;
