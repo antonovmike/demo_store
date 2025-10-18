@@ -38,9 +38,9 @@ describe("User routes", () => {
     // Fetch user including role
     const dbUser = await User.findOne({
       where: { username: "Alice" },
-      include: [{ model: Role, as: "role" }]
+      include: [{ model: Role, as: "roleDetails" }]
     });
-    expect(dbUser.role.name).toBe("user");
+    expect(dbUser.roleDetails.name).toBe("user");
   });
 
   // Test admin registration manually via ORM
@@ -64,10 +64,10 @@ describe("User routes", () => {
 
     const dbUser = await User.findOne({
       where: { username: "AdminUser" },
-      include: [{ model: Role, as: "role" }]
+      include: [{ model: Role, as: "roleDetails" }]
     });
 
-    expect(dbUser.role.name).toBe("admin");
+    expect(dbUser.roleDetails.name).toBe("admin");
   });
 
   // Test user registration with existing username fails
