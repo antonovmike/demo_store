@@ -1,12 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Link, Routes, Route, HashRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import RegisterForm from "./components/RegisterForm";
+import LoginForm from "./components/LoginForm";
+import ProfilePage from "./components/ProfilePage";
+import "./App.css";
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <HashRouter>
         <nav className="flex gap-4 p-4 bg-gray-200">
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
@@ -17,9 +19,9 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </AuthProvider>
   );
 }
 
-export default App
+export default App;
