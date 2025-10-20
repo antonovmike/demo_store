@@ -34,8 +34,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
-    // tableName: "users",
-    // timestamps: false,
+  });
+  User.associate = functi
   });
   User.associate = function(models) {
     User.belongsTo(models.Role, {
