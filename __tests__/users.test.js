@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../server");
-const { sequelize, User, Role } = require('../models');
+const { sequelize, Role, User } = require('../models');
 const bcrypt = require("bcrypt");
 
 // Ensure the database is in a clean state before tests run
