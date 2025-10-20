@@ -6,6 +6,7 @@ const { User, Role } = require('../models');
 async function createUser(username, passwordHash, roleName = 'user') {
   try {
     const role = await Role.findOne({ where: { name: roleName } });
+
     if (!role) {
       // If "role" not found, fall back to "user" role
       console.warn(`⚠️ Role '${roleName}' not found. Falling back to 'user'.`);
@@ -17,7 +18,9 @@ async function createUser(username, passwordHash, roleName = 'user') {
         role = await Role.create({ name: 'user' });
       }
     }
+
     const user = await User.create({ username, password_hash: passwordHash, roleId: role.id });
+    
     return { id: user.id, username: user.username, role: role.name };
   } catch (err) {
     console.error('Error creating user:', err);
