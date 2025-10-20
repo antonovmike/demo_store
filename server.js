@@ -10,6 +10,10 @@ const productsRoutes = require("./routes/productsRoutes");
 const logger = require("./middleware/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
 const initDb = require("./db/init");
+const cors = require('cors');
+
+// Enable CORS for specified origin and credentials to connect frontend and backend
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 
 // Middleware logging each request
 app.use(logger);
