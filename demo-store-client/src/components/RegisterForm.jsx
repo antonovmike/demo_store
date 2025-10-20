@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import api from '../api/client';
 import api from "../api/axios";
 
 export default function RegisterForm() {
