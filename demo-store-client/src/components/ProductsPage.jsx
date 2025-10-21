@@ -19,6 +19,13 @@ export default function ProductsPage() {
             <h2 className="font-semibold">{p.name}</h2>
             <p>${p.price.toFixed(2)}</p>
             <p className="text-sm text-gray-500">{p.description}</p>
+
+            <button
+              onClick={() => addToCart(p)}
+              className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+            >
+              Add to cart
+            </button>
           </div>
         ))}
       </div>
