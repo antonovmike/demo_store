@@ -12,7 +12,7 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <HashRouter>
-          <nav className="flex gap-4 p-4 bg-gray-200">
+          <nav>
             <Link to="/register">Register</Link>
             <Link to="/login">Login</Link>
             <Link to="/profile">Profile</Link>
