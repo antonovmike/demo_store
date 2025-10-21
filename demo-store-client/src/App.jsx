@@ -1,5 +1,6 @@
 import { Link, Routes, Route, HashRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import ProfilePage from "./components/ProfilePage";
@@ -15,6 +16,7 @@ function App() {
           <Link to="/login">Login</Link>
           <Link to="/profile">Profile</Link>
           <Link to="/products">Products</Link>
+            <Link to="/cart">Cart</Link> {/* Cart link can be added here when CartPage is implemented */}
         </nav>
         <Routes>
           <Route path="/register" element={<RegisterForm />} />
