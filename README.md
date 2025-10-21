@@ -12,14 +12,13 @@ This project demonstrates:
 **Backend:**
 - Node.js, Express
 - Sequelize ORM
-- SQLite / PostgreSQL
+- PostgreSQL
 - JWT Authentication
-- Mocha + Chai + Supertest (for testing)
+- Jest + Supertest (for testing)
 
 **Frontend:**
 - React (Vite)
 - React Router (HashRouter)
-- Tailwind CSS
 - Context API (Auth + Cart)
 
 ## ⚙️ Installation
