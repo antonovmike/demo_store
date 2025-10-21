@@ -72,7 +72,7 @@ NODE_ENV=test npx sequelize-cli db:migrate
 
 ## API Endpoints
 
-## GET /ping
+### GET /ping
 Check basic server response.
 Request:
 ```bash
@@ -87,7 +87,7 @@ Response:
 "pong"
 ```
 
-## GET /hello
+### GET /hello
 Simple hello endpoint.
 Request:
 ```bash
@@ -98,7 +98,7 @@ Response:
 "Hello"
 ```
 
-## GET /status
+### GET /status
 Check server health and uptime.
 Request:
 ```bash
@@ -108,3 +108,30 @@ Response:
 ```json
 { "status": "ok", "uptime": "123.45" }
 ```
+
+## Authentication Flow
+
+Register a new user (/users/register)
+Login to receive a JWT token (/users/login)
+Profile page fetches user info from /users/me
+Token is stored in localStorage and sent with each request automatically.
+
+## Cart Functionality
+
+Add products from the Products page.
+Cart data persists via localStorage.
+Edit quantity or remove items.
+View total amount dynamically.
+Files:
+src/context/CartContext.jsx
+src/components/CartPage.jsx
+
+## Features Implemented
+
+✅ User registration & login
+✅ JWT authentication
+✅ Protected /users/me route
+✅ Product list with demo items
+✅ Add to cart
+✅ Cart persistence via localStorage
+✅ Cart management (update, remove, clear)
