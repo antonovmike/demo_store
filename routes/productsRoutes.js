@@ -13,6 +13,7 @@ router.get("/", async (req, res, next) => {
     const products = await Product.findAll();
     res.json(products);
   } catch (err) {
+    console.error('Error fetching products:', err);
     next(err);
   }
 });
