@@ -5,4 +5,13 @@ const api = axios.create({
   withCredentials: false, // No cookies needed
 });
 
+// Add token to each request
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default api;

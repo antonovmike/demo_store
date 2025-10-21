@@ -9,10 +9,15 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await api.get('/users/me');
+        console.log("🔑 Using token:", token);
+        const res = await api.get("/users/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("✅ Profile data:", res.data);
         setProfile(res.data);
       } catch (err) {
-        console.error('Failed to fetch profile:', err);
+        console.error("❌ Failed to fetch profile:", err.response?.status, err.response?.data);
+        setProfile(null);
       }
     };
     fetchProfile();
