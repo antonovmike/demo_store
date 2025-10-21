@@ -1,6 +1,7 @@
 import { Link, Routes, Route, HashRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
+import CartPage from "./components/CartPage";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import ProfilePage from "./components/ProfilePage";
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/cart" element={<CartPage />} />
           </Routes>
         </HashRouter>
       </CartProvider>
