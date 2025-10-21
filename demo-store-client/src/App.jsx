@@ -10,21 +10,23 @@ import "./App.css";
 function App() {
   return (
     <AuthProvider>
-      <HashRouter>
-        <nav className="flex gap-4 p-4 bg-gray-200">
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/profile">Profile</Link>
-          <Link to="/products">Products</Link>
-            <Link to="/cart">Cart</Link> {/* Cart link can be added here when CartPage is implemented */}
-        </nav>
-        <Routes>
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/products" element={<ProductsPage />} />
-        </Routes>
-      </HashRouter>
+      <CartProvider>
+        <HashRouter>
+          <nav className="flex gap-4 p-4 bg-gray-200">
+            <Link to="/register">Register</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/profile">Profile</Link>
+            <Link to="/products">Products</Link>
+              <Link to="/cart">Cart</Link> {/* Cart link can be added here when CartPage is implemented */}
+          </nav>
+          <Routes>
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/products" element={<ProductsPage />} />
+          </Routes>
+        </HashRouter>
+      </CartProvider>
     </AuthProvider>
   );
 }
