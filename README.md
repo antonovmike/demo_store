@@ -22,18 +22,44 @@ This project demonstrates:
 - Tailwind CSS
 - Context API (Auth + Cart)
 
-## Install dependencies
+## ⚙️ Installation
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/antonovmike/demo_store.git
+cd demo_store
+```
+
+### 2. Install backend dependencies
 ```bash
 npm install
 ```
-## Start server
+
+### 3. Initialize the database
+```bash
+npx sequelize db:migrate
+npx sequelize db:seed:all
+```
+
+### 4.1 Start the backend
 ```bash
 npm start
 ```
-## Run tests
+
+### 4.2 Run tests
 ```bash
 npm test
 ```
+
+### 5. Setup the frontend
+```bash
+cd demo-store-client
+npm install
+npm run dev
+```
+Frontend runs at: 
+http://localhost:5173
+
 ## Create a test database
 ```bash
 sudo su postgres
