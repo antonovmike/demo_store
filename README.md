@@ -1,5 +1,26 @@
 # demo_store
-Training demo project of online store on Node.js + React
+A minimal full-stack **Demo Store** application built with **Node.js + Express + Sequelize** on the backend and **React + Vite** on the frontend.
+
+This project demonstrates:
+- Authentication with JWT  
+- User roles and profile management  
+- Product list and basic API  
+- Shopping cart with persistent state (localStorage)
+
+## Tech Stack
+
+**Backend:**
+- Node.js, Express
+- Sequelize ORM
+- SQLite / PostgreSQL
+- JWT Authentication
+- Mocha + Chai + Supertest (for testing)
+
+**Frontend:**
+- React (Vite)
+- React Router (HashRouter)
+- Tailwind CSS
+- Context API (Auth + Cart)
 
 ## Install dependencies
 ```bash
