@@ -8,7 +8,7 @@ beforeAll(async () => {
   await sequelize.sync({ force: true });
 
   // Create default roles
-    await Role.bulkCreate([
+  await Role.bulkCreate([
     { name: 'user' },
     { name: 'admin' }
   ]);
