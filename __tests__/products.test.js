@@ -61,4 +61,20 @@ describe("Products API", () => {
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty("error");
   });
+
+  test("GET /products/:id returns a product", async () => {
+    const all = await Product.findAll();
+    const firstId = all[0].id;
+
+    const res = await request(app).get(`/products/${firstId}`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("id", firstId);
+    expect(res.body).toHaveProperty("name");
+  });
+
+  test("GET /products/:id returns 404 for invalid id", async () => {
+    const res = await request(app).get("/products/9999");
+    expect(res.statusCode).toBe(404);
+    expect(res.body).toHaveProperty("error", "Product not found");
+  });
 });
