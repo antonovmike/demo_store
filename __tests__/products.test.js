@@ -48,4 +48,17 @@ describe("Products API", () => {
     expect(res.body[0]).toHaveProperty("name");
     expect(res.body[0]).toHaveProperty("price");
   });
+
+  test("POST /products fails without token", async () => {
+    const res = await request(app)
+      .post("/products")
+      .send({
+        name: "Monitor",
+        price: 199.99,
+        description: "HD monitor",
+      });
+
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty("error");
+  });
 });
