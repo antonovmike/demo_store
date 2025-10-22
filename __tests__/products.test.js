@@ -40,7 +40,12 @@ afterAll(async () => {
 });
 
 describe("Products API", () => {
-  it("placeholder test", () => {
-    expect(true).toBe(true);
+  test("GET /products returns list of products", async () => {
+    const res = await request(app).get("/products");
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBeGreaterThan(0);
+    expect(res.body[0]).toHaveProperty("name");
+    expect(res.body[0]).toHaveProperty("price");
   });
 });
