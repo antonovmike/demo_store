@@ -4,7 +4,7 @@
   "description": "Training demo project of online store on Node.js + React",
   "main": "server.js",
   "scripts": {
-    "test": "JWT_SECRET=test_secret_key jest --runInBand",
+    "test": "JWT_SECRET=test_secret_key node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
     "start": "node server.js",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
