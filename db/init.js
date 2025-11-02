@@ -1,6 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const pool = require("./index");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import pool from "./index.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function initDb() {
   const schemaPath = path.join(__dirname, "schema.sql");
@@ -15,4 +19,4 @@ async function initDb() {
   }
 }
 
-module.exports = initDb;
+export default initDb;

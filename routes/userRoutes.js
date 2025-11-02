@@ -1,12 +1,11 @@
-const express = require("express");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const authMiddleware = require("../middleware/auth");
-const { createUser, findUserByUsername } = require("../db/userModel");
+import express from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import authMiddleware from "../middleware/auth.js";
+import { createUser, findUserByUsername } from "../db/userModel.js";
+import { SECRET_KEY } from "../serverConfig.js";
 
 const router = express.Router();
-
-const { SECRET_KEY } = require("../serverConfig.js");
 
 // Secure route
 router.get("/me", authMiddleware, (req, res) => {
@@ -62,4 +61,4 @@ router.post("/login", async (req, res) => {
   res.json({ token });
 });
 
-module.exports = router;
+export default router;

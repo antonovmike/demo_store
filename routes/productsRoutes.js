@@ -1,8 +1,10 @@
-const express = require("express");
-const { Product } = require("../models");
+import express from "express";
+import models from "../models/index.js";
 
-const auth = require("../middleware/auth");
-const checkRole = require("../middleware/checkRole");
+import auth from "../middleware/auth.js";
+import checkRole from "../middleware/checkRole.js";
+
+const { Product } = models;
 
 const router = express.Router();
 
@@ -75,4 +77,4 @@ router.delete("/:id", auth, checkRole("admin"), async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

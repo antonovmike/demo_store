@@ -10,4 +10,4 @@ function checkRole(requiredRole) {
   };
 }
 
-module.exports = checkRole;
+export default checkRole;

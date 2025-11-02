@@ -1,5 +1,5 @@
-const request = require("supertest");
-const app = require("../server"); // Import server for testing
+import request from "supertest";
+import app from "../server.js";
 
 describe("DemoStore API", () => {
   test("GET /ping → pong", async () => {
