@@ -1,4 +1,7 @@
-const { User, Role } = require('../models');
+import models from '../models/index.js';
+const { User, Role } = models;
+
+console.log("Imported User:", User && (typeof User === "object" ? Object.keys(User) : typeof User));
 
 // Using Sequelize ORM for user operations
 
@@ -49,8 +52,4 @@ async function deleteAllUsers() {
   }
 }
 
-module.exports = {
-  createUser,
-  findUserByUsername,
-  deleteAllUsers
-};
+export { createUser, findUserByUsername, deleteAllUsers };

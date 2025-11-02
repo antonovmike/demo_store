@@ -1,7 +1,8 @@
-const request = require("supertest");
-const app = require("../server");
-const { sequelize, Role, User } = require('../models');
-const bcrypt = require("bcrypt");
+import request from "supertest";
+import app from "../server";
+import { Role, User } from '../models';
+import { sequelizeInstance as sequelize } from '../models';
+import bcrypt from "bcrypt";
 
 // Ensure the database is in a clean state before tests run
 beforeAll(async () => {

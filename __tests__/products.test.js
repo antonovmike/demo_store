@@ -1,9 +1,10 @@
-const request = require("supertest");
-const app = require("../server");
-const { sequelize, Product, User, Role } = require("../models");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const config = require("../serverConfig");
+import request from "supertest";
+import app from "../server";
+import { Product, User, Role } from '../models';
+import { sequelizeInstance as sequelize } from '../models';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import config from "../serverConfig";
 
 let adminToken;
 
