@@ -1,6 +1,7 @@
 import request from "supertest";
 import app from "../server";
-import { sequelize, Product, User, Role } from '../models';
+import { Product, User, Role } from '../models';
+import { sequelizeInstance as sequelize } from '../models';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "../serverConfig";

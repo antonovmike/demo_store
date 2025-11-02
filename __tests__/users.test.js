@@ -1,6 +1,7 @@
 import request from "supertest";
 import app from "../server";
-import { sequelize, Role, User } from '../models';
+import { Role, User } from '../models';
+import { sequelizeInstance as sequelize } from '../models';
 import bcrypt from "bcrypt";
 
 // Ensure the database is in a clean state before tests run
