@@ -20,7 +20,7 @@ function authMiddleware(req, res, next) {
     req.user = { id: payload.id, username: payload.username }; // добавляем в req.user
     next();
   } catch (err) {
-    return res.status(401).json({ error: "Invalid or expired token" });
+    return res.status(401).json({ error: "Invalid or expired token: " + err.message });
   }
 }
 
