@@ -57,7 +57,7 @@ export default function CartPage() {
 
       <div className="mt-6 border-t pt-4">
         <p className="text-lg font-semibold">
-          Total: ${getTotal().toFixed(2)}
+          Total: {getTotal().toFixed(2)}
         </p>
         <button
           onClick={clearCart}
