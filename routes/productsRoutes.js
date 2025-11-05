@@ -49,7 +49,7 @@ router.post("/", auth, checkRole("admin"), async (req, res, next) => {
 });
 
 // PUT /products/:id
-router.put("/:id", auth, checkRole("admin"), async (req, res) => {
+router.put("/:id", auth, checkRole("admin"), async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     if (!product) {
@@ -64,7 +64,7 @@ router.put("/:id", auth, checkRole("admin"), async (req, res) => {
 });
 
 // DELETE /products/:id
-router.delete("/:id", auth, checkRole("admin"), async (req, res) => {
+router.delete("/:id", auth, checkRole("admin"), async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     if (!product) {
