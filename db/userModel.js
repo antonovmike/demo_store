@@ -8,7 +8,7 @@ console.log("Imported User:", User && (typeof User === "object" ? Object.keys(Us
 // Create user
 async function createUser(username, passwordHash, roleName = 'user') {
   try {
-    const role = await Role.findOne({ where: { name: roleName } });
+    let role = await Role.findOne({ where: { name: roleName } });
 
     if (!role) {
       // If "role" not found, fall back to "user" role
