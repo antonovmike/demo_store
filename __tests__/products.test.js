@@ -4,18 +4,19 @@ import { Product, User, Role } from '../models';
 import { sequelizeInstance as sequelize } from '../models';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import config from "../serverConfig";
 
 let adminToken;
 
 beforeAll(async () => {
   await sequelize.sync({ force: true });
 
-  // Create roles
-  const [userRole, adminRole] = await Promise.all([
-    Role.create({ name: "user" }),
-    Role.create({ name: "admin" }),
-  ]);
+  async function createRoles() {
+    const userRole = await Role.create({ name: "user" });
+    const adminRole = await Role.create({ name: "admin" });
+    return [userRole, adminRole];
+  }
+
+  const [userRole, adminRole] = await createRoles();
 
   // Create an admin user
   const passwordHash = await bcrypt.hash("adminpass", 10);
