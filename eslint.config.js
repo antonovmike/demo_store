@@ -14,6 +14,7 @@ export default defineConfig([
     rules: {
       'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]' }],
     }, 
+    env: { "jest": true }
   },
   pluginReact.configs.flat.recommended,
 ]);
