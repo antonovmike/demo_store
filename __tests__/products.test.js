@@ -4,7 +4,6 @@ import { Product, User, Role } from '../models';
 import { sequelizeInstance as sequelize } from '../models';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import config from "../serverConfig";
 
 let adminToken;
 
