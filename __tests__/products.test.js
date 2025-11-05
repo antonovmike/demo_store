@@ -4,6 +4,7 @@ import { Product, User, Role } from '../models';
 import { sequelizeInstance as sequelize } from '../models';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { SECRET_KEY } from "../serverConfig";
 
 let adminToken;
 
@@ -27,8 +28,7 @@ beforeAll(async () => {
   });
 
   // Generate JWT for admin
-  const secret = "test_secret_key";
-  adminToken = jwt.sign({ id: admin.id }, secret, { expiresIn: "1h" });
+  adminToken = jwt.sign({ id: admin.id, role: "admin" }, SECRET_KEY, { expiresIn: "1h" });
 
   // Create a couple of products
   await Product.bulkCreate([
@@ -78,5 +78,20 @@ describe("Products API", () => {
     const res = await request(app).get("/products/9999");
     expect(res.statusCode).toBe(404);
     expect(res.body).toHaveProperty("error", "Product not found");
+  });
+
+  test("POST /products creates a new product (admin only)", async () => {
+    const res = await request(app)
+      .post("/products")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "Keyboard",
+        price: 49.99,
+        description: "Mechanical keyboard",
+      });
+
+  expect(res.statusCode).toBe(201);
+  expect(res.body).toHaveProperty("id");
+  expect(res.body).toHaveProperty("name", "Keyboard");
   });
 });

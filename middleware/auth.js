@@ -17,7 +17,7 @@ function authMiddleware(req, res, next) {
 
   try {
     const payload = jwt.verify(token, SECRET_KEY);
-    req.user = { id: payload.id, username: payload.username }; // добавляем в req.user
+    req.user = { id: payload.id, username: payload.username, role: payload.role }; // Add to req.user
     next();
   } catch (err) {
     return res.status(401).json({ error: "Invalid or expired token: " + err.message });
