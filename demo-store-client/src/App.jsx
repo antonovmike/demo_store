@@ -1,6 +1,6 @@
 import { Link, Routes, Route, HashRouter } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { CartProvider } from "./context/CartContext.jsx";
 import CartPage from "./components/CartPage";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
