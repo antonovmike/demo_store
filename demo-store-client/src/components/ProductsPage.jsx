@@ -1,10 +1,14 @@
-import { useEffect, useState, useContext } from "react";
-import { CartContext } from "../context/CartContext";
+// import { useEffect, useState, useContext } from "react";
+// import { CartContext } from "../context/CartContext";
+import { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addItem } from '../store/CartSlice';
 import api from "../api/axios";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
-  const { addToCart } = useContext(CartContext);
+  // const { addToCart } = useContext(CartContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     api.get("/products")
@@ -23,7 +27,11 @@ export default function ProductsPage() {
             <p className="text-sm text-gray-500">{p.description}</p>
 
             <button
-              onClick={() => addToCart(p)}
+              onClick={() => dispatch(addItem({ 
+                id: p.id, 
+                name: p.name, 
+                price: p.price 
+              }))}
               className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
             >
               Add to cart
