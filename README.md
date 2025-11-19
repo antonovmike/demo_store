@@ -139,13 +139,14 @@ src/components/CartPage.jsx
 
 | Step | Branch / Folder                                                   | Description                       |
 | ---- | ----------------------------------------------------------------- | --------------------------------- |
-| 1    | [step_1](https://github.com/antonovmike/demo_store/tree/step_1)   | Demo server on Node.js            |
-| 2    | [step_2](https://github.com/antonovmike/demo_store/tree/step_2)   | Users and Authorization           |
-| 3    | [step_3](https://github.com/antonovmike/demo_store/tree/step_3)   | Add JWT                           |
-| 4    | [step_4](https://github.com/antonovmike/demo_store/tree/step_4)   | Add Database                      |
-| 5    | [step_5](https://github.com/antonovmike/demo_store/tree/step_5)   | Add ORM                           |
-| 6    | [step_6](https://github.com/antonovmike/demo_store/tree/step_6)   | Basic logic (Products CRUD API)   |
-| 7    | [step_7](https://github.com/antonovmike/demo_store/tree/step_7)   | Authentication for CRUD products  |
-| 8    | [step_8](https://github.com/antonovmike/demo_store/tree/step_8)   | Move roles to a separate table    |
-| 9    | [step_9](https://github.com/antonovmike/demo_store/tree/step_9)   | React frontend + fix profile page |
-| 10   | [step_10](https://github.com/antonovmike/demo_store/tree/step_10) | Add Cart                          |
+|   1  | [step_1](https://github.com/antonovmike/demo_store/tree/step_1)   | Demo server on Node.js            |
+|   2  | [step_2](https://github.com/antonovmike/demo_store/tree/step_2)   | Users and Authorization           |
+|   3  | [step_3](https://github.com/antonovmike/demo_store/tree/step_3)   | Add JWT                           |
+|   4  | [step_4](https://github.com/antonovmike/demo_store/tree/step_4)   | Add Database                      |
+|   5  | [step_5](https://github.com/antonovmike/demo_store/tree/step_5)   | Add ORM                           |
+|   6  | [step_6](https://github.com/antonovmike/demo_store/tree/step_6)   | Basic logic (Products CRUD API)   |
+|   7  | [step_7](https://github.com/antonovmike/demo_store/tree/step_7)   | Authentication for CRUD products  |
+|   8  | [step_8](https://github.com/antonovmike/demo_store/tree/step_8)   | Move roles to a separate table    |
+|   9  | [step_9](https://github.com/antonovmike/demo_store/tree/step_9)   | React frontend + fix profile page |
+|  10  | [step_10](https://github.com/antonovmike/demo_store/tree/step_10) | Add Cart                          |
+|  11  | [step_11](https://github.com/antonovmike/demo_store/tree/step_11) | Implement Redux                   |
