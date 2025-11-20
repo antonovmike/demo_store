@@ -14,7 +14,7 @@ export default function CartPage() {
       </div>}
       <div className="space-y-4">
         {items.map(item => (
-          <li key={item.id}>
+          <div key={item.id}>
             <div>{item.name} — ${item.price} × {item.qty}</div>
               <button
                 onClick={() => dispatch(updateQuantity({ 
@@ -43,7 +43,7 @@ export default function CartPage() {
                 qty: Number(e.target.value) 
               }))}
             />
-          </li>
+          </div>
         ))}
       </div>
       <div>Total: ${total.toFixed(2)}</div>
