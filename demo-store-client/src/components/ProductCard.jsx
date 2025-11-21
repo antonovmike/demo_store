@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux';
-import { addItem } from '../store/CartSlice';
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/CartSlice";
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
@@ -13,11 +13,13 @@ export default function ProductCard({ product }) {
 
       <button
         onClick={() =>
-          dispatch(addItem({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-          }))
+          dispatch(
+            addItem({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+            })
+          )
         }
         className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
       >

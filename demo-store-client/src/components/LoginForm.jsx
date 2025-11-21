@@ -1,28 +1,28 @@
-import { useState, useContext } from 'react';
+import { useState, useContext } from "react";
 import api from "../api/axios";
-import { AuthContext } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const { setUser, setToken } = useContext(AuthContext);
   const navigate = useNavigate();
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/users/login', { username, password });
+      const res = await api.post("/users/login", { username, password });
       setToken(res.data.token);
       setUser({ username });
-      setMessage('✅ Logged in successfully!');
-      navigate('/profile');
+      setMessage("✅ Logged in successfully!");
+      navigate("/profile");
     } catch (err) {
-      setMessage(`❌ ${err.response?.data?.error || 'Login failed'}`);
+      setMessage(`❌ ${err.response?.data?.error || "Login failed"}`);
     }
   };
-  
+
   return (
     <div className="max-w-md mx-auto p-4 border rounded-lg">
       <h2 className="text-xl font-semibold mb-2">Login</h2>
@@ -41,7 +41,10 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           className="border p-2 rounded"
         />
-        <button type="submit" className="bg-green-600 text-white p-2 rounded hover:bg-green-700">
+        <button
+          type="submit"
+          className="bg-green-600 text-white p-2 rounded hover:bg-green-700"
+        >
           Login
         </button>
       </form>
