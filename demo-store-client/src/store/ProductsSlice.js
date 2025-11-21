@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api/axios";
 
 const loadFromLocal = () => {
   try {
-    const raw = localStorage.getItem('products');
+    const raw = localStorage.getItem("products");
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
@@ -12,15 +12,15 @@ const loadFromLocal = () => {
 
 const initialState = {
   items: loadFromLocal(),
-  status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+  status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
 };
 
 export const fetchProducts = createAsyncThunk(
-  'products/fetchProducts',
+  "products/fetchProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await api.get('/products');
+      const res = await api.get("/products");
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
@@ -29,39 +29,45 @@ export const fetchProducts = createAsyncThunk(
 );
 
 const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
     setProducts(state, action) {
       state.items = action.payload;
       try {
-        localStorage.setItem('products', JSON.stringify(state.items));
-      } catch { /* ignore */ }
+        localStorage.setItem("products", JSON.stringify(state.items));
+      } catch {
+        /* ignore */
+      }
     },
     clearProducts(state) {
       state.items = [];
-      state.status = 'idle';
+      state.status = "idle";
       state.error = null;
       try {
-        localStorage.removeItem('products');
-      } catch { /* ignore */ }
+        localStorage.removeItem("products");
+      } catch {
+        /* ignore */
+      }
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
         state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.items = action.payload;
         try {
-          localStorage.setItem('products', JSON.stringify(state.items));
-        } catch { /* ignore */ }
+          localStorage.setItem("products", JSON.stringify(state.items));
+        } catch {
+          /* ignore */
+        }
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.payload || action.error.message;
       });
   },
