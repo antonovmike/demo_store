@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cartReducer from './CartSlice';
 import productsReducer from './ProductsSlice';
+import userReducer from './userSlice';
 
 const localStorageMiddleware = storeAPI => next => action => {
   const result = next(action);
@@ -21,6 +22,7 @@ const store = configureStore({
   reducer: {
     cart: cartReducer,
     products: productsReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(localStorageMiddleware),
