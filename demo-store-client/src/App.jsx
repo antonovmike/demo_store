@@ -21,7 +21,8 @@ function App() {
               <Link to="/login">Login</Link>
               <Link to="/profile">Profile</Link>
               <Link to="/products">Products</Link>
-              <Link to="/cart">Cart</Link> {/* Cart link can be added here when CartPage is implemented */}
+              <Link to="/cart">Cart</Link>{" "}
+              {/* Cart link can be added here when CartPage is implemented */}
               <Link to="/add">Add Product</Link>
             </nav>
             <Routes>
