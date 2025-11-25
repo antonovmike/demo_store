@@ -1,5 +1,5 @@
 # demo_store
-A minimal full-stack **Demo Store** application built with **Node.js + Express + Sequelize** on the backend and **React + Vite** on the frontend.
+A minimal full-stack **Demo Store** application built with **Node.js + Express + Sequelize** on the backend and **React + Vite + Redux** on the frontend.
 
 This project demonstrates:
 - Authentication with JWT  
@@ -20,6 +20,7 @@ This project demonstrates:
 - React (Vite)
 - React Router (HashRouter)
 - Context API (Auth + Cart)
+- Redux
 
 ## ⚙️ Installation
 
@@ -40,23 +41,9 @@ npx sequelize db:migrate
 npx sequelize db:seed:all
 ```
 
-### 4.1 Start the backend
+### 4 Start the backend
 ```bash
 npm start
-```
-
-### 4.2 Run tests
-Command "npm test" runs server tests then client tests in sequence
-```bash
-npm test
-```
-Command test:root runs server Jest over server tests directory
-```bash
-npm run test:root
-```
-Command test:client runs Vitest by running cd demo-store-client && npm run test
-```bash
-npm run test:client
 ```
 
 ### 5. Setup the frontend
@@ -68,7 +55,7 @@ npm run dev
 Frontend runs at: 
 http://localhost:5173
 
-## Managing ORM
+## 6. Managing ORM
 For development
 ```bash
 npx sequelize-cli db:migrate --env development
@@ -76,6 +63,20 @@ npx sequelize-cli db:migrate --env development
 For test environment
 ```bash
 NODE_ENV=test npx sequelize-cli db:migrate
+```
+
+### 7 Run tests
+Command "npm test" runs server tests then client tests in sequence
+```bash
+npm test
+```
+Command test:root runs server Jest over server tests directory
+```bash
+npm run test:root
+```
+Command test:client runs Vitest by running cd demo-store-client && npm run test
+```bash
+npm run test:client
 ```
 
 ## API Endpoints
@@ -99,7 +100,7 @@ Response:
 Simple hello endpoint.
 Request:
 ```bash
-GET /hello
+curl http://127.0.0.1:1337/hello
 ```
 Response:
 ```bash
@@ -110,7 +111,7 @@ Response:
 Check server health and uptime.
 Request:
 ```bash
-GET /status
+curl http://127.0.0.1:1337/status
 ```
 Response:
 ```json
@@ -119,10 +120,10 @@ Response:
 
 ## Authentication Flow
 
-Register a new user (/users/register)
-Login to receive a JWT token (/users/login)
-Profile page fetches user info from /users/me
-Token is stored in localStorage and sent with each request automatically.
+1. Register a new user (/users/register)
+2. Login to receive a JWT token (/users/login)
+3. Profile page fetches user info from /users/me
+4. Token is stored in localStorage and sent with each request automatically.
 
 ## Cart Functionality
 
