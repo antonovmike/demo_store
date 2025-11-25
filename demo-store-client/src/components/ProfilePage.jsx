@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
 import api from "../api/axios";
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from "../context/AuthContext";
 
 export default function ProfilePage() {
   const { token, logout } = useContext(AuthContext);
@@ -16,7 +16,11 @@ export default function ProfilePage() {
         console.log("✅ Profile data:", res.data);
         setProfile(res.data);
       } catch (err) {
-        console.error("❌ Failed to fetch profile:", err.response?.status, err.response?.data);
+        console.error(
+          "❌ Failed to fetch profile:",
+          err.response?.status,
+          err.response?.data
+        );
         setProfile(null);
       }
     };
@@ -28,11 +32,18 @@ export default function ProfilePage() {
       <h2 className="text-xl font-semibold mb-2">My Profile</h2>
       {profile ? (
         <div>
-        <p><strong>ID:</strong> {profile.id}</p>
-        <p><strong>Username:</strong> {profile.username}</p>
-        <button onClick={logout} className="mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600">
-          Logout
-        </button>
+          <p>
+            <strong>ID:</strong> {profile.id}
+          </p>
+          <p>
+            <strong>Username:</strong> {profile.username}
+          </p>
+          <button
+            onClick={logout}
+            className="mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
+          >
+            Logout
+          </button>
         </div>
       ) : (
         <p>Loading profile...</p>

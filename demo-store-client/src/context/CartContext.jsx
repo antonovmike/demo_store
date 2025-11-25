@@ -42,9 +42,7 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = (id, qty) => {
     if (qty < 1) return;
     setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: qty } : item
-      )
+      prev.map((item) => (item.id === id ? { ...item, quantity: qty } : item))
     );
   };
 

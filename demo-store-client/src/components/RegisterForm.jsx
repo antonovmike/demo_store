@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
-import api from "../api/axios";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  registerUser,
+  selectUserStatus,
+  selectUserError,
+  selectCurrentUser,
+} from "../store/userSlice";
 
 export default function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const status = useSelector(selectUserStatus);
+  const error = useSelector(selectUserError);
+  const user = useSelector(selectCurrentUser);
+
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      const res = await api.post('/users/register', { username, password });
-      setMessage(`✅ Registered as ${res.data.username}`);
-    } catch (err) {
-      setMessage(`❌ ${err.response?.data?.error || 'Registration failed'}`);
-    }
+    dispatch(registerUser({ username, password }));
   };
-  
+
   return (
     <div className="max-w-md mx-auto p-4 border rounded-lg">
       <h2 className="text-xl font-semibold mb-2">Register</h2>
@@ -34,11 +38,21 @@ export default function RegisterForm() {
           onChange={(e) => setPassword(e.target.value)}
           className="border p-2 rounded"
         />
-        <button type="submit" className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+        <button
+          type="submit"
+          className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+        >
           Register
         </button>
       </form>
-      {message && <p className="mt-3 text-sm">{message}</p>}
+      {status === "succeeded" && user && (
+        <p className="mt-3 text-sm">
+          ✅ Registered as {user.username || user.name}
+        </p>
+      )}
+      {status === "failed" && (
+        <p className="mt-3 text-sm text-red-600">❌ {error?.error || error}</p>
+      )}
     </div>
   );
 }
