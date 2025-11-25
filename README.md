@@ -46,8 +46,17 @@ npm start
 ```
 
 ### 4.2 Run tests
+Command "npm test" runs server tests then client tests in sequence
 ```bash
 npm test
+```
+Command test:root runs server Jest over server tests directory
+```bash
+npm run test:root
+```
+Command test:client runs Vitest by running cd demo-store-client && npm run test
+```bash
+npm run test:client
 ```
 
 ### 5. Setup the frontend
