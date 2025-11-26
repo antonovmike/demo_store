@@ -60,8 +60,8 @@ Follow these steps to install the Demo Store application:
 Create a new datebase:
    ```bash
    sudo -u postgres psql
-   CREATE DATABASE demo_store_2;
-   CREATE DATABASE demo_store_test_2;
+   CREATE DATABASE demo_store;
+   CREATE DATABASE demo_store_test;
    ```
    ```bash
    npm run db:migrate
