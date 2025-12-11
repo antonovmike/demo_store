@@ -3,8 +3,9 @@ import cartReducer, {
   removeItem,
   updateQuantity,
   clearCart,
+  initCart,
 } from "../CartSlice.js";
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, beforeEach } from "vitest";
 
 describe("cart reducer", () => {
   test("addItem adds new item and increments quantity", () => {
@@ -31,6 +32,53 @@ describe("cart reducer", () => {
     expect(state.items).toHaveLength(0);
 
     state = cartReducer(state, addItem({ id: "p3", name: "Y", price: 1 }));
+    state = cartReducer(state, clearCart());
+    expect(state.items).toHaveLength(0);
+  });
+});
+
+describe("cart reducer user switching", () => {
+  beforeEach(() => {
+    localStorage.removeItem("cart_alice");
+    localStorage.removeItem("cart_bob");
+  });
+
+  test("initCart loads items for specific user", () => {
+    // Setup localStorage for two users
+    localStorage.setItem(
+      "cart_alice",
+      JSON.stringify([{ id: "a1", name: "Apple", price: 1, qty: 2 }])
+    );
+    localStorage.setItem(
+      "cart_bob",
+      JSON.stringify([{ id: "b1", name: "Banana", price: 2, qty: 5 }])
+    );
+
+    // Initialize state
+    let state = cartReducer(undefined, { type: "@@INIT" });
+    expect(state.items).toHaveLength(0);
+
+    // Init cart for Alice
+    state = cartReducer(state, initCart("alice"));
+    expect(state.items).toHaveLength(1);
+    expect(state.items[0].name).toBe("Apple");
+
+    // Change user to Bob
+    state = cartReducer(state, initCart("bob"));
+    expect(state.items).toHaveLength(1);
+    expect(state.items[0].name).toBe("Banana");
+    expect(state.items[0].qty).toBe(5);
+  });
+
+  test("clearCart empties items when user logs out", () => {
+    localStorage.setItem(
+      "cart_alice",
+      JSON.stringify([{ id: "a1", name: "Apple", price: 1, qty: 2 }])
+    );
+
+    let state = cartReducer(undefined, initCart("alice"));
+    expect(state.items).toHaveLength(1);
+
     state = cartReducer(state, clearCart());
     expect(state.items).toHaveLength(0);
   });
