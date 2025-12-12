@@ -2,22 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // slice reads localStorage during initialization
 
-const loadFromLocal = () => {
+const loadFromLocal = (username) => {
+  if (!username) return [];
   try {
-    const raw = localStorage.getItem("cart");
+    const raw = localStorage.getItem("cart_" + username);
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
   }
 };
 
-const initialState = {
-  items: loadFromLocal(), // array of { id, name, price, qty, ... }
-};
-
 const cartSlice = createSlice({
   name: "cart",
-  initialState,
+  initialState: { items: [] },
   reducers: {
     addItem(state, action) {
       const payload = action.payload; // { id, name, price, qty? }
@@ -43,9 +40,19 @@ const cartSlice = createSlice({
     setItems(state, action) {
       state.items = action.payload;
     },
+    initCart(state, action) {
+      const username = action.payload;
+      state.items = loadFromLocal(username);
+    },
   },
 });
 
-export const { addItem, removeItem, updateQuantity, clearCart, setItems } =
-  cartSlice.actions;
+export const {
+  addItem,
+  removeItem,
+  updateQuantity,
+  clearCart,
+  setItems,
+  initCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

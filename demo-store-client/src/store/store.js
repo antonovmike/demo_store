@@ -7,8 +7,9 @@ const localStorageMiddleware = (storeAPI) => (next) => (action) => {
   const result = next(action);
   // Persist cart after reducers run
   const state = storeAPI.getState();
+  const username = state.user.user?.username;
   try {
-    localStorage.setItem("cart", JSON.stringify(state.cart.items));
+    localStorage.setItem("cart_" + username, JSON.stringify(state.cart.items));
   } catch {
     /* ignore */
   }
