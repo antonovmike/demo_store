@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Role',
+    tableName: "Roles",
   });
   Role.associate = function(models) {
     Role.hasMany(models.User, {

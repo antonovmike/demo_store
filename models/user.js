@@ -25,6 +25,7 @@ export default (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    tableName: "Users",
   });
   User.associate = function(models) {
     User.belongsTo(models.Role, {
