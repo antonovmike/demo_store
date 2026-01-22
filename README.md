@@ -40,67 +40,77 @@ Before running the application, you need to configure the database connection. F
 Follow these steps to install the Demo Store application:
 
 1. Clone the repository from GitHub:
-   ```bash
-   git clone https://github.com/antonovmike/demo_store.git
-   cd demo_store
-   ```
+
+```bash
+git clone https://github.com/antonovmike/demo_store.git
+cd demo_store
+```
 
 2. Install the backend dependencies:
-   ```bash
-   npm install
-   ```
+
+```bash
+npm install
+```
 
 3. Install the frontend dependencies:
-   ```bash
-   cd demo-store-client
-   npm install
-   ```
+
+```bash
+cd client
+npm install
+```
 
 3. Initialize the database:
-Create a new datebase:
-   ```bash
-   sudo -u postgres psql
-   CREATE DATABASE demo_store;
-   CREATE DATABASE demo_store_test;
-   ```
-   ```bash
-   npm run db:migrate
-   npm run db:seed:all
-   ```
+   Create a new datebase:
+
+```bash
+sudo -u postgres psql
+CREATE DATABASE demo_store;
+CREATE DATABASE demo_store_test;
+```
+
+```bash
+npm run db:migrate
+npm run db:seed:all
+```
 
 ## Testing
 
 To run the tests, follow these steps:
 
 1. Run server tests then client tests in sequence:
-   ```bash
-   npm test
-   ```
+
+```bash
+npm test
+```
 
 2. Run server tests:
-   ```bash
-   npm run test:root
-   ```
+
+```bash
+npm run test:root
+```
 
 2. Run the client tests:
-   ```bash
-   npm run test:client
-   ```
+
+```bash
+npm run test:client
+```
 
 ## Running the Application
 
 To run the application, follow these steps:
 
 1. Start the backend:
-   ```bash
-   npm start
-   ```
+
+```bash
+npm start
+```
 
 2. Open a new terminal window. Start the frontend:
-   ```bash
-   cd  demo-store-client
-   npm run dev
-   ```
+
+```bash
+cd client
+npm run dev
+```
 
 ## API Endpoints
 
@@ -111,11 +121,13 @@ The Demo Store application provides the following API endpoints:
 Check the basic server response.
 
 Request:
+
 ```bash
 curl http://127.0.0.1:1337/ping
 ```
 
 Response:
+
 ```bash
 "pong"
 ```
@@ -125,11 +137,13 @@ Response:
 Simple hello endpoint.
 
 Request:
+
 ```bash
 curl http://127.0.0.1:1337/hello
 ```
 
 Response:
+
 ```bash
 "Hello"
 ```
@@ -139,11 +153,13 @@ Response:
 Check server health and uptime.
 
 Request:
+
 ```bash
 curl http://127.0.0.1:1337/status
 ```
 
 Response:
+
 ```json
 {
   "status": "ok",
@@ -156,19 +172,22 @@ Response:
 Follow these steps to perform the authentication flow:
 
 1. Register a new user:
-   - Open the frontend application in your web browser.
-   - Navigate to the "Register" page.
-   - Fill in the registration form with your details.
-   - Click the "Register" button.
+
+- Open the frontend application in your web browser.
+- Navigate to the "Register" page.
+- Fill in the registration form with your details.
+- Click the "Register" button.
 
 2. Login to receive a JWT token:
-   - Navigate to the "Login" page.
-   - Fill in the login form with your credentials.
-   - Click the "Login" button.
+
+- Navigate to the "Login" page.
+- Fill in the login form with your credentials.
+- Click the "Login" button.
 
 3. Profile page fetches user info from /users/me:
-   - After successful login, the user is redirected to the profile page.
-   - The profile page fetches the user's information from the `/users/me` endpoint.
+
+- After successful login, the user is redirected to the profile page.
+- The profile page fetches the user's information from the `/users/me` endpoint.
 
 4. Token is stored in localStorage and sent with each request automatically.
 
@@ -177,17 +196,20 @@ Follow these steps to perform the authentication flow:
 Follow these steps to use the cart functionality:
 
 1. Add products to the cart:
-   - Navigate to the "Products" page.
-   - Select the products you want to add to the cart.
-   - Click the "Add to Cart" button.
+
+- Navigate to the "Products" page.
+- Select the products you want to add to the cart.
+- Click the "Add to Cart" button.
 
 2. Cart data persists via localStorage:
-   - The cart data is stored in the browser's localStorage, so it will persist even if you refresh the page.
+
+- The cart data is stored in the browser's localStorage, so it will persist even if you refresh the page.
 
 3. Edit quantity or remove items:
-   - Navigate to the "Cart" page.
-   - Modify the quantity of the items in the cart or remove items as needed.
-   - The total amount will be dynamically updated.
+
+- Navigate to the "Cart" page.
+- Modify the quantity of the items in the cart or remove items as needed.
+- The total amount will be dynamically updated.
 
 ## Features Implemented
 
@@ -207,16 +229,16 @@ Follow these steps to use the cart functionality:
 
 ## Project Milestones
 
-| Step | Branch                                                          | Description                       |
-| ---- | --------------------------------------------------------------- | --------------------------------- |
-|  1 | [step_1](https://github.com/antonovmike/demo_store/tree/step_1)   | Demo server on Node.js            |
-|  2 | [step_2](https://github.com/antonovmike/demo_store/tree/step_2)   | Users and Authorization           |
-|  3 | [step_3](https://github.com/antonovmike/demo_store/tree/step_3)   | Add JWT                           |
-|  4 | [step_4](https://github.com/antonovmike/demo_store/tree/step_4)   | Add Database                      |
-|  5 | [step_5](https://github.com/antonovmike/demo_store/tree/step_5)   | Add ORM                           |
-|  6 | [step_6](https://github.com/antonovmike/demo_store/tree/step_6)   | Basic logic (Products CRUD API)   |
-|  7 | [step_7](https://github.com/antonovmike/demo_store/tree/step_7)   | Authentication for CRUD products  |
-|  8 | [step_8](https://github.com/antonovmike/demo_store/tree/step_8)   | Move roles to a separate table    |
-|  9 | [step_9](https://github.com/antonovmike/demo_store/tree/step_9)   | React frontend + fix profile page |
-| 10 | [step_10](https://github.com/antonovmike/demo_store/tree/step_10) | Add Cart                          |
-| 11 | [step_11](https://github.com/antonovmike/demo_store/tree/step_11) | Implement Redux                   |
+| Step | Branch                                                            | Description                       |
+| ---- | ----------------------------------------------------------------- | --------------------------------- |
+| 1    | [step_1](https://github.com/antonovmike/demo_store/tree/step_1)   | Demo server on Node.js            |
+| 2    | [step_2](https://github.com/antonovmike/demo_store/tree/step_2)   | Users and Authorization           |
+| 3    | [step_3](https://github.com/antonovmike/demo_store/tree/step_3)   | Add JWT                           |
+| 4    | [step_4](https://github.com/antonovmike/demo_store/tree/step_4)   | Add Database                      |
+| 5    | [step_5](https://github.com/antonovmike/demo_store/tree/step_5)   | Add ORM                           |
+| 6    | [step_6](https://github.com/antonovmike/demo_store/tree/step_6)   | Basic logic (Products CRUD API)   |
+| 7    | [step_7](https://github.com/antonovmike/demo_store/tree/step_7)   | Authentication for CRUD products  |
+| 8    | [step_8](https://github.com/antonovmike/demo_store/tree/step_8)   | Move roles to a separate table    |
+| 9    | [step_9](https://github.com/antonovmike/demo_store/tree/step_9)   | React frontend + fix profile page |
+| 10   | [step_10](https://github.com/antonovmike/demo_store/tree/step_10) | Add Cart                          |
+| 11   | [step_11](https://github.com/antonovmike/demo_store/tree/step_11) | Implement Redux                   |
