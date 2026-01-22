@@ -49,6 +49,7 @@ cd demo_store
 2. Install the backend dependencies:
 
 ```bash
+cd server
 npm install
 ```
 
@@ -69,6 +70,7 @@ CREATE DATABASE demo_store_test;
 ```
 
 ```bash
+cd server
 npm run db:migrate
 npm run db:seed:all
 ```
@@ -102,6 +104,7 @@ To run the application, follow these steps:
 1. Start the backend:
 
 ```bash
+cd server
 npm start
 ```
 
