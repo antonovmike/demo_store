@@ -1,0 +1,14 @@
+{
+  "name": "demo_store",
+  "version": "1.0.0",
+  "description": "Training demo project of online store on Node.js + React",
+  "scripts": {
+    "test:root": "cd server && JWT_SECRET=test_secret_key node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand \"__tests__\"",
+    "test:client": "cd client && npm run test",
+    "test": "npm run test:root && npm run test:client",
+    "start": "cd server && node index.js"
+  },
+  "keywords": [],
+  "author": "Mikhail Antonov",
+  "license": "ISC"
+}
