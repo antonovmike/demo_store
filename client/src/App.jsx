@@ -1,4 +1,4 @@
-import { Link, Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { ProductProvider } from "./context/ProductContext.jsx";
@@ -8,7 +8,9 @@ import LoginForm from "./components/LoginForm";
 import ProfilePage from "./components/ProfilePage";
 import ProductsPage from "./components/ProductsPage";
 import AddProductPage from "./components/AddProductPage";
-import "./App.css";
+
+import StyledPage from "./components/StyledPage";
+import StyledLink from "./components/StyledLink";
 
 function App() {
   return (
@@ -16,23 +18,24 @@ function App() {
       <ProductProvider>
         <CartProvider>
           <HashRouter>
-            <nav>
-              <Link to="/register">Register</Link>
-              <Link to="/login">Login</Link>
-              <Link to="/profile">Profile</Link>
-              <Link to="/products">Products</Link>
-              <Link to="/cart">Cart</Link>{" "}
-              {/* Cart link can be added here when CartPage is implemented */}
-              <Link to="/add">Add Product</Link>
-            </nav>
-            <Routes>
-              <Route path="/register" element={<RegisterForm />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/add" element={<AddProductPage />} />
-            </Routes>
+            <StyledPage>
+              <nav>
+                <StyledLink href="#/register">Register</StyledLink>
+                <StyledLink href="#/login">Login</StyledLink>
+                <StyledLink href="#/profile">Profile</StyledLink>
+                <StyledLink href="#/products">Products</StyledLink>
+                <StyledLink href="#/cart">Cart</StyledLink>
+                <StyledLink href="#/add">Add Product</StyledLink>
+              </nav>
+              <Routes>
+                <Route path="/register" element={<RegisterForm />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/add" element={<AddProductPage />} />
+              </Routes>
+            </StyledPage>
           </HashRouter>
         </CartProvider>
       </ProductProvider>
