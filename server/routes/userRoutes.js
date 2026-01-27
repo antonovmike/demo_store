@@ -58,13 +58,12 @@ router.post("/login", async (req, res, next) => {
     }
 
     const user = await findUserByUsername(username);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
 
-    const valid = await bcrypt.compare(password, user.password_hash);
-    if (!valid) {
-      return res.status(401).json({ error: "Invalid username or password" });
+    // Check if user exists and password matches
+    if (!user || !(await bcrypt.compare(password, user.password_hash))) {
+      return res
+        .status(401)
+        .json({ error: "User not found or invalid username or password" });
     }
 
     const token = jwt.sign(

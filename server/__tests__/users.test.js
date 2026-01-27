@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../server";
-import { Role, User } from '../models';
-import { sequelizeInstance as sequelize } from '../models';
+import { Role, User } from "../models";
+import { sequelizeInstance as sequelize } from "../models";
 import bcrypt from "bcrypt";
 
 // Ensure the database is in a clean state before tests run
@@ -9,10 +9,7 @@ beforeAll(async () => {
   await sequelize.sync({ force: true });
 
   // Create default roles
-  await Role.bulkCreate([
-    { name: 'user' },
-    { name: 'admin' }
-  ]);
+  await Role.bulkCreate([{ name: "user" }, { name: "admin" }]);
 });
 
 // Clean up the database
@@ -39,7 +36,7 @@ describe("User routes", () => {
     // Fetch user including role
     const dbUser = await User.findOne({
       where: { username: "Alice" },
-      include: [{ model: Role, as: "role" }]
+      include: [{ model: Role, as: "role" }],
     });
     expect(dbUser.role.name).toBe("user");
   });
@@ -53,7 +50,7 @@ describe("User routes", () => {
     await User.create({
       username: "AdminUser",
       password_hash: passwordHash,
-      roleId: adminRole.id
+      roleId: adminRole.id,
     });
 
     const loginRes = await request(app)
@@ -65,7 +62,7 @@ describe("User routes", () => {
 
     const dbUser = await User.findOne({
       where: { username: "AdminUser" },
-      include: [{ model: Role, as: "role" }]
+      include: [{ model: Role, as: "role" }],
     });
 
     expect(dbUser.role.name).toBe("admin");
@@ -111,7 +108,10 @@ describe("User routes", () => {
       .send({ username: "Alice", password: "wrongpassword" });
 
     expect(res.statusCode).toBe(401);
-    expect(res.body).toHaveProperty("error", "Invalid username or password");
+    expect(res.body).toHaveProperty(
+      "error",
+      "User not found or invalid username or password",
+    );
   });
 
   // Secure route test /me with valid token
