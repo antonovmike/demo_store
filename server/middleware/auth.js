@@ -7,11 +7,17 @@ async function authMiddleware(req, res, next) {
   try {
     const authHeader = req.headers["authorization"];
     if (!authHeader) {
+      console.warn(
+        `Unauthorized access attempt to ${req.originalUrl} — no Authorization header`,
+      );
       return res.status(401).json({ error: "Authorization header missing" });
     }
 
     const [scheme, token] = authHeader.split(" ");
     if (scheme !== "Bearer" || !token) {
+      console.warn(
+        `Unauthorized access attempt to ${req.originalUrl} — invalid format`,
+      );
       return res.status(401).json({ error: "Invalid Authorization format" });
     }
 
@@ -19,7 +25,9 @@ async function authMiddleware(req, res, next) {
     try {
       payload = jwt.verify(token, SECRET_KEY);
     } catch (err) {
-      console.error("JWT verification failed:", err.message);
+      console.warn(
+        `Unauthorized access attempt to ${req.originalUrl} — invalid/expired token`,
+      );
       return res.status(401).json({ error: "Invalid or expired token" });
     }
 
@@ -28,6 +36,9 @@ async function authMiddleware(req, res, next) {
     });
 
     if (!user) {
+      console.warn(
+        `Unauthorized access attempt to ${req.originalUrl} — user not found`,
+      );
       return res.status(401).json({ error: "User not found" });
     }
 
