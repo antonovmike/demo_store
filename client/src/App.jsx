@@ -1,14 +1,16 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
+
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { ProductProvider } from "./context/ProductContext.jsx";
+
 import CartPage from "./components/CartPage";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import ProfilePage from "./components/ProfilePage";
 import ProductsPage from "./components/ProductsPage";
 import AddProductPage from "./components/AddProductPage";
-
+import PrivateRoute from "./components/PrivateRoute";
 import StyledPage from "./components/StyledPage";
 import StyledLink from "./components/StyledLink";
 
@@ -30,7 +32,14 @@ function App() {
               <Routes>
                 <Route path="/register" element={<RegisterForm />} />
                 <Route path="/login" element={<LoginForm />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route
+                  path="/profile"
+                  element={
+                    <PrivateRoute>
+                      <ProfilePage />
+                    </PrivateRoute>
+                  }
+                />
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/add" element={<AddProductPage />} />
