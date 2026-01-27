@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
     const products = await Product.findAll();
     res.json(products);
   } catch (err) {
-    console.error('Error fetching products:', err);
+    console.error("Error fetching products:", err);
     next(err);
   }
 });
@@ -29,6 +29,7 @@ router.get("/:id", async (req, res, next) => {
     }
     res.json(product);
   } catch (err) {
+    console.error("Error fetching product:", err);
     next(err);
   }
 });
@@ -44,6 +45,7 @@ router.post("/", auth, checkRole("admin"), async (req, res, next) => {
     const product = await Product.create({ name, price, description });
     res.status(201).json(product);
   } catch (err) {
+    console.error("Error creating product:", err.message);
     next(err);
   }
 });
@@ -59,6 +61,7 @@ router.put("/:id", auth, checkRole("admin"), async (req, res, next) => {
     await product.update({ name, price, description });
     res.json(product);
   } catch (err) {
+    console.error("Error updating product:", err.message);
     next(err);
   }
 });
@@ -73,6 +76,7 @@ router.delete("/:id", auth, checkRole("admin"), async (req, res, next) => {
     await product.destroy();
     res.json({ message: "Product deleted" });
   } catch (err) {
+    console.error("Error deleting product:", err.message);
     next(err);
   }
 });
