@@ -6,31 +6,41 @@ const { User, Role } = models;
 async function authMiddleware(req, res, next) {
   try {
     const authHeader = req.headers["authorization"];
-    if (!authHeader) return res.status(401).json({ error: "Authorization header missing" });
-
-    const [scheme, token] = authHeader.split(" ");
-    if (scheme !== "Bearer" || !token) return res.status(401).json({ error: "Invalid Authorization format" });
-
-    let payload;
-    try { payload = jwt.verify(token, SECRET_KEY); }
-    catch (err) { 
-      return res.status(401).json({ error: "Invalid or expired token: " + err.message }); 
+    if (!authHeader) {
+      return res.status(401).json({ error: "Authorization header missing" });
     }
 
-    if (!payload?.id) return res.status(401).json({ error: "Invalid token payload" });
+    const [scheme, token] = authHeader.split(" ");
+    if (scheme !== "Bearer" || !token) {
+      return res.status(401).json({ error: "Invalid Authorization format" });
+    }
 
-    const user = await User.findByPk(payload.id, { include: [{ model: Role, as: "role" }] });
+    let payload;
+    try {
+      payload = jwt.verify(token, SECRET_KEY);
+    } catch (err) {
+      console.error("JWT verification failed:", err.message);
+      return res.status(401).json({ error: "Invalid or expired token" });
+    }
 
-    if (!user) return res.status(401).json({ error: "User not found" });
+    const user = await User.findByPk(payload.id, {
+      include: [{ model: Role, as: "role" }],
+    });
 
-    const roleName = user.role?.name ?? (user.roleId ? (await Role.findByPk(user.roleId))?.name : null);
+    if (!user) {
+      return res.status(401).json({ error: "User not found" });
+    }
 
-    req.user = { id: user.id, username: user.username, role: roleName };
+    req.user = {
+      id: user.id,
+      username: user.username,
+      role: user.role?.name,
+    };
 
-    console.log("checkRole req.user:", req.user);
     return next();
   } catch (err) {
-    console.error("authMiddleware error:", err);
+    console.error("Unexpected authMiddleware error:", err.message);
+    console.error(err.stack);
     return res.status(500).json({ error: "Internal server error" });
   }
 }

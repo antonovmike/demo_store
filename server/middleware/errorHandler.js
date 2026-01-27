@@ -3,9 +3,22 @@ function notFound(req, res) {
   res.status(404).json({ error: "Not found" });
 }
 // Middleware: Error handler
-function errorHandler(err, req, res) {
-  console.error("Error:", err.message);
-  res.status(500).json({ error: "Internal server error" });
+function errorHandler(err, req, res, next) {
+  console.error("=== Error Handler ===");
+  console.error("Time:", new Date().toISOString());
+  console.error("Message:", err.message);
+  console.error("Stack:", err.stack);
+  console.error("Request URL:", req.originalUrl);
+  console.error("Method:", req.method);
+  console.error("Headers:", req.headers);
+  console.error("Body:", req.body);
+
+  // Send error response to client
+  res.status(err.status || 500).json({
+    error: err.message || "Internal server error",
+    path: req.originalUrl,
+    method: req.method,
+  });
 }
 
 export { notFound, errorHandler };
