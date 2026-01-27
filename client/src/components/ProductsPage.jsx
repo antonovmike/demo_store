@@ -30,9 +30,11 @@ export default function ProductsPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4">
-        {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
-        ))}
+        {Array.isArray(products) ? (
+          products.map((p) => <ProductCard key={p.id} product={p} />)
+        ) : (
+          <div className="text-red-600">Invalid products response</div>
+        )}
       </div>
     </div>
   );

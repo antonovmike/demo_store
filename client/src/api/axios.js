@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_BASE_URL } from "../clientConfig.js";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:3000", // backend API
+  baseURL: API_BASE_URL, // backend API
   withCredentials: false, // No cookies needed
 });
 
