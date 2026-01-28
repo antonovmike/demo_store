@@ -19,7 +19,7 @@ export default function ProfilePage() {
         console.error(
           "❌ Failed to fetch profile:",
           err.response?.status,
-          err.response?.data
+          err.response?.data,
         );
         setProfile(null);
       }
@@ -46,7 +46,7 @@ export default function ProfilePage() {
           </button>
         </div>
       ) : (
-        <p>Loading profile...</p>
+        <p>No profile data</p>
       )}
     </div>
   );
