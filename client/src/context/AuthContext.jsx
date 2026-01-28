@@ -3,6 +3,7 @@ import { AuthContext } from "./AuthContext";
 import { useDispatch } from "react-redux";
 import { initCart, clearCart } from "../store/CartSlice";
 import { setUser as setUserRedux } from "../store/userSlice";
+import { logout as logoutRedux } from "../store/authSlice";
 
 export const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setToken(null);
     localStorage.removeItem("token");
+    dispatch(logoutRedux());
   };
 
   return (
