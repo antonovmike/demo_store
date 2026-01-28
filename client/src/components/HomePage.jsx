@@ -1,9 +1,10 @@
 import StyledPage from "./StyledPage";
+import StyledHeader_1 from "./StyledHeader_1";
 
 export default function HomePage() {
   return (
     <StyledPage>
-      <p className="text-xl font-semibold mb-2">Welcome</p>
+      <StyledHeader_1>Welcome</StyledHeader_1>
     </StyledPage>
   );
 }
