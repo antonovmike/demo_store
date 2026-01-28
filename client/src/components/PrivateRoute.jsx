@@ -6,7 +6,7 @@ export default function PrivateRoute({ children }) {
 
   if (!isAuthenticated) {
     console.warn("Unauthorized attempt to access /profile");
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;

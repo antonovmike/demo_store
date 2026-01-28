@@ -4,6 +4,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { ProductProvider } from "./context/ProductContext.jsx";
 
+import HomePage from "./components/HomePage";
 import CartPage from "./components/CartPage";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
@@ -22,6 +23,7 @@ function App() {
           <HashRouter>
             <StyledPage>
               <nav>
+                <StyledLink href="#/">Home</StyledLink>
                 <StyledLink href="#/register">Register</StyledLink>
                 <StyledLink href="#/login">Login</StyledLink>
                 <StyledLink href="#/profile">Profile</StyledLink>
@@ -30,6 +32,7 @@ function App() {
                 <StyledLink href="#/add">Add Product</StyledLink>
               </nav>
               <Routes>
+                <Route path="/" element={<HomePage />} />
                 <Route path="/register" element={<RegisterForm />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route
