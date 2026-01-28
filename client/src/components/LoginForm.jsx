@@ -1,7 +1,10 @@
 import { useState, useContext } from "react";
+import { useDispatch } from "react-redux";
+
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { loginSuccess } from "../store/authSlice";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -9,6 +12,7 @@ export default function LoginForm() {
   const [message, setMessage] = useState("");
   const { setUser, setToken } = useContext(AuthContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,6 +20,7 @@ export default function LoginForm() {
       const res = await api.post("/users/login", { username, password });
       setToken(res.data.token);
       setUser({ username });
+      dispatch(loginSuccess({ user: { username }, token: res.data.token }));
       setMessage("✅ Logged in successfully!");
       navigate("/profile");
     } catch (err) {

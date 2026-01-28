@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./CartSlice";
 import productsReducer from "./ProductsSlice";
 import userReducer from "./userSlice";
+import authReducer from "./authSlice";
 
 const localStorageMiddleware = (storeAPI) => (next) => (action) => {
   const result = next(action);
@@ -21,6 +22,7 @@ const localStorageMiddleware = (storeAPI) => (next) => (action) => {
 // so preloadedState is optional
 const store = configureStore({
   reducer: {
+    auth: authReducer,
     cart: cartReducer,
     products: productsReducer,
     user: userReducer,
