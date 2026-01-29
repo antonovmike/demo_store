@@ -1,19 +1,21 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
+import { AuthContext } from "./AuthContext";
 
 export const CartProvider = ({ children }) => {
+  const { user } = useContext(AuthContext);
   const [items, setItems] = useState([]);
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem("cart");
+    const stored = localStorage.getItem("cart_" + user?.username);
     if (stored) setItems(JSON.parse(stored));
-  }, []);
+  }, [user]);
 
   // Save cart to localStorage on items change
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem("cart_" + user?.username, JSON.stringify(items));
+  }, [items, user]);
 
   // Add to cart
   const addToCart = (product) => {
@@ -24,7 +26,7 @@ export const CartProvider = ({ children }) => {
         return prev.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
-            : item
+            : item,
         );
       } else {
         // Add new product
@@ -42,7 +44,7 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = (id, qty) => {
     if (qty < 1) return;
     setItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity: qty } : item))
+      prev.map((item) => (item.id === id ? { ...item, quantity: qty } : item)),
     );
   };
 
