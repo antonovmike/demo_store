@@ -44,8 +44,8 @@ const productsSlice = createSlice({
       state.items = action.payload;
       try {
         localStorage.setItem("products", JSON.stringify(state.items));
-      } catch {
-        /* ignore */
+      } catch (err) {
+        console.log("Failed to persist products:", err);
       }
     },
     clearProducts(state) {
@@ -54,8 +54,8 @@ const productsSlice = createSlice({
       state.error = null;
       try {
         localStorage.removeItem("products");
-      } catch {
-        /* ignore */
+      } catch (err) {
+        console.log("Failed to remove products from localStorage:", err);
       }
     },
   },
@@ -70,8 +70,8 @@ const productsSlice = createSlice({
         state.items = action.payload;
         try {
           localStorage.setItem("products", JSON.stringify(state.items));
-        } catch {
-          /* ignore */
+        } catch (err) {
+          console.log("Failed to persist products:", err);
         }
       })
       .addCase(fetchProducts.rejected, (state, action) => {
