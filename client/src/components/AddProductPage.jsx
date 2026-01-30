@@ -1,18 +1,22 @@
-import { useState, useContext } from "react";
-import { ProductContext } from "../context/ProductContext";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct, selectAllProducts } from "../store/ProductsSlice";
 import api from "../api/axios";
 
 export default function AddProductPage() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const { addNewProduct } = useContext(ProductContext);
+
+  const dispatch = useDispatch();
+  const products = useSelector(selectAllProducts);
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
       const res = await api.post("/products", { name, price, description });
-      addNewProduct(res.data);
+      // Use dispatch to add product to Redux
+      dispatch(addProduct(res.data));
       setName("");
       setPrice("");
       setDescription("");
@@ -67,6 +71,16 @@ export default function AddProductPage() {
           Add Product
         </button>
       </form>
+
+      {/* List of existing products for test */}
+      <ul className="mt-4">
+        <h1>List of existing products:</h1>
+        {products.map((p) => (
+          <li key={p.id}>
+            {p.name} — ${p.price}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -25,19 +25,27 @@ export const fetchProducts = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
     }
-  }
+  },
 );
 
 const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
+    addProduct(state, action) {
+      state.items.push(action.payload);
+      try {
+        localStorage.setItem("products", JSON.stringify(state.items));
+      } catch (err) {
+        console.error("Failed to persist products:", err);
+      }
+    },
     setProducts(state, action) {
       state.items = action.payload;
       try {
         localStorage.setItem("products", JSON.stringify(state.items));
-      } catch {
-        /* ignore */
+      } catch (err) {
+        console.log("Failed to persist products:", err);
       }
     },
     clearProducts(state) {
@@ -46,8 +54,8 @@ const productsSlice = createSlice({
       state.error = null;
       try {
         localStorage.removeItem("products");
-      } catch {
-        /* ignore */
+      } catch (err) {
+        console.log("Failed to remove products from localStorage:", err);
       }
     },
   },
@@ -62,8 +70,8 @@ const productsSlice = createSlice({
         state.items = action.payload;
         try {
           localStorage.setItem("products", JSON.stringify(state.items));
-        } catch {
-          /* ignore */
+        } catch (err) {
+          console.log("Failed to persist products:", err);
         }
       })
       .addCase(fetchProducts.rejected, (state, action) => {
@@ -73,7 +81,7 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setProducts, clearProducts } = productsSlice.actions;
+export const { addProduct, setProducts, clearProducts } = productsSlice.actions;
 export const selectAllProducts = (state) => state.products.items;
 export const selectProductsStatus = (state) => state.products.status;
 export const selectProductsError = (state) => state.products.error;
