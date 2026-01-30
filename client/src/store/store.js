@@ -13,8 +13,8 @@ const localStorageMiddleware = (storeAPI) => (next) => (action) => {
   try {
     localStorage.setItem("cart_" + username, JSON.stringify(state.cart.items));
     console.log("Persisting cart for", username, state.cart.items);
-  } catch {
-    /* ignore */
+  } catch (err) {
+    console.error("Failed to persist cart:", err);
   }
   return result;
 };
