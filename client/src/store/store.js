@@ -9,10 +9,12 @@ const localStorageMiddleware = (storeAPI) => (next) => (action) => {
   // Persist cart after reducers run
   const state = storeAPI.getState();
   const username = state.user.user?.username;
+  console.log("Persisting cart for", username, state.cart.items);
   try {
     localStorage.setItem("cart_" + username, JSON.stringify(state.cart.items));
-  } catch {
-    /* ignore */
+    console.log("Persisting cart for", username, state.cart.items);
+  } catch (err) {
+    console.error("Failed to persist cart:", err);
   }
   return result;
 };

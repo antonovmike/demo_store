@@ -7,13 +7,13 @@ import cartReducer, {
 } from "../CartSlice.js";
 import { describe, test, expect, beforeEach } from "vitest";
 
-describe("cart reducer", () => {
+describe("cart reducer basic operations", () => {
   test("addItem adds new item and increments quantity", () => {
     let state = cartReducer(undefined, { type: "@@INIT" });
 
     state = cartReducer(
       state,
-      addItem({ id: "p1", name: "Prod", price: 9.99 })
+      addItem({ id: "p1", name: "Prod", price: 9.99 }),
     );
     expect(state.items).toHaveLength(1);
     expect(state.items[0].qty).toBe(1);
@@ -37,24 +37,22 @@ describe("cart reducer", () => {
   });
 });
 
-describe("cart reducer user switching", () => {
+describe("cart reducer with localStorage", () => {
   beforeEach(() => {
-    localStorage.removeItem("cart_alice");
-    localStorage.removeItem("cart_bob");
+    localStorage.clear();
   });
 
   test("initCart loads items for specific user", () => {
     // Setup localStorage for two users
     localStorage.setItem(
       "cart_alice",
-      JSON.stringify([{ id: "a1", name: "Apple", price: 1, qty: 2 }])
+      JSON.stringify([{ id: "a1", name: "Apple", price: 1, qty: 2 }]),
     );
     localStorage.setItem(
       "cart_bob",
-      JSON.stringify([{ id: "b1", name: "Banana", price: 2, qty: 5 }])
+      JSON.stringify([{ id: "b1", name: "Banana", price: 2, qty: 5 }]),
     );
 
-    // Initialize state
     let state = cartReducer(undefined, { type: "@@INIT" });
     expect(state.items).toHaveLength(0);
 
@@ -63,7 +61,7 @@ describe("cart reducer user switching", () => {
     expect(state.items).toHaveLength(1);
     expect(state.items[0].name).toBe("Apple");
 
-    // Change user to Bob
+    // Switch to Bob
     state = cartReducer(state, initCart("bob"));
     expect(state.items).toHaveLength(1);
     expect(state.items[0].name).toBe("Banana");
@@ -73,7 +71,7 @@ describe("cart reducer user switching", () => {
   test("clearCart empties items when user logs out", () => {
     localStorage.setItem(
       "cart_alice",
-      JSON.stringify([{ id: "a1", name: "Apple", price: 1, qty: 2 }])
+      JSON.stringify([{ id: "a1", name: "Apple", price: 1, qty: 2 }]),
     );
 
     let state = cartReducer(undefined, initCart("alice"));
