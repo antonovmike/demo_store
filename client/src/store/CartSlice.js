@@ -6,6 +6,7 @@ const loadFromLocal = (username) => {
   if (!username) return [];
   try {
     const raw = localStorage.getItem("cart_" + username);
+    console.log("loadFromLocal for", username, "raw =", raw);
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
@@ -43,6 +44,8 @@ const cartSlice = createSlice({
     initCart(state, action) {
       const username = action.payload;
       state.items = loadFromLocal(username);
+      const raw = localStorage.getItem("cart_" + username);
+      console.log("initCart loading for", username, "raw =", raw);
     },
   },
 });

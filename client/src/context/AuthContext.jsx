@@ -11,10 +11,13 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
+    console.log("AuthProvider useEffect triggered, user =", user);
     if (user) {
+      console.log("AuthProvider: initCart for", user.username);
       dispatch(setUserRedux(user));
       dispatch(initCart(user.username));
     } else {
+      console.log("AuthProvider: clearCart called");
       dispatch(setUserRedux(null));
       dispatch(clearCart());
     }
