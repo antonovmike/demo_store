@@ -18,10 +18,10 @@ const cartSlice = createSlice({
   initialState: { items: [] },
   reducers: {
     addItem(state, action) {
-      const payload = action.payload; // { id, name, price, qty? }
+      const payload = action.payload;
       const existing = state.items.find((i) => i.id === payload.id);
       if (existing) {
-        existing.qty = (existing.qty || 1) + (payload.qty || 1);
+        existing.qty += payload.qty || 1;
       } else {
         state.items.push({ ...payload, qty: payload.qty || 1 });
       }
@@ -38,14 +38,12 @@ const cartSlice = createSlice({
     clearCart(state) {
       state.items = [];
     },
-    setItems(state, action) {
-      state.items = action.payload;
-    },
     initCart(state, action) {
       const username = action.payload;
       state.items = loadFromLocal(username);
       const raw = localStorage.getItem("cart_" + username);
       console.log("initCart loading for", username, "raw =", raw);
+      state.items = raw ? JSON.parse(raw) : [];
     },
   },
 });
