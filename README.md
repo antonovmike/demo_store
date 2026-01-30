@@ -105,7 +105,7 @@ To run the application, follow these steps:
 
 ```bash
 cd server
-npm start
+npm run dev
 ```
 
 2. Open a new terminal window. Start the frontend:
