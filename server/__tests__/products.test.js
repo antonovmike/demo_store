@@ -1,10 +1,10 @@
 import request from "supertest";
-import app from "../server";
-import { Product, User, Role } from '../models';
-import { sequelizeInstance as sequelize } from '../models';
+import app from "../src/server";
+import { Product, User, Role } from "../src/models";
+import { sequelizeInstance as sequelize } from "../src/models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "../serverConfig";
+import { SECRET_KEY } from "../src/serverConfig";
 
 let adminToken;
 
@@ -28,7 +28,9 @@ beforeAll(async () => {
   });
 
   // Generate JWT for admin
-  adminToken = jwt.sign({ id: admin.id, role: "admin" }, SECRET_KEY, { expiresIn: "1h" });
+  adminToken = jwt.sign({ id: admin.id, role: "admin" }, SECRET_KEY, {
+    expiresIn: "1h",
+  });
 
   // Create a couple of products
   await Product.bulkCreate([
@@ -52,13 +54,11 @@ describe("Products API", () => {
   });
 
   test("POST /products fails without token", async () => {
-    const res = await request(app)
-      .post("/products")
-      .send({
-        name: "Monitor",
-        price: 199.99,
-        description: "HD monitor",
-      });
+    const res = await request(app).post("/products").send({
+      name: "Monitor",
+      price: 199.99,
+      description: "HD monitor",
+    });
 
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty("error");
@@ -90,8 +90,8 @@ describe("Products API", () => {
         description: "Mechanical keyboard",
       });
 
-  expect(res.statusCode).toBe(201);
-  expect(res.body).toHaveProperty("id");
-  expect(res.body).toHaveProperty("name", "Keyboard");
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty("id");
+    expect(res.body).toHaveProperty("name", "Keyboard");
   });
 });

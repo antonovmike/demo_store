@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../server.js";
+import app from "../src/server";
 
 describe("DemoStore API", () => {
   test("GET /ping → pong", async () => {
@@ -19,9 +19,9 @@ test("GET /status → { status: 'ok', uptime: number }", async () => {
   const res = await request(app).get("/status");
   expect(res.statusCode).toBe(200);
   expect(res.body).toHaveProperty("status", "ok");
-  // The value of res.body.uptime is expected to be a string representation of 
-  // the process uptime with two decimal places. This is because the process 
-  // uptime is obtained by calling process.uptime() and then using the 
+  // The value of res.body.uptime is expected to be a string representation of
+  // the process uptime with two decimal places. This is because the process
+  // uptime is obtained by calling process.uptime() and then using the
   // .toFixed(2) method to format it as a string with two decimal places.
   expect(typeof res.body.uptime).toBe("string");
 });

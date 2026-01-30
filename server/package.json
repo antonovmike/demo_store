@@ -6,7 +6,7 @@
   "scripts": {
     "test:root": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand \"__tests__\"",
     "test": "npm run test:root",
-    "start": "node index.js",
+    "start": "node src/index.js",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed:all": "npx sequelize-cli db:seed:all",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
