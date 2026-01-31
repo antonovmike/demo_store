@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../serverConfig.js";
 import userRepository from "../repositories/userRepository.js";
 
-async function register(username, password, role) {
+async function register(username: string, password: string, role?: string) {
   if (!username || !password) {
     throw new Error("Username and password are required");
   }
@@ -23,7 +23,7 @@ async function register(username, password, role) {
   return user;
 }
 
-async function login(username, password) {
+async function login(username: string, password: string) {
   if (!username || !password) {
     throw new Error("Username and password are required");
   }
