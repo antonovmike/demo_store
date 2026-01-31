@@ -1,17 +1,38 @@
 import fs from "fs";
 import path from "path";
-import Sequelize from "sequelize";
 import process from "process";
+
+import { Sequelize } from "sequelize-typescript";
+import { DataTypes } from "sequelize";
 import { fileURLToPath } from "url";
+
 import config from "../config/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
-const db = {};
 
-const cfg = config[env] || config;
+interface DbMap {
+  [key: string]: any;
+  sequelize: Sequelize;
+  Sequelize: typeof Sequelize;
+}
+
+const db: DbMap = {} as DbMap;
+
+interface DbConfig {
+  username?: string;
+  password?: string;
+  database?: string;
+  host?: string;
+  port?: string;
+  dialect?: string;
+  use_env_variable?: string;
+}
+
+type Env = "development" | "test" | "production";
+const env = (process.env.NODE_ENV as Env) || "development";
+const cfg: DbConfig = config[env] || config;
 
 if (!cfg.dialect && !cfg.use_env_variable) {
   throw new Error(
@@ -19,11 +40,15 @@ if (!cfg.dialect && !cfg.use_env_variable) {
   );
 }
 
-let sequelize;
+let sequelize: Sequelize;
 if (cfg.use_env_variable) {
-  sequelize = new Sequelize(process.env[cfg.use_env_variable], cfg);
+  sequelize = new Sequelize(process.env[cfg.use_env_variable] as string);
 } else {
-  sequelize = new Sequelize(cfg.database, cfg.username, cfg.password, cfg);
+  sequelize = new Sequelize(
+    cfg.database as string,
+    cfg.username as string,
+    cfg.password as string,
+  );
 }
 
 const files = fs
@@ -41,7 +66,7 @@ for (const file of files) {
   const mod = await import(fullPath);
   const modelFactory = mod.default;
   if (typeof modelFactory === "function") {
-    const model = modelFactory(sequelize, Sequelize.DataTypes);
+    const model = modelFactory(sequelize, DataTypes);
     db[model.name] = model;
   }
 }
