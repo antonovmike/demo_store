@@ -1,9 +1,19 @@
+import type { Request, Response, NextFunction } from "express";
 // Middleware: 404 handler
-function notFound(req, res) {
+function notFound(_req: Request, res: Response) {
   res.status(404).json({ error: "Not found" });
 }
 // Middleware: Error handler
-function errorHandler(err, req, res, next) {
+interface HttpError extends Error {
+  status?: number;
+}
+
+function errorHandler(
+  err: HttpError,
+  req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
   console.error("=== Error Handler ===");
   console.error("Time:", new Date().toISOString());
   console.error("Message:", err.message);
