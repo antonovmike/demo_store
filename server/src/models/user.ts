@@ -1,37 +1,24 @@
-'use strict';
+import {
+  Table,
+  Column,
+  Model,
+  ForeignKey,
+  BelongsTo,
+} from "sequelize-typescript";
+import { Role } from "./role.js";
 
-import { Model } from 'sequelize';
+@Table
+export class User extends Model<"Users"> {
+  @Column({ allowNull: false, unique: true })
+  username!: string;
 
-export default (sequelize, DataTypes) => {
-  class User extends Model {}
-  User.init({
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password_hash: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      roleId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Roles',
-        key: 'id'
-      },
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'User',
-    tableName: "Users",
-  });
-  User.associate = function(models) {
-    User.belongsTo(models.Role, {
-      foreignKey: 'roleId',
-      as: 'role'
-    });
-  }
-  return User;
-};
+  @Column({ allowNull: false })
+  password_hash!: string;
+
+  @ForeignKey(() => Role)
+  @Column({ allowNull: false })
+  roleId!: number;
+
+  @BelongsTo(() => Role, { as: "role" })
+  role?: Role;
+}

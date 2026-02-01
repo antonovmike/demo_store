@@ -1,21 +1,11 @@
-'use strict';
+import { Table, Column, Model, HasMany } from "sequelize-typescript";
+import { User } from "./user.js";
 
-import { Model } from 'sequelize';
+@Table
+export class Role extends Model<Role> {
+  @Column
+  name!: string;
 
-export default (sequelize, DataTypes) => {
-  class Role extends Model {}
-  Role.init({
-    name: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Role',
-    tableName: "Roles",
-  });
-  Role.associate = function(models) {
-    Role.hasMany(models.User, {
-      foreignKey: 'roleId',
-      as: 'users'
-    });
-  }
-  return Role;
-};
+  @HasMany(() => User, { foreignKey: "roleId", as: "users" })
+  users?: User[];
+}
