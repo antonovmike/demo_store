@@ -1,16 +1,13 @@
-'use strict';
+import { Table, Column, Model } from "sequelize-typescript";
 
-import { Model } from 'sequelize';
+@Table
+export class Product extends Model<"Products"> {
+  @Column({ allowNull: false })
+  name!: string;
 
-export default (sequelize, DataTypes) => {
-  class Product extends Model {}
-  Product.init({
-    name: { type: DataTypes.STRING, allowNull: false },
-    price: { type: DataTypes.FLOAT, allowNull: false },
-    description: { type: DataTypes.TEXT },
-  }, {
-    sequelize,
-    modelName: 'Product',
-  });
-  return Product;
-};
+  @Column({ allowNull: false })
+  price!: number;
+
+  @Column
+  description?: string;
+}
