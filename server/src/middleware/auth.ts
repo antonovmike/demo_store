@@ -1,9 +1,10 @@
+import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../serverConfig.js";
 import models from "../models/index.js";
 const { User, Role } = models;
 
-async function authMiddleware(req, res, next) {
+async function authMiddleware(req: Request, res: Response, next: NextFunction) {
   try {
     const authHeader = req.headers["authorization"];
     if (!authHeader) {
@@ -50,8 +51,9 @@ async function authMiddleware(req, res, next) {
 
     return next();
   } catch (err) {
-    console.error("Unexpected authMiddleware error:", err.message);
-    console.error(err.stack);
+    const error = err as Error;
+    console.error("Unexpected authMiddleware error:", error.message);
+    console.error(error.stack);
     return res.status(500).json({ error: "Internal server error" });
   }
 }
