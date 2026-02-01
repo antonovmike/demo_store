@@ -3,6 +3,7 @@ import models from "../models/index.js";
 
 import auth from "../middleware/auth.js";
 import checkRole from "../middleware/checkRole.js";
+import type { HttpError } from "../middleware/errorHandler.js";
 
 const { Product } = models;
 
@@ -45,8 +46,9 @@ router.post("/", auth, checkRole("admin"), async (req, res, next) => {
     const product = await Product.create({ name, price, description });
     res.status(201).json(product);
   } catch (err) {
-    console.error("Error creating product:", err.message);
-    next(err);
+    const error = err as HttpError;
+    console.error("Error creating product:", error.message);
+    next(error);
   }
 });
 
@@ -61,8 +63,9 @@ router.put("/:id", auth, checkRole("admin"), async (req, res, next) => {
     await product.update({ name, price, description });
     res.json(product);
   } catch (err) {
-    console.error("Error updating product:", err.message);
-    next(err);
+    const error = err as HttpError;
+    console.error("Error updating product:", error.message);
+    next(error);
   }
 });
 
@@ -76,8 +79,9 @@ router.delete("/:id", auth, checkRole("admin"), async (req, res, next) => {
     await product.destroy();
     res.json({ message: "Product deleted" });
   } catch (err) {
-    console.error("Error deleting product:", err.message);
-    next(err);
+    const error = err as HttpError;
+    console.error("Error deleting product:", error.message);
+    next(error);
   }
 });
 

@@ -32,3 +32,4 @@ function errorHandler(
 }
 
 export { notFound, errorHandler };
+export type { HttpError };
