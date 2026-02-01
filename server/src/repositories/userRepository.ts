@@ -1,7 +1,11 @@
 import { User, Role } from "../models/index.js";
 
 // Create user
-async function createUser(username, passwordHash, roleName = "user") {
+async function createUser(
+  username: string,
+  passwordHash: string,
+  roleName = "user",
+) {
   let role = await Role.findOne({ where: { name: roleName } });
 
   if (!role) {
@@ -25,7 +29,7 @@ async function createUser(username, passwordHash, roleName = "user") {
 }
 
 // Find user by username
-async function findUserByUsername(username) {
+async function findUserByUsername(username: string) {
   const user = await User.findOne({ where: { username } });
   return user ? user.get({ plain: true }) : undefined;
 }
