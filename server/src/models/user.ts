@@ -8,7 +8,7 @@ import {
 import { Role } from "./role.js";
 
 @Table
-export class User extends Model<"Users"> {
+export class User extends Model<User> {
   @Column({ allowNull: false, unique: true })
   username!: string;
 
