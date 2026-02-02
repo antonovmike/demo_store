@@ -6,9 +6,24 @@ import {
   BelongsTo,
 } from "sequelize-typescript";
 import { Role } from "./role.js";
+import { Optional } from "sequelize";
+
+interface UserAttributes {
+  id: number;
+  username: string;
+  password_hash: string;
+  roleId: number;
+}
+
+interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
 @Table
-export class User extends Model<User> {
+export class User
+  extends Model<UserAttributes, UserCreationAttributes>
+  implements UserAttributes
+{
+  id!: number;
+
   @Column({ allowNull: false, unique: true })
   username!: string;
 

@@ -2,15 +2,30 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 
-import { Sequelize } from "sequelize-typescript";
 import { DataTypes } from "sequelize";
 import { fileURLToPath } from "url";
+import { Sequelize } from "sequelize-typescript";
 
+import { User } from "./user.js";
+import { Role } from "./role.js";
+import { Product } from "./product.js";
 import config from "../config/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
+
+const sequelize = new Sequelize({
+  dialect: "postgres",
+  host: process.env.PGHOST,
+  port: Number(process.env.PGPORT),
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  logging: false,
+});
+
+sequelize.addModels([User, Role, Product]);
 
 interface DbMap {
   [key: string]: any;
@@ -37,17 +52,6 @@ const cfg: DbConfig = config[env] || config;
 if (!cfg.dialect && !cfg.use_env_variable) {
   throw new Error(
     'Sequelize config must specify "dialect" for ESM models/index.js',
-  );
-}
-
-let sequelize: Sequelize;
-if (cfg.use_env_variable) {
-  sequelize = new Sequelize(process.env[cfg.use_env_variable] as string);
-} else {
-  sequelize = new Sequelize(
-    cfg.database as string,
-    cfg.username as string,
-    cfg.password as string,
   );
 }
 
@@ -80,10 +84,8 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+export { sequelize, User, Role, Product };
 export const sequelizeInstance = db.sequelize;
 export const SequelizeLib = Sequelize;
-export const User = db.User;
-export const Role = db.Role;
-export const Product = db.Product;
 
 export default db;

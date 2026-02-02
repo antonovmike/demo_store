@@ -10,7 +10,7 @@ const PORT = 1337;
     app.listen(PORT, () => {
       console.log(`Server running at http://127.0.0.1:${PORT}`);
     });
-  } catch (err: Error) {
+  } catch (err: any) {
     console.error("Failed to initialize application:", err.message);
     console.error(err.stack);
     process.exit(1); // End the process with error

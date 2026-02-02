@@ -1,7 +1,7 @@
 import { Table, Column, Model } from "sequelize-typescript";
 
 @Table
-export class Product extends Model<"Products"> {
+export class Product extends Model<Product> {
   @Column({ allowNull: false })
   name!: string;
 
