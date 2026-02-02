@@ -15,8 +15,9 @@ async function initDb() {
       console.log("✅ Database schema initialized");
     }
   } catch (err) {
-    console.error("❌ Error initializing schema:", err.message);
-    console.error(err.stack);
+    const error = err as Error;
+    console.error("❌ Error initializing schema:", error.message);
+    console.error(error.stack);
     throw err; // Throw error so init_db.js can handle it
   }
 }

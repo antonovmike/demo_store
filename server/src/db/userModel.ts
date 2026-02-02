@@ -9,7 +9,11 @@ console.log(
 // Using Sequelize ORM for user operations
 
 // Create user
-async function createUser(username, passwordHash, roleName = "user") {
+async function createUser(
+  username: string,
+  passwordHash: string,
+  roleName = "user",
+) {
   try {
     let role = await Role.findOne({ where: { name: roleName } });
 
@@ -41,13 +45,14 @@ async function createUser(username, passwordHash, roleName = "user") {
 }
 
 // Find user by username
-async function findUserByUsername(username) {
+async function findUserByUsername(username: string) {
   try {
     const user = await User.findOne({ where: { username } });
     return user ? user.get({ plain: true }) : undefined;
   } catch (err) {
-    console.error(`Error finding user '${username}':`, err.message);
-    console.error(err.stack);
+    const error = err as Error;
+    console.error(`Error finding user '${username}':`, error.message);
+    console.error(error.stack);
     throw err; // Throw error so caller can handle it
   }
 }
