@@ -1,8 +1,6 @@
-import fs from "fs";
 import path from "path";
 import process from "process";
 
-import { DataTypes } from "sequelize";
 import { fileURLToPath } from "url";
 import { Sequelize } from "sequelize-typescript";
 
@@ -55,31 +53,15 @@ if (!cfg.dialect && !cfg.use_env_variable) {
   );
 }
 
-const files = fs
-  .readdirSync(__dirname)
-  .filter(
-    (file) =>
-      file.indexOf(".") !== 0 &&
-      file !== basename &&
-      file.slice(-3) === ".js" &&
-      file.indexOf(".test.js") === -1,
-  );
-
-for (const file of files) {
-  const fullPath = path.join(__dirname, file);
-  const mod = await import(fullPath);
-  const modelFactory = mod.default;
-  if (typeof modelFactory === "function") {
-    const model = modelFactory(sequelize, DataTypes);
-    db[model.name] = model;
-  }
-}
-
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
+
+db.User = User;
+db.Role = Role;
+db.Product = Product;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
