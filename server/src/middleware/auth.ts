@@ -24,7 +24,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
 
     let payload;
     try {
-      payload = jwt.verify(token, SECRET_KEY);
+      payload = jwt.verify(token, SECRET_KEY) as jwt.JwtPayload;
     } catch (err) {
       console.warn(
         `Unauthorized access attempt to ${req.originalUrl} — invalid/expired token`,
