@@ -1,8 +1,10 @@
+import bcrypt from "bcrypt";
 import request from "supertest";
+
 import app from "../src/server";
+
 import { Role, User } from "../src/models";
 import { sequelizeInstance as sequelize } from "../src/models";
-import bcrypt from "bcrypt";
 
 // Ensure the database is in a clean state before tests run
 beforeAll(async () => {
@@ -38,7 +40,9 @@ describe("User routes", () => {
       where: { username: "Alice" },
       include: [{ model: Role, as: "role" }],
     });
-    expect(dbUser.role.name).toBe("user");
+    expect(dbUser).not.toBeNull();
+    expect(dbUser!.role).not.toBeNull();
+    expect(dbUser!.role!.name).toBe("user");
   });
 
   // Test admin registration manually via ORM
@@ -50,7 +54,7 @@ describe("User routes", () => {
     await User.create({
       username: "AdminUser",
       password_hash: passwordHash,
-      roleId: adminRole.id,
+      roleId: adminRole!.id,
     });
 
     const loginRes = await request(app)
@@ -65,7 +69,9 @@ describe("User routes", () => {
       include: [{ model: Role, as: "role" }],
     });
 
-    expect(dbUser.role.name).toBe("admin");
+    expect(dbUser).not.toBeNull();
+    expect(dbUser!.role).not.toBeNull();
+    expect(dbUser!.role!.name).toBe("admin");
   });
 
   // Test user registration with existing username fails
