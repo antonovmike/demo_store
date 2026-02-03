@@ -8,7 +8,8 @@ export default function ProductCard({ product }) {
   return (
     <div className="border rounded p-4">
       <h2 className="font-semibold">{product.name}</h2>
-      <p>${(product.price || 0).toFixed(2)}</p>
+      {/* <p>${(product.price || 0).toFixed(2)}</p> */}
+      <p>${Number(product.price)}</p>
       <p className="text-sm text-gray-500">{product.description}</p>
 
       <button
@@ -18,7 +19,7 @@ export default function ProductCard({ product }) {
               id: product.id,
               name: product.name,
               price: product.price,
-            })
+            }),
           )
         }
         className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
