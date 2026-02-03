@@ -126,7 +126,7 @@ Check the basic server response.
 Request:
 
 ```bash
-curl http://127.0.0.1:1337/ping
+curl http://127.0.0.1:3000/ping
 ```
 
 Response:
@@ -142,7 +142,7 @@ Simple hello endpoint.
 Request:
 
 ```bash
-curl http://127.0.0.1:1337/hello
+curl http://127.0.0.1:3000/hello
 ```
 
 Response:
@@ -158,7 +158,7 @@ Check server health and uptime.
 Request:
 
 ```bash
-curl http://127.0.0.1:1337/status
+curl http://127.0.0.1:3000/status
 ```
 
 Response:
