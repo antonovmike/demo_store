@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../src/serverConfig";
 
-let adminToken;
+let adminToken: string;
 
 beforeAll(async () => {
   await sequelize.sync({ force: true });

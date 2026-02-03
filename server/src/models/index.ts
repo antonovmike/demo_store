@@ -9,10 +9,6 @@ import { Role } from "./role.js";
 import { Product } from "./product.js";
 import config from "../config/config.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const basename = path.basename(__filename);
-
 const sequelize = new Sequelize({
   dialect: "postgres",
   host: process.env.PGHOST,
