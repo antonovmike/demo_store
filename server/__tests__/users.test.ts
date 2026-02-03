@@ -12,6 +12,17 @@ beforeAll(async () => {
 
   // Create default roles
   await Role.bulkCreate([{ name: "user" }, { name: "admin" }]);
+  // Create test users
+  await User.create({
+    username: "Alice",
+    password_hash: await bcrypt.hash("123456", 10),
+    roleId: 1, // user role
+  });
+  await User.create({
+    username: "AdminUser",
+    password_hash: await bcrypt.hash("adminpass", 10),
+    roleId: 2, // admin role
+  });
 });
 
 // Clean up the database

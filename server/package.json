@@ -7,11 +7,11 @@
     "dev": "nodemon --watch src --exec node --loader ts-node/esm src/index.ts",
     "start": "node dist/index.js",
     "build": "tsc",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed:all": "npx sequelize-cli db:seed:all",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
-    "db:migrate:test": "NODE_ENV=test npx sequelize-cli db:migrate"
+    "db:migrate:test": "NODE_ENV=test npx sequelize-cli db:migrate --config src/config/config.ts"
   },
   "keywords": [],
   "author": "",

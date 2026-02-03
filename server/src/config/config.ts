@@ -14,7 +14,7 @@ export default {
   test: {
     username: process.env.PGUSER,
     password: process.env.PGPASSWORD,
-    database: process.env.PGDATABASE_TEST || process.env.PGDATABASE,
+    database: process.env.PGDATABASE_TEST,
     host: process.env.PGHOST,
     port: process.env.PGPORT,
     dialect: "postgres",
