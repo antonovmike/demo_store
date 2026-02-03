@@ -1,6 +1,8 @@
 import request from "supertest";
-import app from "../src/server";
+
 import type { Express } from "express";
+
+import app from "../src/server";
 
 describe("DemoStore API", () => {
   test("GET /ping → pong", async () => {
