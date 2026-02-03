@@ -1,9 +1,11 @@
-import request from "supertest";
-import app from "../src/server";
-import { Product, User, Role } from "../src/models";
-import { sequelizeInstance as sequelize } from "../src/models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import request from "supertest";
+
+import app from "../src/server";
+
+import { Product, User, Role } from "../src/models";
+import { sequelizeInstance as sequelize } from "../src/models";
 import { SECRET_KEY } from "../src/serverConfig";
 
 let adminToken: string;
