@@ -4,6 +4,7 @@ import {
   Model,
   ForeignKey,
   BelongsTo,
+  DataType,
 } from "sequelize-typescript";
 import { Role } from "./role.js";
 import { Optional } from "sequelize";
@@ -31,7 +32,7 @@ export class User
   password_hash!: string;
 
   @ForeignKey(() => Role)
-  @Column({ allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: false })
   roleId!: number;
 
   @BelongsTo(() => Role, { as: "role" })
