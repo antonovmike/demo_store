@@ -9,13 +9,17 @@ import { Role } from "./role.js";
 import { Product } from "./product.js";
 import config from "../config/config.js";
 
+type Env = "development" | "test" | "production";
+const env = (process.env.NODE_ENV as Env) || "development";
+const cfg: DbConfig = config[env] || config;
+
 const sequelize = new Sequelize({
   dialect: "postgres",
   host: process.env.PGHOST,
   port: Number(process.env.PGPORT),
   username: process.env.PGUSER,
   password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE,
+  database: cfg.database,
   logging: false,
 });
 
@@ -38,10 +42,6 @@ interface DbConfig {
   dialect?: string;
   use_env_variable?: string;
 }
-
-type Env = "development" | "test" | "production";
-const env = (process.env.NODE_ENV as Env) || "development";
-const cfg: DbConfig = config[env] || config;
 
 if (!cfg.dialect && !cfg.use_env_variable) {
   throw new Error(

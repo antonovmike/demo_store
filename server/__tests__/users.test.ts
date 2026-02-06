@@ -25,9 +25,15 @@ beforeAll(async () => {
   });
 });
 
-// Clean up the database
 beforeEach(async () => {
-  await User.destroy({ where: {} });
+  await sequelize.sync({ force: true });
+  await Role.bulkCreate([{ name: "user" }, { name: "admin" }]);
+  const userRole = await Role.findOne({ where: { name: "user" } });
+  await User.create({
+    username: "Alice",
+    password_hash: await bcrypt.hash("123456", 10),
+    roleId: userRole!.id,
+  });
 });
 
 // Close Sequelize connection

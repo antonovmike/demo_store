@@ -7,7 +7,7 @@
     "dev": "nodemon --watch src --exec node --loader ts-node/esm src/index.ts",
     "start": "node dist/index.js",
     "build": "tsc",
-    "test": "NODE_ENV=test jest",
+    "test": "jest --runInBand",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed:all": "npx sequelize-cli db:seed:all",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
