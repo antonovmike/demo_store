@@ -1,10 +1,10 @@
 import {
-  Table,
-  Column,
-  Model,
-  ForeignKey,
   BelongsTo,
+  Column,
   DataType,
+  ForeignKey,
+  Model,
+  Table,
 } from "sequelize-typescript";
 import { Role } from "./role.js";
 import { Optional } from "sequelize";
@@ -25,10 +25,10 @@ export class User
 {
   id!: number;
 
-  @Column({ allowNull: false, unique: true })
+  @Column({ type: DataType.STRING, allowNull: false, unique: true })
   username!: string;
 
-  @Column({ allowNull: false })
+  @Column({ type: DataType.STRING, allowNull: false })
   password_hash!: string;
 
   @ForeignKey(() => Role)

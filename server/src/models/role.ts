@@ -1,4 +1,4 @@
-import { Table, Column, Model, HasMany } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 import { User } from "./user.js";
 import { Optional } from "sequelize";
 
@@ -16,7 +16,7 @@ export class Role
 {
   id!: number;
 
-  @Column
+  @Column({ type: DataType.STRING, allowNull: false })
   name!: string;
 
   @HasMany(() => User, { foreignKey: "roleId", as: "users" })
