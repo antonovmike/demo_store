@@ -46,6 +46,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     req.user = {
       id: user.id,
       username: user.username,
+      email: user.email,
       role: user.role?.name,
     };
 
