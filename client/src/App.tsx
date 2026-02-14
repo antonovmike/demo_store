@@ -1,7 +1,6 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext.jsx";
-// import { ProductProvider } from "./context/ProductContext.jsx";
 
 import HomePage from "./components/HomePage";
 import CartPage from "./components/CartPage";

@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import store from "./store/store";
 import StyledPage from "./components/StyledPage";
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <StyledPage>
       <App />
