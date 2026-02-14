@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   registerUser,
@@ -7,15 +7,17 @@ import {
   selectCurrentUser,
 } from "../store/userSlice";
 
+import type { AppDispatch } from "../store/store";
+
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const status = useSelector(selectUserStatus);
   const error = useSelector(selectUserError);
   const user = useSelector(selectCurrentUser);
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registerUser({ username, password }));
   };
@@ -47,11 +49,13 @@ export default function RegisterForm() {
       </form>
       {status === "succeeded" && user && (
         <p className="mt-3 text-sm">
-          ✅ Registered as {user.username || user.name}
+          ✅ Registered as {user.username || user.username}
         </p>
       )}
       {status === "failed" && (
-        <p className="mt-3 text-sm text-red-600">❌ {error?.error || error}</p>
+        <p className="mt-3 text-sm text-red-600">
+          ❌ {error || "Registration failed"}
+        </p>
       )}
     </div>
   );
