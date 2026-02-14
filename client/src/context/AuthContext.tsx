@@ -1,14 +1,18 @@
-import { useState, useEffect } from "react";
-import { AuthContext } from "./AuthContext";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
+import { AuthContext } from "./AuthContext";
 import { initCart, clearCart } from "../store/CartSlice";
 import { setUser as setUserRedux } from "../store/userSlice";
 import { logout as logoutRedux } from "../store/authSlice";
 import store from "../store/store";
 
-export const AuthProvider = ({ children }) => {
+import type { ReactNode } from "react";
+import type { User } from "../store/userSlice";
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {

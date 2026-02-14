@@ -9,7 +9,7 @@ interface RegisterPayload {
   password: string;
 }
 
-interface User {
+export interface User {
   id?: string;
   username: string;
   email?: string;
@@ -55,7 +55,7 @@ const userSlice = createSlice({
         state.error = "Failed to clear local session data";
       }
     },
-    setUser(state, action: PayloadAction<User>) {
+    setUser(state, action: PayloadAction<User | null>) {
       state.user = action.payload;
     },
   },
