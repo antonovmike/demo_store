@@ -12,8 +12,9 @@ describe("Register reducer", () => {
     } else {
       throw new Error("Expected payload in setUser action");
     }
-
-    action = logout();
+  });
+  test("logout returns correct type", () => {
+    const action: ReturnType<typeof logout> = logout();
     expect(action.type).toBe("user/logout");
   });
 });
