@@ -11,7 +11,7 @@ export default function AddProductPage() {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
 
-  const handleAddProduct = async (e) => {
+  const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const res = await api.post("/products", { name, price, description });

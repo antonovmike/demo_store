@@ -5,14 +5,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import api from "../api/axios";
 
 interface RegisterPayload {
-  productname: string;
+  name: string;
   price: number;
   description?: string;
 }
 
-interface Product {
+export interface Product {
   id?: string;
-  productname: string;
+  name: string;
   price: number;
   description?: string;
 }
