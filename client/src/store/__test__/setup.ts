@@ -1,18 +1,18 @@
 Object.defineProperty(window, "localStorage", {
   value: {
-    store: {},
-    getItem(key) {
+    store: {} as Record<string, string>,
+    getItem(key: string): string | null {
       return this.store[key] || null;
     },
-    setItem(key, value) {
+    setItem(key: string, value: string) {
       this.store[key] = String(value);
     },
-    removeItem(key) {
+    removeItem(key: string) {
       delete this.store[key];
     },
     clear() {
       this.store = {};
     },
-  },
+  } as Partial<Storage>,
   writable: true,
 });

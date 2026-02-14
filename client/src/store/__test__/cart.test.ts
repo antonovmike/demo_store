@@ -1,3 +1,5 @@
+import { describe, test, expect, beforeEach } from "vitest";
+
 import cartReducer, {
   addItem,
   removeItem,
@@ -5,7 +7,6 @@ import cartReducer, {
   clearCart,
   initCart,
 } from "../CartSlice.js";
-import { describe, test, expect, beforeEach } from "vitest";
 
 describe("cart reducer basic operations", () => {
   test("addItem adds new item and increments quantity", () => {
@@ -13,7 +14,7 @@ describe("cart reducer basic operations", () => {
 
     state = cartReducer(
       state,
-      addItem({ id: "p1", name: "Prod", price: 9.99 }),
+      addItem({ id: "p1", name: "Prod", price: 9.99, qty: 1 }),
     );
     expect(state.items).toHaveLength(1);
     expect(state.items[0].qty).toBe(1);
@@ -23,7 +24,9 @@ describe("cart reducer basic operations", () => {
   });
 
   test("updateQuantity, removeItem and clearCart work", () => {
-    let state = { items: [{ id: "p2", name: "X", price: 5, qty: 3 }] };
+    let state = cartReducer(undefined, { type: "@@INIT" });
+
+    state = { items: [{ id: "p2", name: "X", price: 5, qty: 3 }] };
 
     state = cartReducer(state, updateQuantity({ id: "p2", qty: 2 }));
     expect(state.items[0].qty).toBe(2);
@@ -31,7 +34,10 @@ describe("cart reducer basic operations", () => {
     state = cartReducer(state, removeItem("p2"));
     expect(state.items).toHaveLength(0);
 
-    state = cartReducer(state, addItem({ id: "p3", name: "Y", price: 1 }));
+    state = cartReducer(
+      state,
+      addItem({ id: "p3", name: "Y", price: 1, qty: 4 }),
+    );
     state = cartReducer(state, clearCart());
     expect(state.items).toHaveLength(0);
   });

@@ -1,24 +1,46 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+import type { PayloadAction } from "@reduxjs/toolkit";
+
 import api from "../api/axios";
 
-export const registerUser = createAsyncThunk(
-  "user/registerUser",
-  async ({ username, password }, { rejectWithValue }) => {
-    try {
-      const res = await api.post("/users/register", { username, password });
-      // if API returns token: const { user, token } = res.data;
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response?.data || err.message);
-    }
-  }
-);
+interface RegisterPayload {
+  username: string;
+  password: string;
+}
 
-const initialState = {
+export interface User {
+  id?: string;
+  username: string;
+  email?: string;
+  token?: string;
+}
+
+interface UserState {
+  user: User | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+
+const initialState: UserState = {
   user: null,
   status: "idle",
   error: null,
 };
+
+export const registerUser = createAsyncThunk<
+  User,
+  RegisterPayload,
+  { rejectValue: string }
+>("user/registerUser", async ({ username, password }, { rejectWithValue }) => {
+  try {
+    const res = await api.post("/users/register", { username, password });
+    // if API returns token: const { user, token } = res.data;
+    return res.data;
+  } catch (err: any) {
+    return rejectWithValue(err.response?.data || err.message);
+  }
+});
 
 const userSlice = createSlice({
   name: "user",
@@ -28,11 +50,12 @@ const userSlice = createSlice({
       state.user = null;
       try {
         localStorage.removeItem("token");
-      } catch {
-        /* ignore */
+      } catch (err: any) {
+        console.error("Failed to remove token from localStorage:", err);
+        state.error = "Failed to clear local session data";
       }
     },
-    setUser(state, action) {
+    setUser(state, action: PayloadAction<User | null>) {
       state.user = action.payload;
     },
   },
@@ -45,18 +68,20 @@ const userSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.user = action.payload;
-        // if token present: try { localStorage.setItem('token', action.payload.token); api.defaults.headers.common.Authorization = `Bearer ${action.payload.token}` } catch {}
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.error =
+          (action.payload as string) || action.error.message || null;
       });
   },
 });
 
 export const { logout, setUser } = userSlice.actions;
-export const selectCurrentUser = (state) => state.user.user;
-export const selectUserStatus = (state) => state.user.status;
-export const selectUserError = (state) => state.user.error;
+export const selectCurrentUser = (state: { user: UserState }) =>
+  state.user.user;
+export const selectUserStatus = (state: { user: UserState }) =>
+  state.user.status;
+export const selectUserError = (state: { user: UserState }) => state.user.error;
 
 export default userSlice.reducer;

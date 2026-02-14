@@ -1,4 +1,11 @@
-export default function StyledLink({ href, children }) {
+import type { ReactNode } from "react";
+
+interface StyledLinkProps {
+  href: string;
+  children: ReactNode;
+}
+
+export default function StyledLink({ href, children }: StyledLinkProps) {
   return (
     <a
       href={href}

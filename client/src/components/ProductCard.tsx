@@ -1,7 +1,9 @@
 import { useDispatch } from "react-redux";
 import { addItem } from "../store/CartSlice";
 
-export default function ProductCard({ product }) {
+import type { Product } from "../store/ProductsSlice";
+
+export default function ProductCard({ product }: { product: Product }) {
   const dispatch = useDispatch();
   if (!product) return null;
 
@@ -19,6 +21,7 @@ export default function ProductCard({ product }) {
               id: product.id,
               name: product.name,
               price: product.price,
+              qty: 1,
             }),
           )
         }
