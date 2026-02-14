@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
+import type { Middleware } from "@reduxjs/toolkit";
+
 import cartReducer from "./CartSlice";
 import productsReducer from "./ProductsSlice";
 import userReducer from "./userSlice";
 import authReducer from "./authSlice";
 
-const localStorageMiddleware = (storeAPI) => (next) => (action) => {
+const localStorageMiddleware: Middleware = (storeAPI) => (next) => (action) => {
   const result = next(action);
   // Persist cart after reducers run
   const state = storeAPI.getState();
