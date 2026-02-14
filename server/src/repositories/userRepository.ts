@@ -23,7 +23,7 @@ async function createUser(
 
   const user = await User.create({
     username,
-    email: `${username}@example.com`,
+    email: email,
     password_hash: passwordHash,
     roleId: role.id,
   });
