@@ -1,11 +1,15 @@
-import { setUser } from "../userSlice";
+import { logout, setUser } from "../userSlice";
 import { describe, test, expect } from "vitest";
+
+type UserActions = ReturnType<typeof setUser> | ReturnType<typeof logout>;
 
 describe("Register reducer", () => {
   test("sets username on setUser", () => {
-    let state = setUser(null);
+    let action: UserActions;
+    action = setUser({ id: "u1", username: "testuser" });
+    expect(action.payload.username).toBe("testuser");
 
-    state = setUser({ id: "u1", username: "testuser" });
-    expect(state.payload.username).toBe("testuser");
+    action = logout();
+    expect(action.type).toBe("user/logout");
   });
 });
