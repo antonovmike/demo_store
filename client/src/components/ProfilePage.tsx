@@ -1,12 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import type { AxiosError } from "axios";
 import api from "../api/axios";
+import { useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
+
+import type { User } from "../store/userSlice";
 
 export default function ProfilePage() {
   const auth = useContext(AuthContext);
   if (!auth) throw new Error("AuthContext not provided");
   const { token, logout } = auth;
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState<User | null>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -18,10 +22,11 @@ export default function ProfilePage() {
         console.log("✅ Profile data:", res.data);
         setProfile(res.data);
       } catch (err) {
+        const error = err as AxiosError<{ error: string }>;
         console.error(
           "❌ Failed to fetch profile:",
-          err.response?.status,
-          err.response?.data,
+          error.response?.status,
+          error.response?.data,
         );
         setProfile(null);
       }
