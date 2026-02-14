@@ -12,6 +12,7 @@ import { Optional } from "sequelize";
 interface UserAttributes {
   id: number;
   username: string;
+  email: string;
   password_hash: string;
   roleId: number;
 }
@@ -25,8 +26,11 @@ export class User
 {
   id!: number;
 
-  @Column({ type: DataType.STRING, allowNull: false, unique: true })
+  @Column({ type: DataType.STRING, allowNull: false })
   username!: string;
+
+  @Column({ type: DataType.STRING, allowNull: false, unique: true })
+  email!: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
   password_hash!: string;

@@ -22,10 +22,16 @@ async function createUser(
 
   const user = await User.create({
     username,
+    email: `${username}@example.com`,
     password_hash: passwordHash,
     roleId: role.id,
   });
-  return { id: user.id, username: user.username, role: role.name };
+  return {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    role: role.name,
+  };
 }
 
 // Find user by username
