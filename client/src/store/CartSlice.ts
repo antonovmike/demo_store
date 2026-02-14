@@ -6,7 +6,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface CartItem {
   id: string;
-  productname?: string;
+  name?: string;
   price?: number;
   qty: number;
 }
