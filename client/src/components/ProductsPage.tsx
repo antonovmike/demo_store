@@ -8,8 +8,10 @@ import {
 } from "../store/ProductsSlice";
 import ProductCard from "./ProductCard";
 
+import type { AppDispatch } from "../store/store";
+
 export default function ProductsPage() {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   const status = useSelector(selectProductsStatus);
   const error = useSelector(selectProductsError);

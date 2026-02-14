@@ -4,12 +4,6 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import api from "../api/axios";
 
-interface RegisterPayload {
-  name: string;
-  price: number;
-  description?: string;
-}
-
 export interface Product {
   id?: string;
   name: string;
@@ -40,7 +34,7 @@ const initialState: ProductsState = {
 
 export const fetchProducts = createAsyncThunk<
   Product[],
-  RegisterPayload,
+  void,
   { rejectValue: string }
 >("products/fetchProducts", async (_, { rejectWithValue }) => {
   try {
