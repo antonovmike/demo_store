@@ -3,7 +3,9 @@ import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 
 export default function ProfilePage() {
-  const { token, logout } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
+  if (!auth) throw new Error("AuthContext not provided");
+  const { token, logout } = auth;
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {

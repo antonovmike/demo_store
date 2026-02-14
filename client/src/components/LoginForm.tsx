@@ -10,7 +10,11 @@ export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const { setUser, setToken } = useContext(AuthContext);
+
+  const auth = useContext(AuthContext);
+  if (!auth) throw new Error("AuthContext not provided");
+  const { setUser, setToken } = auth;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
