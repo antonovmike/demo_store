@@ -3,6 +3,7 @@ import { User, Role } from "../models/index.js";
 // Create user
 async function createUser(
   username: string,
+  email: string,
   passwordHash: string,
   roleName = "user",
 ) {
