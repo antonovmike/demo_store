@@ -1,5 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+import type { PayloadAction } from "@reduxjs/toolkit";
+
 import api from "../api/axios";
+
+interface RegisterPayload {
+  productname: string;
+  price: number;
+  description?: string;
+}
+
+interface Product {
+  id?: string;
+  productname: string;
+  price: number;
+  description?: string;
+}
+
+interface ProductsState {
+  items: Product[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
 
 const loadFromLocal = () => {
   try {
@@ -10,23 +32,24 @@ const loadFromLocal = () => {
   }
 };
 
-const initialState = {
+const initialState: ProductsState = {
   items: loadFromLocal(),
   status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
 };
 
-export const fetchProducts = createAsyncThunk(
-  "products/fetchProducts",
-  async (_, { rejectWithValue }) => {
-    try {
-      const res = await api.get("/products");
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response?.data || err.message);
-    }
-  },
-);
+export const fetchProducts = createAsyncThunk<
+  Product[],
+  RegisterPayload,
+  { rejectValue: string }
+>("products/fetchProducts", async (_, { rejectWithValue }) => {
+  try {
+    const res = await api.get("/products");
+    return res.data;
+  } catch (err: any) {
+    return rejectWithValue(err.response?.data || err.message);
+  }
+});
 
 const productsSlice = createSlice({
   name: "products",
@@ -65,25 +88,32 @@ const productsSlice = createSlice({
         state.status = "loading";
         state.error = null;
       })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.items = action.payload;
-        try {
-          localStorage.setItem("products", JSON.stringify(state.items));
-        } catch (err) {
-          console.log("Failed to persist products:", err);
-        }
-      })
+      .addCase(
+        fetchProducts.fulfilled,
+        (state, action: PayloadAction<Product[]>) => {
+          state.status = "succeeded";
+          state.items = action.payload;
+          try {
+            localStorage.setItem("products", JSON.stringify(state.items));
+          } catch (err) {
+            console.log("Failed to persist products:", err);
+          }
+        },
+      )
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.error =
+          (action.payload as string) || action.error.message || null;
       });
   },
 });
 
 export const { addProduct, setProducts, clearProducts } = productsSlice.actions;
-export const selectAllProducts = (state) => state.products.items;
-export const selectProductsStatus = (state) => state.products.status;
-export const selectProductsError = (state) => state.products.error;
+export const selectAllProducts = (state: { products: ProductsState }) =>
+  state.products.items;
+export const selectProductsStatus = (state: { products: ProductsState }) =>
+  state.products.status;
+export const selectProductsError = (state: { products: ProductsState }) =>
+  state.products.error;
 
 export default productsSlice.reducer;
