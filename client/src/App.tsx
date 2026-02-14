@@ -16,7 +16,6 @@ import StyledLink from "./components/StyledLink";
 function App() {
   return (
     <AuthProvider>
-      {/* <ProductProvider> */}
       <HashRouter>
         <StyledPage>
           <nav>
@@ -46,7 +45,6 @@ function App() {
           </Routes>
         </StyledPage>
       </HashRouter>
-      {/* </ProductProvider> */}
     </AuthProvider>
   );
 }
