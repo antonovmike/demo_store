@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeItem, updateQuantity, clearCart } from "../store/CartSlice";
 
 import type { CartItem } from "../store/CartSlice";
+import type { RootState } from "../store/store";
 
 export default function CartPage() {
-  const items = useSelector((s: any) => s.cart.items);
+  const items = useSelector((s: RootState) => s.cart.items);
   const dispatch = useDispatch();
   const total = items.reduce(
     (sum: number, item: CartItem) => sum + (item.price || 0) * (item.qty || 0),
