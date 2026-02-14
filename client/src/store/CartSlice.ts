@@ -4,7 +4,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 // slice reads localStorage during initialization
 
-interface CartItem {
+export interface CartItem {
   id: string;
   name?: string;
   price?: number;

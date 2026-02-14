@@ -1,12 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
+
 import { removeItem, updateQuantity, clearCart } from "../store/CartSlice";
 
+import type { CartItem } from "../store/CartSlice";
+
 export default function CartPage() {
-  const items = useSelector((s) => s.cart.items);
+  const items = useSelector((s: any) => s.cart.items);
   const dispatch = useDispatch();
   const total = items.reduce(
-    (sum, item) => sum + (item.price || 0) * (item.qty || 0),
-    0
+    (sum: number, item: CartItem) => sum + (item.price || 0) * (item.qty || 0),
+    0,
   );
 
   return (
@@ -14,7 +17,7 @@ export default function CartPage() {
       <h2>Cart</h2>
       {items.length === 0 && <div>Your cart is empty</div>}
       <div className="space-y-4">
-        {items.map((item) => (
+        {items.map((item: CartItem) => (
           <div key={item.id}>
             <div>
               {item.name} — ${item.price} × {item.qty}
@@ -25,14 +28,14 @@ export default function CartPage() {
                   updateQuantity({
                     id: item.id,
                     qty: Math.max(1, item.qty - 1),
-                  })
+                  }),
                 )
               }
               className="px-2 py-1 bg-gray-200 rounded"
             >
               −
             </button>
-            <span>{item.quantity}</span>
+            <span>{item.qty}</span>
             <button
               onClick={() =>
                 dispatch(updateQuantity({ id: item.id, qty: item.qty + 1 }))
@@ -56,7 +59,7 @@ export default function CartPage() {
                   updateQuantity({
                     id: item.id,
                     qty: Number(e.target.value),
-                  })
+                  }),
                 )
               }
             />
