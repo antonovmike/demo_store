@@ -106,11 +106,19 @@ describe("User routes", () => {
   test("POST /users/login works with valid credentials", async () => {
     await request(app)
       .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+      .send({
+        username: "Alice",
+        email: "alice@example.com",
+        password: "123456",
+      });
 
     const res = await request(app)
       .post("/users/login")
-      .send({ username: "Alice", password: "123456" });
+      .send({
+        username: "Alice",
+        email: "alice@example.com",
+        password: "123456",
+      });
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("token");
@@ -137,21 +145,17 @@ describe("User routes", () => {
   // Secure route test /me with valid token
   test("GET /users/me returns user data with valid token", async () => {
     // First, register and log in.
-    await request(app)
-      .post("/users/register")
-      .send({
-        username: "Alice",
-        email: "alice@example.com",
-        password: "123456",
-      });
+    await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
-    const loginRes = await request(app)
-      .post("/users/login")
-      .send({
-        username: "Alice",
-        email: "alice@example.com",
-        password: "123456",
-      });
+    const loginRes = await request(app).post("/users/login").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
     const token = loginRes.body.token;
 
