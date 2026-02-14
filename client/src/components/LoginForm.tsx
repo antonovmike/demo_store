@@ -1,4 +1,5 @@
-import { useState, useContext } from "react";
+import type { AxiosError } from "axios";
+import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 
 import api from "../api/axios";
@@ -18,7 +19,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const res = await api.post("/users/login", { username, password });
@@ -28,7 +29,8 @@ export default function LoginForm() {
       setMessage("✅ Logged in successfully!");
       navigate("/profile");
     } catch (err) {
-      setMessage(`❌ ${err.response?.data?.error || "Login failed"}`);
+      const error = err as AxiosError<{ error: string }>;
+      setMessage(`❌ ${error.response?.data?.error || "Login failed"}`);
     }
   };
 
