@@ -7,7 +7,11 @@ describe("Register reducer", () => {
   test("sets username on setUser", () => {
     let action: UserActions;
     action = setUser({ id: "u1", username: "testuser" });
-    expect(action.payload.username).toBe("testuser");
+    if ("payload" in action && action.payload) {
+      expect(action.payload.username).toBe("testuser");
+    } else {
+      throw new Error("Expected payload in setUser action");
+    }
 
     action = logout();
     expect(action.type).toBe("user/logout");
