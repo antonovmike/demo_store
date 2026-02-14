@@ -5,7 +5,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import api from "../api/axios";
 
 export interface Product {
-  id?: string;
+  id: string;
   name: string;
   price: number;
   description?: string;
