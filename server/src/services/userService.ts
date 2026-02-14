@@ -3,9 +3,14 @@ import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../serverConfig.js";
 import userRepository from "../repositories/userRepository.js";
 
-async function register(username: string, password: string, role?: string) {
+async function register(
+  username: string,
+  email: string,
+  password: string,
+  role?: string,
+) {
   if (!username || !password) {
-    throw new Error("Username and password are required");
+    throw new Error("Username, email and password are required");
   }
 
   const existing = await userRepository.findUserByUsername(username);

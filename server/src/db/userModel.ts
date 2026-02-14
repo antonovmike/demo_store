@@ -11,6 +11,7 @@ console.log(
 // Create user
 async function createUser(
   username: string,
+  email: string,
   passwordHash: string,
   roleName = "user",
 ) {
@@ -33,11 +34,17 @@ async function createUser(
 
     const user = await User.create({
       username,
+      email: email,
       password_hash: passwordHash,
       roleId: role.id,
     });
 
-    return { id: user.id, username: user.username, role: role.name };
+    return {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: role.name,
+    };
   } catch (err) {
     console.error("Error creating user:", err);
     throw err;

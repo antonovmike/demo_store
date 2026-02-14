@@ -139,11 +139,19 @@ describe("User routes", () => {
     // First, register and log in.
     await request(app)
       .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+      .send({
+        username: "Alice",
+        email: "alice@example.com",
+        password: "123456",
+      });
 
     const loginRes = await request(app)
       .post("/users/login")
-      .send({ username: "Alice", password: "123456" });
+      .send({
+        username: "Alice",
+        email: "alice@example.com",
+        password: "123456",
+      });
 
     const token = loginRes.body.token;
 

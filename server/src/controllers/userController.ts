@@ -15,8 +15,8 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
 
 async function register(req: Request, res: Response, next: NextFunction) {
   try {
-    const { username, password, role } = req.body;
-    const user = await userService.register(username, password, role);
+    const { username, email, password, role } = req.body;
+    const user = await userService.register(username, email, password, role);
     res.status(201).json(user);
   } catch (err) {
     const error = err as Error;
