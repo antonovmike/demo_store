@@ -15,11 +15,13 @@ beforeAll(async () => {
   // Create test users
   await User.create({
     username: "Alice",
+    email: "alice@example.com",
     password_hash: await bcrypt.hash("123456", 10),
     roleId: 1, // user role
   });
   await User.create({
     username: "AdminUser",
+    email: "admin@example.com",
     password_hash: await bcrypt.hash("adminpass", 10),
     roleId: 2, // admin role
   });
@@ -64,6 +66,7 @@ describe("User routes", () => {
 
     await User.create({
       username: "AdminUser",
+      email: "admin@example.com",
       password_hash: passwordHash,
       roleId: adminRole!.id,
     });
