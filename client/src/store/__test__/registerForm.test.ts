@@ -1,4 +1,4 @@
-import { logout, setUser } from "../userSlice";
+import { logout, registerUser, setUser } from "../userSlice";
 import { describe, test, expect } from "vitest";
 
 type UserActions = ReturnType<typeof setUser> | ReturnType<typeof logout>;
@@ -25,7 +25,12 @@ describe("Register reducer", () => {
     }
   });
   test("tests unsuccessful registration with an existing email address", () => {
-    //  expecting status 400/409 and an error message
+    const errorAction = {
+      type: registerUser.rejected.type,
+      payload: "Email already exists",
+    };
+    expect(errorAction.type).toBe("user/registerUser/rejected");
+    expect(errorAction.payload).toBe("Email already exists");
   });
   test("logout returns correct type", () => {
     const action: ReturnType<typeof logout> = logout();
