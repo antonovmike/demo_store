@@ -13,6 +13,20 @@ describe("Register reducer", () => {
       throw new Error("Expected payload in setUser action");
     }
   });
+  test("tests successful registration with a new email address", () => {
+    let action: UserActions;
+    action = setUser({ id: "u2", email: "newuser@example.com" });
+    if ("payload" in action && action.payload) {
+      expect(action.type).toBe("user/setUser");
+      expect(action.payload.email).toBe("newuser@example.com");
+      expect(action.payload.id).toBe("u2");
+    } else {
+      throw new Error("Expected payload in setUser action");
+    }
+  });
+  test("tests unsuccessful registration with an existing email address", () => {
+    //  expecting status 400/409 and an error message
+  });
   test("logout returns correct type", () => {
     const action: ReturnType<typeof logout> = logout();
     expect(action.type).toBe("user/logout");
