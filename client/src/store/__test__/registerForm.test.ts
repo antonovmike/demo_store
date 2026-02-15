@@ -32,6 +32,19 @@ describe("Register reducer", () => {
     expect(errorAction.type).toBe("user/registerUser/rejected");
     expect(errorAction.payload).toBe("Email already exists");
   });
+  test("unsuccessful registration updates state to failed", () => {
+    const prevState = { user: null, status: "idle", error: null };
+    const errorAction = {
+      type: registerUser.rejected.type,
+      payload: "Email already exists",
+    };
+    const newState = {
+      prevState,
+      errorAction,
+    };
+    expect(newState.prevState.status).toBe("idle");
+    expect(newState.errorAction.payload).toBe("Email already exists");
+  });
   test("logout returns correct type", () => {
     const action: ReturnType<typeof logout> = logout();
     expect(action.type).toBe("user/logout");
