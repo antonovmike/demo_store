@@ -11,6 +11,7 @@ import type { AppDispatch } from "../store/store";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch: AppDispatch = useDispatch();
   const status = useSelector(selectUserStatus);
@@ -19,7 +20,7 @@ export default function RegisterForm() {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(registerUser({ username, password }));
+    dispatch(registerUser({ username, email, password }));
   };
 
   return (
@@ -31,6 +32,13 @@ export default function RegisterForm() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          className="border p-2 rounded"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="border p-2 rounded"
         />
         <input

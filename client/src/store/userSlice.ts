@@ -6,6 +6,7 @@ import api from "../api/axios";
 
 interface RegisterPayload {
   username: string;
+  email: string;
   password: string;
 }
 
@@ -32,15 +33,22 @@ export const registerUser = createAsyncThunk<
   User,
   RegisterPayload,
   { rejectValue: string }
->("user/registerUser", async ({ username, password }, { rejectWithValue }) => {
-  try {
-    const res = await api.post("/users/register", { username, password });
-    // if API returns token: const { user, token } = res.data;
-    return res.data;
-  } catch (err: any) {
-    return rejectWithValue(err.response?.data || err.message);
-  }
-});
+>(
+  "user/registerUser",
+  async ({ username, email, password }, { rejectWithValue }) => {
+    try {
+      const res = await api.post("/users/register", {
+        username,
+        email,
+        password,
+      });
+      // if API returns token: const { user, token } = res.data;
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
 
 const userSlice = createSlice({
   name: "user",
