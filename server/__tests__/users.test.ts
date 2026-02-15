@@ -90,8 +90,8 @@ describe("User routes", () => {
     expect(dbUser!.role!.name).toBe("admin");
   });
 
-  // Test user registration with existing username fails
-  test("POST /users/register with existing username fails", async () => {
+  // Test user registration with existing email fails
+  test("POST /users/register with existing email fails", async () => {
     await request(app).post("/users/register").send({
       username: "Alice",
       email: "alice@example.com",
