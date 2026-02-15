@@ -27,11 +27,11 @@ export default function LoginForm() {
         password,
       });
       setToken(res.data.token);
-      setUser({ email: useremail, username: "" });
+      setUser({ email: useremail });
       setUserEmail(useremail);
       dispatch(
         loginSuccess({
-          user: { email: useremail, username: "" },
+          user: { email: useremail },
           token: res.data.token,
         }),
       );
