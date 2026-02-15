@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 
 import userService from "../services/userService.js";
+import sendPasswordResetEmail from "../services/email/sendPasswordReset.js";
 
 async function getMe(req: Request, res: Response, next: NextFunction) {
   try {
@@ -54,4 +55,10 @@ async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export default { getMe, register, login };
+async function resetPassword(req: Request, res: Response) {
+  const { email } = req.body;
+  await sendPasswordResetEmail(email);
+  res.status(200).json({ success: true });
+}
+
+export default { getMe, register, login, resetPassword };

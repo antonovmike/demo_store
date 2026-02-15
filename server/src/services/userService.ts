@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 import { SECRET_KEY } from "../serverConfig.js";
 import userRepository from "../repositories/userRepository.js";
 
@@ -46,4 +47,13 @@ async function login(email: string, password: string) {
   return token;
 }
 
-export default { register, login };
+async function resetPassword(email: string, newPassword: string) {
+  const user = await userRepository.findUserByEmail(email);
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // todo
+}
+
+export default { register, login, resetPassword };

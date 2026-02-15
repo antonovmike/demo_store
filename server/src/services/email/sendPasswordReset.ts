@@ -1,11 +1,8 @@
 import transporter from "./transporter";
 import jwt from "jsonwebtoken";
 
-export async function sendPasswordResetEmail(
-  userEmail: string,
-  userId: string,
-) {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET!, {
+export default async function sendPasswordResetEmail(userEmail: string) {
+  const token = jwt.sign({ userEmail }, process.env.JWT_SECRET!, {
     expiresIn: "1h",
   });
   const resetUrl = `https://example.com/reset-password?token=${token}`;

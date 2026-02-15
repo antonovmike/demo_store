@@ -26,6 +26,7 @@ app.use(express.json());
 app.use("/", basicRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
+app.use("/reset-password", usersRoutes);
 
 // Error handling
 app.use(notFound);
