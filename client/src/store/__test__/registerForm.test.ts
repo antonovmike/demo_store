@@ -4,11 +4,11 @@ import { describe, test, expect } from "vitest";
 type UserActions = ReturnType<typeof setUser> | ReturnType<typeof logout>;
 
 describe("Register reducer", () => {
-  test("sets username on setUser", () => {
+  test("sets email on setUser", () => {
     let action: UserActions;
-    action = setUser({ id: "u1", username: "testuser" });
+    action = setUser({ id: "u1", email: "testuser@example.com" });
     if ("payload" in action && action.payload) {
-      expect(action.payload.username).toBe("testuser");
+      expect(action.payload.email).toBe("testuser@example.com");
     } else {
       throw new Error("Expected payload in setUser action");
     }
