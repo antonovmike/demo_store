@@ -51,11 +51,11 @@ describe("cart reducer with localStorage", () => {
   test("initCart loads items for specific user", () => {
     // Setup localStorage for two users
     localStorage.setItem(
-      "cart_alice",
+      "cart_alice@mail.com",
       JSON.stringify([{ id: "a1", name: "Apple", price: 1, qty: 2 }]),
     );
     localStorage.setItem(
-      "cart_bob",
+      "cart_bob@mail.com",
       JSON.stringify([{ id: "b1", name: "Banana", price: 2, qty: 5 }]),
     );
 
@@ -63,12 +63,12 @@ describe("cart reducer with localStorage", () => {
     expect(state.items).toHaveLength(0);
 
     // Init cart for Alice
-    state = cartReducer(state, initCart("alice"));
+    state = cartReducer(state, initCart("alice@mail.com"));
     expect(state.items).toHaveLength(1);
     expect(state.items[0].name).toBe("Apple");
 
     // Switch to Bob
-    state = cartReducer(state, initCart("bob"));
+    state = cartReducer(state, initCart("bob@mail.com"));
     expect(state.items).toHaveLength(1);
     expect(state.items[0].name).toBe("Banana");
     expect(state.items[0].qty).toBe(5);
@@ -76,11 +76,11 @@ describe("cart reducer with localStorage", () => {
 
   test("clearCart empties items when user logs out", () => {
     localStorage.setItem(
-      "cart_alice",
+      "cart_alice@mail.com",
       JSON.stringify([{ id: "a1", name: "Apple", price: 1, qty: 2 }]),
     );
 
-    let state = cartReducer(undefined, initCart("alice"));
+    let state = cartReducer(undefined, initCart("alice@mail.com"));
     expect(state.items).toHaveLength(1);
 
     state = cartReducer(state, clearCart());
