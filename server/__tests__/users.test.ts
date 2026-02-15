@@ -40,9 +40,11 @@ afterAll(async () => {
 describe("User routes", () => {
   // Test user registration with default role
   test("POST /users/register creates a new user with role 'user'", async () => {
-    const res = await request(app)
-      .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+    const res = await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
@@ -90,14 +92,17 @@ describe("User routes", () => {
 
   // Test user registration with existing username fails
   test("POST /users/register with existing username fails", async () => {
-    await request(app)
-      .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+    await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
-    const res = await request(app)
-      .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
-
+    const res = await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
     expect(res.statusCode).toBe(400);
     expect(res.body).toHaveProperty("error", "User already exists");
   });
