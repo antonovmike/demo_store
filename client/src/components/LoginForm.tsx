@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { loginSuccess } from "../store/authSlice";
 
 export default function LoginForm() {
-  const [username, setUsername] = useState("");
+  const [useremail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
@@ -22,10 +22,19 @@ export default function LoginForm() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await api.post("/users/login", { username, password });
+      const res = await api.post("/users/login", {
+        email: useremail,
+        password,
+      });
       setToken(res.data.token);
-      setUser({ username });
-      dispatch(loginSuccess({ user: { username }, token: res.data.token }));
+      setUser({ email: useremail, username: "" });
+      setUserEmail(useremail);
+      dispatch(
+        loginSuccess({
+          user: { email: useremail, username: "" },
+          token: res.data.token,
+        }),
+      );
       setMessage("✅ Logged in successfully!");
       navigate("/profile");
     } catch (err) {
@@ -40,9 +49,9 @@ export default function LoginForm() {
       <form onSubmit={handleLogin} className="flex flex-col gap-3">
         <input
           type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Useremail"
+          value={useremail}
+          onChange={(e) => setUserEmail(e.target.value)}
           className="border p-2 rounded"
         />
         <input
