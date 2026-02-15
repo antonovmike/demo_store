@@ -15,11 +15,11 @@ interface CartState {
   items: CartItem[];
 }
 
-const loadFromLocal = (username: string) => {
-  if (!username) return [];
+const loadFromLocal = (email: string) => {
+  if (!email) return [];
   try {
-    const raw = localStorage.getItem("cart_" + username);
-    console.log("loadFromLocal for", username, "raw =", raw);
+    const raw = localStorage.getItem("cart_" + email);
+    console.log("loadFromLocal for", email, "raw =", raw);
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
@@ -52,10 +52,10 @@ const cartSlice = createSlice({
       state.items = [];
     },
     initCart(state, action: PayloadAction<string>) {
-      const username = action.payload;
-      state.items = loadFromLocal(username);
-      const raw = localStorage.getItem("cart_" + username);
-      console.log("initCart loading for", username, "raw =", raw);
+      const email = action.payload;
+      state.items = loadFromLocal(email);
+      const raw = localStorage.getItem("cart_" + email);
+      console.log("initCart loading for", email, "raw =", raw);
       state.items = raw ? JSON.parse(raw) : [];
     },
   },
