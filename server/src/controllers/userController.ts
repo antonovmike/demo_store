@@ -5,7 +5,12 @@ import userService from "../services/userService.js";
 async function getMe(req: Request, res: Response, next: NextFunction) {
   try {
     const user = req.user;
-    res.json({ id: user.id, username: user.username, role: user.role });
+    res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+    });
   } catch (err) {
     const error = err as Error;
     console.error("Error fetching user info:", error.message);

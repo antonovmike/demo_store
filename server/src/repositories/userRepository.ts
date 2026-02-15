@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { User, Role } from "../models/index.js";
 
 // Create user
@@ -41,9 +42,24 @@ async function findUserByUsername(username: string) {
   return user ? user.get({ plain: true }) : undefined;
 }
 
+// Temporary function to support login by either field
+async function findUserByUsernameOrEmail(identifier: string) {
+  const user = await User.findOne({
+    where: {
+      [Op.or]: [{ username: identifier }, { email: identifier }],
+    },
+  });
+  return user ? user.get({ plain: true }) : undefined;
+}
+
 // Remove all users (for testing purposes)
 async function deleteAllUsers() {
   await User.destroy({ where: {} });
 }
 
-export default { createUser, findUserByUsername, deleteAllUsers };
+export default {
+  createUser,
+  findUserByUsername,
+  findUserByUsernameOrEmail,
+  deleteAllUsers,
+};

@@ -104,21 +104,17 @@ describe("User routes", () => {
 
   // Test user login works with valid credentials
   test("POST /users/login works with valid credentials", async () => {
-    await request(app)
-      .post("/users/register")
-      .send({
-        username: "Alice",
-        email: "alice@example.com",
-        password: "123456",
-      });
+    await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
-    const res = await request(app)
-      .post("/users/login")
-      .send({
-        username: "Alice",
-        email: "alice@example.com",
-        password: "123456",
-      });
+    const res = await request(app).post("/users/login").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("token");
