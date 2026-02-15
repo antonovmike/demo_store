@@ -75,13 +75,13 @@ describe("User routes", () => {
 
     const loginRes = await request(app)
       .post("/users/login")
-      .send({ username: "AdminUser", password: "adminpass" });
+      .send({ email: "admin@example.com", password: "adminpass" });
 
     expect(loginRes.statusCode).toBe(200);
     expect(loginRes.body).toHaveProperty("token");
 
     const dbUser = await User.findOne({
-      where: { username: "AdminUser" },
+      where: { email: "admin@example.com" },
       include: [{ model: Role, as: "role" }],
     });
 
@@ -130,16 +130,16 @@ describe("User routes", () => {
   test("POST /users/login fails with invalid password", async () => {
     await request(app)
       .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+      .send({ email: "alice@example.com", password: "123456" });
 
     const res = await request(app)
       .post("/users/login")
-      .send({ username: "Alice", password: "wrongpassword" });
+      .send({ email: "alice@example.com", password: "wrongpassword" });
 
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty(
       "error",
-      "User not found or invalid username or password",
+      "User not found or invalid email or password",
     );
   });
 
@@ -166,7 +166,7 @@ describe("User routes", () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("id");
-    expect(res.body).toHaveProperty("username", "Alice");
+    expect(res.body).toHaveProperty("email", "alice@example.com");
   });
 
   // Secure route test /me without token
