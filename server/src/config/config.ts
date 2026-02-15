@@ -5,6 +5,7 @@ dotenv.config();
 export default {
   development: {
     username: process.env.PGUSER,
+    email: process.env.PGEMAIL,
     password: process.env.PGPASSWORD,
     database: process.env.PGDATABASE,
     host: process.env.PGHOST,
@@ -13,6 +14,7 @@ export default {
   },
   test: {
     username: process.env.PGUSER,
+    email: process.env.PGEMAIL,
     password: process.env.PGPASSWORD,
     database: process.env.PGDATABASE_TEST,
     host: process.env.PGHOST,
@@ -21,6 +23,7 @@ export default {
   },
   production: {
     username: process.env.PGUSER,
+    email: process.env.PGEMAIL,
     password: process.env.PGPASSWORD,
     database: process.env.PGDATABASE,
     host: process.env.PGHOST,
