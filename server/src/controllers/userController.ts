@@ -5,7 +5,12 @@ import userService from "../services/userService.js";
 async function getMe(req: Request, res: Response, next: NextFunction) {
   try {
     const user = req.user;
-    res.json({ id: user.id, username: user.username, role: user.role });
+    res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+    });
   } catch (err) {
     const error = err as Error;
     console.error("Error fetching user info:", error.message);
@@ -15,8 +20,8 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
 
 async function register(req: Request, res: Response, next: NextFunction) {
   try {
-    const { username, password, role } = req.body;
-    const user = await userService.register(username, password, role);
+    const { username, email, password, role } = req.body;
+    const user = await userService.register(username, email, password, role);
     res.status(201).json(user);
   } catch (err) {
     const error = err as Error;
@@ -33,16 +38,16 @@ async function register(req: Request, res: Response, next: NextFunction) {
 
 async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const { username, password } = req.body;
-    const token = await userService.login(username, password);
+    const { email, password } = req.body;
+    const token = await userService.login(email, password);
     res.json({ token });
   } catch (err) {
     const error = err as Error;
     console.error("Error logging in user:", error.message);
-    if (error.message === "Username and password are required") {
+    if (error.message === "Email and password are required") {
       return res.status(400).json({ error: error.message });
     }
-    if (error.message === "User not found or invalid username or password") {
+    if (error.message === "User not found or invalid email or password") {
       return res.status(401).json({ error: error.message });
     }
     next(error);

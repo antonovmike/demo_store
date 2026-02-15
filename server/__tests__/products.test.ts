@@ -25,6 +25,7 @@ beforeAll(async () => {
   const passwordHash = await bcrypt.hash("adminpass", 10);
   const admin = await User.create({
     username: "Admin",
+    email: "admin@example.com",
     password_hash: passwordHash,
     roleId: adminRole.id,
   });

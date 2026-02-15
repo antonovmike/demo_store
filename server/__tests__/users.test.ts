@@ -15,11 +15,13 @@ beforeAll(async () => {
   // Create test users
   await User.create({
     username: "Alice",
+    email: "alice@example.com",
     password_hash: await bcrypt.hash("123456", 10),
     roleId: 1, // user role
   });
   await User.create({
     username: "AdminUser",
+    email: "admin@example.com",
     password_hash: await bcrypt.hash("adminpass", 10),
     roleId: 2, // admin role
   });
@@ -38,9 +40,11 @@ afterAll(async () => {
 describe("User routes", () => {
   // Test user registration with default role
   test("POST /users/register creates a new user with role 'user'", async () => {
-    const res = await request(app)
-      .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+    const res = await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
@@ -64,19 +68,20 @@ describe("User routes", () => {
 
     await User.create({
       username: "AdminUser",
+      email: "admin@example.com",
       password_hash: passwordHash,
       roleId: adminRole!.id,
     });
 
     const loginRes = await request(app)
       .post("/users/login")
-      .send({ username: "AdminUser", password: "adminpass" });
+      .send({ email: "admin@example.com", password: "adminpass" });
 
     expect(loginRes.statusCode).toBe(200);
     expect(loginRes.body).toHaveProperty("token");
 
     const dbUser = await User.findOne({
-      where: { username: "AdminUser" },
+      where: { email: "admin@example.com" },
       include: [{ model: Role, as: "role" }],
     });
 
@@ -85,29 +90,36 @@ describe("User routes", () => {
     expect(dbUser!.role!.name).toBe("admin");
   });
 
-  // Test user registration with existing username fails
-  test("POST /users/register with existing username fails", async () => {
-    await request(app)
-      .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+  // Test user registration with existing email fails
+  test("POST /users/register with existing email fails", async () => {
+    await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
-    const res = await request(app)
-      .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
-
+    const res = await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
     expect(res.statusCode).toBe(400);
     expect(res.body).toHaveProperty("error", "User already exists");
   });
 
   // Test user login works with valid credentials
   test("POST /users/login works with valid credentials", async () => {
-    await request(app)
-      .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+    await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
-    const res = await request(app)
-      .post("/users/login")
-      .send({ username: "Alice", password: "123456" });
+    const res = await request(app).post("/users/login").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("token");
@@ -118,29 +130,33 @@ describe("User routes", () => {
   test("POST /users/login fails with invalid password", async () => {
     await request(app)
       .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+      .send({ email: "alice@example.com", password: "123456" });
 
     const res = await request(app)
       .post("/users/login")
-      .send({ username: "Alice", password: "wrongpassword" });
+      .send({ email: "alice@example.com", password: "wrongpassword" });
 
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty(
       "error",
-      "User not found or invalid username or password",
+      "User not found or invalid email or password",
     );
   });
 
   // Secure route test /me with valid token
   test("GET /users/me returns user data with valid token", async () => {
     // First, register and log in.
-    await request(app)
-      .post("/users/register")
-      .send({ username: "Alice", password: "123456" });
+    await request(app).post("/users/register").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
-    const loginRes = await request(app)
-      .post("/users/login")
-      .send({ username: "Alice", password: "123456" });
+    const loginRes = await request(app).post("/users/login").send({
+      username: "Alice",
+      email: "alice@example.com",
+      password: "123456",
+    });
 
     const token = loginRes.body.token;
 
@@ -150,7 +166,7 @@ describe("User routes", () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("id");
-    expect(res.body).toHaveProperty("username", "Alice");
+    expect(res.body).toHaveProperty("email", "alice@example.com");
   });
 
   // Secure route test /me without token

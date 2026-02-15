@@ -45,6 +45,9 @@ export default function ProfilePage() {
           <p>
             <strong>Username:</strong> {profile.username}
           </p>
+          <p>
+            <strong>Email:</strong> {profile.email}
+          </p>
           <button
             onClick={logout}
             className="mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"

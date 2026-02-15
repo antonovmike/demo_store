@@ -1,13 +1,10 @@
-import path from "path";
 import process from "process";
-
-import { fileURLToPath } from "url";
 import { Sequelize } from "sequelize-typescript";
 
+import config from "../config/config.js";
 import { User } from "./user.js";
 import { Role } from "./role.js";
 import { Product } from "./product.js";
-import config from "../config/config.js";
 
 type Env = "development" | "test" | "production";
 const env = (process.env.NODE_ENV as Env) || "development";

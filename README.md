@@ -75,6 +75,8 @@ npm run db:migrate
 npm run db:seed:all
 ```
 
+The command `npm run db:seed:all` will create a user with the username “admin,” password “admin,” and email “admin@demo_store.com” in the “Users” table.
+
 ## Testing
 
 To run the tests, follow these steps:

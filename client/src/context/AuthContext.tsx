@@ -13,14 +13,15 @@ import type { User } from "../store/userSlice";
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch();
   const [user, setUser] = useState<User | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     console.log("AuthProvider useEffect triggered, user =", user);
     if (user) {
-      console.log("AuthProvider: initCart for", user.username);
+      console.log("AuthProvider: initCart for", user.email);
       // Load cart from localStorage for this user
-      dispatch(initCart(user.username));
+      dispatch(initCart(user.email));
       // Update user in Redux store
       dispatch(setUserRedux(user));
     } else {
@@ -31,9 +32,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [user, dispatch]);
 
   useEffect(() => {
-    if (user?.username) {
-      console.log("Hydrating cart for", user.username);
-      dispatch(initCart(user.username));
+    if (user?.email) {
+      console.log("Hydrating cart for", user.email);
+      dispatch(initCart(user.email));
     }
   }, [user, dispatch]);
 
@@ -43,12 +44,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [token]);
 
   const logout = () => {
-    if (user?.username) {
+    if (user?.email) {
       const items = store.getState().cart.items;
-      localStorage.setItem(
-        "Logout: cart_" + user.username,
-        JSON.stringify(items),
-      );
+      localStorage.setItem("Logout: cart_" + user.email, JSON.stringify(items));
     }
     setUser(null);
     setToken(null);
@@ -57,7 +55,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, token, setToken, logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, email, setEmail, token, setToken, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

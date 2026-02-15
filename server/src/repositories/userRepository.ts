@@ -1,8 +1,10 @@
+import { Op } from "sequelize";
 import { User, Role } from "../models/index.js";
 
 // Create user
 async function createUser(
   username: string,
+  email: string,
   passwordHash: string,
   roleName = "user",
 ) {
@@ -22,15 +24,21 @@ async function createUser(
 
   const user = await User.create({
     username,
+    email: email,
     password_hash: passwordHash,
     roleId: role.id,
   });
-  return { id: user.id, username: user.username, role: role.name };
+  return {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    role: role.name,
+  };
 }
 
-// Find user by username
-async function findUserByUsername(username: string) {
-  const user = await User.findOne({ where: { username } });
+// Find user by Email
+async function findUserByEmail(email: string) {
+  const user = await User.findOne({ where: { email } });
   return user ? user.get({ plain: true }) : undefined;
 }
 
@@ -39,4 +47,8 @@ async function deleteAllUsers() {
   await User.destroy({ where: {} });
 }
 
-export default { createUser, findUserByUsername, deleteAllUsers };
+export default {
+  createUser,
+  findUserByEmail,
+  deleteAllUsers,
+};
