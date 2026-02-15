@@ -1,3 +1,5 @@
+import { beforeEach } from "vitest";
+
 Object.defineProperty(window, "localStorage", {
   value: {
     store: {} as Record<string, string>,
@@ -15,4 +17,8 @@ Object.defineProperty(window, "localStorage", {
     },
   } as Partial<Storage>,
   writable: true,
+});
+
+beforeEach(() => {
+  window.localStorage.clear();
 });
