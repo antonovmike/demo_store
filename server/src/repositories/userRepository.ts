@@ -36,19 +36,9 @@ async function createUser(
   };
 }
 
-// Find user by username
-async function findUserByUsername(username: string) {
-  const user = await User.findOne({ where: { username } });
-  return user ? user.get({ plain: true }) : undefined;
-}
-
-// Temporary function to support login by either field
-async function findUserByUsernameOrEmail(identifier: string) {
-  const user = await User.findOne({
-    where: {
-      [Op.or]: [{ username: identifier }, { email: identifier }],
-    },
-  });
+// Find user by Email
+async function findUserByEmail(email: string) {
+  const user = await User.findOne({ where: { email } });
   return user ? user.get({ plain: true }) : undefined;
 }
 
@@ -59,7 +49,6 @@ async function deleteAllUsers() {
 
 export default {
   createUser,
-  findUserByUsername,
-  findUserByUsernameOrEmail,
+  findUserByEmail,
   deleteAllUsers,
 };

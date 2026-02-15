@@ -9,11 +9,11 @@ async function register(
   password: string,
   role?: string,
 ) {
-  if (!email || !password) {
+  if (!username || !email || !password) {
     throw new Error("Username, email and password are required");
   }
 
-  const existing = await userRepository.findUserByUsernameOrEmail(email);
+  const existing = await userRepository.findUserByEmail(email);
   if (existing) {
     throw new Error("User already exists");
   }
@@ -31,12 +31,12 @@ async function register(
 
 async function login(email: string, password: string) {
   if (!email || !password) {
-    throw new Error("Username and password are required");
+    throw new Error("Email and password are required");
   }
 
-  const user = await userRepository.findUserByUsernameOrEmail(email);
+  const user = await userRepository.findUserByEmail(email);
   if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-    throw new Error("User not found or invalid username or password");
+    throw new Error("User not found or invalid email or password");
   }
 
   const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
