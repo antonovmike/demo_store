@@ -13,6 +13,7 @@ import AddProductPage from "./components/AddProductPage";
 import PrivateRoute from "./components/PrivateRoute";
 import StyledPage from "./components/StyledPage";
 import StyledLink from "./components/StyledLink";
+import ResetPasswordForm from "./components/ResetPasswordForm.js";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+            <Route path="/reset-password" element={<ResetPasswordForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route
               path="/profile"

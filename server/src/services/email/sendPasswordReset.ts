@@ -5,7 +5,7 @@ export default async function sendPasswordResetEmail(userEmail: string) {
   const token = jwt.sign({ userEmail }, process.env.JWT_SECRET!, {
     expiresIn: "1h",
   });
-  const resetUrl = `https://example.com/reset-password?token=${token}`;
+  const resetUrl = `${process.env.CLIENT_ORIGIN}/#/reset-password?token=${token}`;
 
   await transporter.sendMail({
     from: process.env.EMAIL_USER,

@@ -8,5 +8,7 @@ router.get("/me", authMiddleware, userController.getMe);
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.post("/reset-password", userController.resetPassword);
+router.post("/verify-reset-token", userController.verifyResetToken);
+router.post("/confirm-reset-password", userController.confirmResetPassword);
 
 export default router;
