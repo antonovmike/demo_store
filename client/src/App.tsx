@@ -4,6 +4,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 
 import HomePage from "./components/HomePage";
 import CartPage from "./components/CartPage";
+import ForgotPasswordForm from "./components/ForgotPasswordForm.js";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import ProfilePage from "./components/ProfilePage";
@@ -12,6 +13,7 @@ import AddProductPage from "./components/AddProductPage";
 import PrivateRoute from "./components/PrivateRoute";
 import StyledPage from "./components/StyledPage";
 import StyledLink from "./components/StyledLink";
+import ResetPasswordForm from "./components/ResetPasswordForm.js";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegisterForm />} />
+            <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+            <Route path="/reset-password" element={<ResetPasswordForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route
               path="/profile"

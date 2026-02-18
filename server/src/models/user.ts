@@ -1,3 +1,4 @@
+import { Optional } from "sequelize";
 import {
   BelongsTo,
   Column,
@@ -6,8 +7,8 @@ import {
   Model,
   Table,
 } from "sequelize-typescript";
+
 import { Role } from "./role.js";
-import { Optional } from "sequelize";
 
 interface UserAttributes {
   id: number;
