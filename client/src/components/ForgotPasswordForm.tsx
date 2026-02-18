@@ -6,6 +6,7 @@ import { requestPasswordReset } from "../api/reset_user_password";
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
@@ -16,9 +17,14 @@ export default function ForgotPasswordForm() {
     try {
       await requestPasswordReset(email);
       setStatus("success");
-    } catch (err) {
-      console.error(err);
-      setStatus("error");
+    } catch (err: any) {
+      if (err.response?.status === 404) {
+        setStatus("error");
+        setMessage("Email not found");
+      } else {
+        setStatus("error");
+        setMessage("Something went wrong. Please try again.");
+      }
     }
   };
 
@@ -42,16 +48,7 @@ export default function ForgotPasswordForm() {
           {status === "loading" ? "Sending..." : "Reset Password"}
         </button>
       </form>
-      {status === "success" && (
-        <p className="mt-4 text-green-600 text-center">
-          Check your email for reset instructions.
-        </p>
-      )}
-      {status === "error" && (
-        <p className="mt-4 text-red-600 text-center">
-          Something went wrong. Please try again.
-        </p>
-      )}
+      {message && <p className="mt-4 text-sm text-red-600">{message}</p>}
     </StyledPage>
   );
 }
