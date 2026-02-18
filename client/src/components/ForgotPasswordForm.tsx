@@ -51,7 +51,15 @@ export default function ForgotPasswordForm() {
           {status === "loading" ? "Sending..." : "Reset Password"}
         </button>
       </form>
-      {message && <p className="mt-4 text-sm text-red-600">{message}</p>}
+      {message && (
+        <p
+          className={`mt-4 text-sm ${
+            status === "success" ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {message}
+        </p>
+      )}
     </StyledPage>
   );
 }
