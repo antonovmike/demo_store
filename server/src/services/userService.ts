@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 
 import { SECRET_KEY } from "../serverConfig.js";
 import userRepository from "../repositories/userRepository.js";
+import { send } from "node:process";
+import sendPasswordResetEmail from "./email/sendPasswordReset.js";
 
 async function register(
   username: string,
@@ -47,13 +49,22 @@ async function login(email: string, password: string) {
   return token;
 }
 
-async function resetPassword(email: string, newPassword: string) {
+async function resetPassword(email: string) {
+  if (!email) {
+    throw new Error("Email is required");
+  }
+
   const user = await userRepository.findUserByEmail(email);
+
   if (!user) {
     throw new Error("User not found");
   }
 
-  // todo
+  await sendPasswordResetEmail(email);
+
+  // Verify the token from the email and then update the password
+
+  return true;
 }
 
 export default { register, login, resetPassword };

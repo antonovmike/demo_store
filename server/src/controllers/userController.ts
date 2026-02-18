@@ -57,8 +57,17 @@ async function login(req: Request, res: Response, next: NextFunction) {
 
 async function resetPassword(req: Request, res: Response) {
   const { email } = req.body;
-  await sendPasswordResetEmail(email);
-  res.status(200).json({ success: true });
+
+  try {
+    await userService.resetPassword(email);
+    res.status(200).json({ success: true });
+  } catch (err: any) {
+    if (err.message === "User not found") {
+      res.status(404).json({ error: "User not found" });
+    } else {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
 }
 
 export default { getMe, register, login, resetPassword };
