@@ -22,7 +22,6 @@ function App() {
           <nav>
             <StyledLink href="#/">Home</StyledLink>
             <StyledLink href="#/register">Register</StyledLink>
-            <StyledLink href="#/forgot-password">Forgot Password</StyledLink>
             <StyledLink href="#/login">Login</StyledLink>
             <StyledLink href="#/profile">Profile</StyledLink>
             <StyledLink href="#/products">Products</StyledLink>

@@ -1,10 +1,10 @@
 import type { AxiosError } from "axios";
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { loginSuccess } from "../store/authSlice";
 
 export default function LoginForm() {
@@ -69,6 +69,14 @@ export default function LoginForm() {
         </button>
       </form>
       {message && <p className="mt-3 text-sm">{message}</p>}
+      <div className="mt-4 text-center">
+        <Link
+          to="/forgot-password"
+          className="text-gray-600 hover:underline text-sm"
+        >
+          <button>Forgot password?</button>
+        </Link>
+      </div>
     </div>
   );
 }
