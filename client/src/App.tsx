@@ -4,6 +4,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 
 import HomePage from "./components/HomePage";
 import CartPage from "./components/CartPage";
+import ForgotPasswordForm from "./components/ForgotPasswordForm.js";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import ProfilePage from "./components/ProfilePage";
@@ -21,6 +22,7 @@ function App() {
           <nav>
             <StyledLink href="#/">Home</StyledLink>
             <StyledLink href="#/register">Register</StyledLink>
+            <StyledLink href="#/forgot-password">Forgot Password</StyledLink>
             <StyledLink href="#/login">Login</StyledLink>
             <StyledLink href="#/profile">Profile</StyledLink>
             <StyledLink href="#/products">Products</StyledLink>
@@ -30,6 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegisterForm />} />
+            <Route path="/forgot-password" element={<ForgotPasswordForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route
               path="/profile"

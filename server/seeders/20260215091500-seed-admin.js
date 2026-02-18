@@ -15,7 +15,7 @@ export default {
     await queryInterface.bulkInsert("Users", [
       {
         username: "admin",
-        email: "admin@demo_store.com",
+        email: "admin@demostore.com",
         password_hash: passwordHash,
         roleId: roleId,
         createdAt: new Date(),
