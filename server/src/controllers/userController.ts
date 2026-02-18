@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 
 import userService from "../services/userService.js";
-import sendPasswordResetEmail from "../services/email/sendPasswordReset.js";
 
 async function getMe(req: Request, res: Response, next: NextFunction) {
   try {
