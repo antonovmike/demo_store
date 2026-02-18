@@ -1,4 +1,5 @@
 import { beforeEach } from "vitest";
+import "@testing-library/jest-dom";
 
 Object.defineProperty(window, "localStorage", {
   value: {
