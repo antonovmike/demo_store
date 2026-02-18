@@ -11,15 +11,19 @@ export default function ResetPasswordForm() {
   const token = searchParams.get("token");
 
   useEffect(() => {
-    if (!token) {
-      setTokenValid(false);
-      return;
-    }
-    // Check token validity with the server
-    api
-      .post("/users/verify-reset-token", { token })
-      .then(() => setTokenValid(true))
-      .catch(() => setTokenValid(false));
+    const checkToken = async () => {
+      if (!token) {
+        setTokenValid(false);
+        return;
+      }
+      try {
+        await api.post("/users/verify-reset-token", { token });
+        setTokenValid(true);
+      } catch {
+        setTokenValid(false);
+      }
+    };
+    checkToken();
   }, [token]);
 
   if (tokenValid === false) {
