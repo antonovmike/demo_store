@@ -15,8 +15,11 @@ export default function ForgotPasswordForm() {
     e.preventDefault();
     setStatus("loading");
     try {
-      await requestPasswordReset(email);
+      const res = await requestPasswordReset(email);
       setStatus("success");
+      setMessage(
+        res.data.message || "Check your email for reset instructions.",
+      );
     } catch (err: any) {
       if (err.response?.status === 404) {
         setStatus("error");
