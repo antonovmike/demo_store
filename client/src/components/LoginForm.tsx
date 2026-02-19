@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Button, Input, Link } from "@mui/material";
 
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
@@ -49,14 +49,14 @@ export default function LoginForm() {
     <div className="max-w-md mx-auto p-4 border rounded-lg">
       <h2 className="text-xl font-semibold mb-2">Login</h2>
       <form onSubmit={handleLogin} className="flex flex-col gap-3">
-        <input
+        <Input
           type="text"
           placeholder="Useremail"
           value={useremail}
           onChange={(e) => setUserEmail(e.target.value)}
           className="border p-2 rounded"
         />
-        <input
+        <Input
           type="password"
           placeholder="Password"
           value={password}
@@ -73,7 +73,7 @@ export default function LoginForm() {
       {message && <p className="mt-3 text-sm">{message}</p>}
       <div className="mt-4 text-center">
         <Link
-          to="/forgot-password"
+          href="/forgot-password"
           className="text-gray-600 hover:underline text-sm"
         >
           <Button>Forgot password?</Button>
