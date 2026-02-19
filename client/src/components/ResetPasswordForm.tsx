@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
 
@@ -59,7 +59,11 @@ export default function ResetPasswordForm() {
           Reset password
         </Button>
       </Box>
-      {message && <p className="mt-3 text-sm text-green-600">{message}</p>}
+      {message && (
+        <Typography className="mt-3 text-sm text-green-600">
+          {message}
+        </Typography>
+      )}
     </>
   );
 }
