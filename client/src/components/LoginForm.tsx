@@ -59,7 +59,6 @@ export default function LoginForm() {
           value={useremail}
           onChange={(e) => setUserEmail(e.target.value)}
           className="border p-2 rounded"
-          sx={{ input: { color: "white" } }}
         />
         <TextField
           type="password"
@@ -67,7 +66,6 @@ export default function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="border p-2 rounded"
-          sx={{ input: { color: "white" } }}
         />
         <Button
           type="submit"
