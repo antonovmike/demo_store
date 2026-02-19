@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { Divider, Button, Link, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
@@ -73,7 +73,8 @@ export default function LoginForm() {
       {message && <p className="mt-3 text-sm">{message}</p>}
       <Divider className="mt-4 text-center">
         <Link
-          href="/forgot-password"
+          component={RouterLink}
+          to="/forgot-password"
           className="text-gray-600 hover:underline text-sm"
         >
           <Button>Forgot password?</Button>
