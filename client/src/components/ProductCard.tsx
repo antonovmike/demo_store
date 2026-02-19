@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
-import { addItem } from "../store/CartSlice";
+import { Button } from "@mui/material";
 
+import { addItem } from "../store/CartSlice";
 import type { Product } from "../store/ProductsSlice";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -13,7 +14,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <p>${Number(product.price)}</p>
       <p className="text-sm text-gray-500">{product.description}</p>
 
-      <button
+      <Button
         onClick={() =>
           dispatch(
             addItem({
@@ -27,7 +28,7 @@ export default function ProductCard({ product }: { product: Product }) {
         className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
       >
         Add to cart
-      </button>
+      </Button>
     </div>
   );
 }
