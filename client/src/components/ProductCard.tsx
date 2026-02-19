@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Box, Divider, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 import { addItem } from "../store/CartSlice";
 import type { Product } from "../store/ProductsSlice";
@@ -11,8 +11,10 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Box className="border rounded p-4">
       <h2 className="font-semibold">{product.name}</h2>
-      <p>${Number(product.price)}</p>
-      <p className="text-sm text-gray-500">{product.description}</p>
+      <Typography>${Number(product.price)}</Typography>
+      <Typography className="text-sm text-gray-500">
+        {product.description}
+      </Typography>
 
       <Button
         onClick={() =>
