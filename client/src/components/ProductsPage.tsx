@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Divider, Button, TextField, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
 import {
   fetchProducts,
@@ -25,7 +25,9 @@ export default function ProductsPage() {
 
   return (
     <Box className="p-4">
-      <h1 className="text-xl font-bold mb-4">Products</h1>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
+        Products
+      </Typography>
 
       {status === "loading" && <Divider>Loading products...</Divider>}
       {status === "failed" && (
