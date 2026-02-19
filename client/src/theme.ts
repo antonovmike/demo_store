@@ -40,6 +40,17 @@ const theme = createTheme({
         },
       },
     },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          marginRight: "1.25rem", // mr-5
+          textDecoration: "none", // No underline
+          color: "#0284c7", // text-sky-700
+          fontWeight: 500, // font-medium
+          "&:hover": { textDecoration: "underline" },
+        },
+      },
+    },
   },
 });
 
