@@ -43,11 +43,32 @@ const theme = createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
-          marginRight: "1.25rem", // mr-5
-          textDecoration: "none", // No underline
-          color: "#0284c7", // text-sky-700
-          fontWeight: 500, // font-medium
+          marginRight: "1.25rem",
+          textDecoration: "none",
+          color: "#0284c7",
+          fontWeight: 500,
           "&:hover": { textDecoration: "underline" },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "8px",
+          border: "1px solid transparent",
+          padding: "0.6em 1.2em",
+          fontSize: "1em",
+          fontWeight: 500,
+          fontFamily: "inherit",
+          backgroundColor: "#1a1a1a",
+          cursor: "pointer",
+          transition: "border-color 0.25s",
+          "&:hover": {
+            borderColor: "#646cff",
+          },
+          "&:focus, &:focus-visible": {
+            outline: "4px auto -webkit-focus-ring-color",
+          },
         },
       },
     },

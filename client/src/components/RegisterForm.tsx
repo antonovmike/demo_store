@@ -32,7 +32,13 @@ export default function RegisterForm() {
       <Box
         component="form"
         onSubmit={handleRegister}
-        className="flex flex-col gap-3"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          width: "100%",
+          maxWidth: 400,
+        }}
       >
         <TextField
           type="text"

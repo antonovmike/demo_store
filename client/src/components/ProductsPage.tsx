@@ -1,6 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Divider,
+  Grid,
+  Typography,
+} from "@mui/material";
 
 import {
   fetchProducts,
@@ -24,7 +31,7 @@ export default function ProductsPage() {
   }, [dispatch, status]);
 
   return (
-    <Box className="p-4">
+    <Box className="max-w-md mx-auto p-4 border rounded-lg">
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Products
       </Typography>
@@ -36,12 +43,21 @@ export default function ProductsPage() {
         </Divider>
       )}
 
-      <Box className="grid grid-cols-2 gap-4">
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          gap: 2,
+        }}
+      >
+        {" "}
         {Array.isArray(products) ? (
           products.map((p) => <ProductCard key={p.id} product={p} />)
         ) : (
-          <Divider className="text-red-600">Invalid products response</Divider>
-        )}
+          <Divider sx={{ color: "error.main" }}>
+            Invalid products response
+          </Divider>
+        )}{" "}
       </Box>
     </Box>
   );

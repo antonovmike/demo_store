@@ -25,7 +25,7 @@ export default function CartPage() {
             <div>
               {item.name} — ${item.price} × {item.qty}
             </div>
-            <button
+            <Button
               onClick={() =>
                 dispatch(
                   updateQuantity({
@@ -37,22 +37,22 @@ export default function CartPage() {
               className="px-2 py-1 bg-gray-200 rounded"
             >
               −
-            </button>
+            </Button>
             <span>{item.qty}</span>
-            <button
+            <Button
               onClick={() =>
                 dispatch(updateQuantity({ id: item.id, qty: item.qty + 1 }))
               }
               className="px-2 py-1 bg-gray-200 rounded"
             >
               +
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => dispatch(removeItem(item.id))}
               className="px-3 py-1 bg-red-500 text-white rounded"
             >
               Remove
-            </button>
+            </Button>
             <input
               type="number"
               min="1"
