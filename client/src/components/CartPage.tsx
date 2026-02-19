@@ -53,9 +53,8 @@ export default function CartPage() {
             >
               Remove
             </Button>
-            <input
+            <TextField
               type="number"
-              min="1"
               value={item.qty}
               onChange={(e) =>
                 dispatch(
@@ -65,6 +64,10 @@ export default function CartPage() {
                   }),
                 )
               }
+              slotProps={{
+                htmlInput: { min: 1 },
+              }}
+              sx={{ width: 80 }}
             />
           </Box>
         ))}
