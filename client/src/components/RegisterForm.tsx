@@ -6,7 +6,7 @@ import {
   selectUserError,
   selectCurrentUser,
 } from "../store/userSlice";
-import { Box, Divider, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import type { AppDispatch } from "../store/store";
 
@@ -69,7 +69,7 @@ export default function RegisterForm() {
       )}
       {status === "failed" && (
         <Typography variant="body2" sx={{ mt: 3, color: "error.main" }}>
-          ❌ Registration failed
+          ❌ Registration failed {error ? `: ${error}` : ""}
         </Typography>
       )}
     </Box>
