@@ -1,8 +1,8 @@
 import { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
+import { Box, Typography } from "@mui/material";
 
-import StyledHeader_2 from "./StyledHeader_1";
 import theme from "../theme";
 import { requestPasswordReset } from "../api/reset_user_password";
 
@@ -36,7 +36,16 @@ export default function ForgotPasswordForm() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <StyledHeader_2>Forgot Password</StyledHeader_2>
+        <Box
+          sx={{
+            minHeight: "10vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography>Forgot Password</Typography>
+        </Box>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
