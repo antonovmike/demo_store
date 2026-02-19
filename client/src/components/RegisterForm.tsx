@@ -63,14 +63,14 @@ export default function RegisterForm() {
         </Button>
       </Box>
       {status === "succeeded" && user && (
-        <Divider className="mt-3 text-sm">
-          ✅ Registered as {user.username || user.username}
-        </Divider>
+        <Typography variant="body2" sx={{ mt: 3 }}>
+          ✅ Registered as {user.username} ({user.email})
+        </Typography>
       )}
       {status === "failed" && (
-        <p className="mt-3 text-sm text-red-600">
-          ❌ {error || "Registration failed"}
-        </p>
+        <Typography variant="body2" sx={{ mt: 3, color: "error.main" }}>
+          ❌ Registration failed
+        </Typography>
       )}
     </Box>
   );
