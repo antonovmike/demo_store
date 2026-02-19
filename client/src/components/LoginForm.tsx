@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import { Divider, Button, TextField, Typography } from "@mui/material";
+import { Box, Divider, Button, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
@@ -48,7 +48,11 @@ export default function LoginForm() {
   return (
     <Divider className="max-w-md mx-auto p-4 border rounded-lg">
       <Typography className="text-xl font-semibold mb-2">Login</Typography>
-      <form onSubmit={handleLogin} className="flex flex-col gap-3">
+      <Box
+        component="form"
+        onSubmit={handleLogin}
+        className="flex flex-col gap-3"
+      >
         <TextField
           type="text"
           placeholder="Useremail"
@@ -69,7 +73,7 @@ export default function LoginForm() {
         >
           Login
         </Button>
-      </form>
+      </Box>
       {message && <p className="mt-3 text-sm">{message}</p>}
       <Divider className="mt-4 text-center">
         <Button component={RouterLink} to="/forgot-password" variant="text">
