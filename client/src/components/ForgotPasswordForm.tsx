@@ -61,9 +61,11 @@ export default function ForgotPasswordForm() {
         {message && (
           <Typography
             align="center"
-            className={`mt-4 text-sm ${
-              status === "success" ? "text-green-600" : "text-red-600"
-            }`}
+            variant="body2"
+            sx={{
+              mt: 2,
+              color: status === "success" ? "success.main" : "error.main",
+            }}
           >
             {message}
           </Typography>
