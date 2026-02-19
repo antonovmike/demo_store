@@ -30,21 +30,21 @@ export default function RegisterForm() {
         Register
       </Typography>
       <form onSubmit={handleRegister} className="flex flex-col gap-3">
-        <input
+        <TextField
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="border p-2 rounded"
         />
-        <input
+        <TextField
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="border p-2 rounded"
         />
-        <input
+        <TextField
           type="password"
           placeholder="Password"
           value={password}
