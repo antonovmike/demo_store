@@ -29,7 +29,11 @@ export default function RegisterForm() {
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Register
       </Typography>
-      <form onSubmit={handleRegister} className="flex flex-col gap-3">
+      <Box
+        component="form"
+        onSubmit={handleRegister}
+        className="flex flex-col gap-3"
+      >
         <TextField
           type="text"
           placeholder="Username"
@@ -51,17 +55,17 @@ export default function RegisterForm() {
           onChange={(e) => setPassword(e.target.value)}
           className="border p-2 rounded"
         />
-        <button
+        <Button
           type="submit"
           className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
         >
           Register
-        </button>
-      </form>
+        </Button>
+      </Box>
       {status === "succeeded" && user && (
-        <p className="mt-3 text-sm">
+        <Divider className="mt-3 text-sm">
           ✅ Registered as {user.username || user.username}
-        </p>
+        </Divider>
       )}
       {status === "failed" && (
         <p className="mt-3 text-sm text-red-600">
