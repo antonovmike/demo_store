@@ -53,21 +53,39 @@ export default function LoginForm() {
       <Box
         component="form"
         onSubmit={handleLogin}
-        className="flex flex-col gap-3"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          width: "100%",
+          maxWidth: 400,
+        }}
       >
         <TextField
           type="text"
           placeholder="Useremail"
           value={useremail}
           onChange={(e) => setUserEmail(e.target.value)}
-          className="border p-2 rounded"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            width: "100%",
+            maxWidth: 400,
+          }}
         />
         <TextField
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            width: "100%",
+            maxWidth: 400,
+          }}
         />
         <Button
           type="submit"
