@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Button,
+  Divider,
   List,
   ListItem,
+  ListItemIcon,
+  ListItemText,
   TextField,
   Typography,
 } from "@mui/material";
@@ -75,18 +78,27 @@ export default function AddProductPage() {
         />
         <Button type="submit">Add Product</Button>
       </Box>
-
       {/* List of existing products for test */}
-      <List sx={{ mt: 2 }}>
-        <Typography variant="h6" fontWeight="bold" gutterBottom>
-          List of existing products:
-        </Typography>
-        {products.map((p) => (
-          <ListItem key={p.id} disablePadding>
-            {p.name} — ${p.price}
-          </ListItem>
-        ))}
-      </List>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
+        {" "}
+        List of existing products:{" "}
+      </Typography>{" "}
+      {Array.isArray(products) ? (
+        <List sx={{ mt: 2 }}>
+          {products.map((p) => (
+            <ListItem key={p.id} disablePadding>
+              <ListItemIcon sx={{ minWidth: "20px" }}>
+                <Typography component="span">•</Typography>
+              </ListItemIcon>
+              <ListItemText primary={`${p.name} — $${p.price}`} />
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <Divider sx={{ color: "error.main" }}>
+          Invalid products response
+        </Divider>
+      )}
     </Box>
   );
 }
