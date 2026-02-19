@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import theme from "../theme";
 import { requestPasswordReset } from "../api/reset_user_password";
@@ -47,7 +47,7 @@ export default function ForgotPasswordForm() {
           <Typography>Forgot Password</Typography>
         </Box>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
+          <TextField
             type="email"
             placeholder="Enter your email"
             value={email}
@@ -55,22 +55,23 @@ export default function ForgotPasswordForm() {
             className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
             required
           />
-          <button
+          <Button
             type="submit"
             disabled={status === "loading"}
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
           >
             {status === "loading" ? "Sending..." : "Reset Password"}
-          </button>
+          </Button>
         </form>
         {message && (
-          <p
+          <Typography
+            align="center"
             className={`mt-4 text-sm ${
               status === "success" ? "text-green-600" : "text-red-600"
             }`}
           >
             {message}
-          </p>
+          </Typography>
         )}
       </CssBaseline>
     </ThemeProvider>
