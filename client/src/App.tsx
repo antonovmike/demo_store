@@ -1,5 +1,6 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { Routes, Route, HashRouter } from "react-router-dom";
+import { Link } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
 import theme from "./theme";
@@ -14,7 +15,6 @@ import ProfilePage from "./components/ProfilePage";
 import ProductsPage from "./components/ProductsPage";
 import AddProductPage from "./components/AddProductPage";
 import PrivateRoute from "./components/PrivateRoute";
-import StyledLink from "./components/StyledLink";
 import ResetPasswordForm from "./components/ResetPasswordForm.js";
 
 function App() {
@@ -24,13 +24,13 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline>
             <nav>
-              <StyledLink href="#/">Home</StyledLink>
-              <StyledLink href="#/register">Register</StyledLink>
-              <StyledLink href="#/login">Login</StyledLink>
-              <StyledLink href="#/profile">Profile</StyledLink>
-              <StyledLink href="#/products">Products</StyledLink>
-              <StyledLink href="#/cart">Cart</StyledLink>
-              <StyledLink href="#/add">Add Product</StyledLink>
+              <Link href="#/">Home</Link>
+              <Link href="#/register">Register</Link>
+              <Link href="#/login">Login</Link>
+              <Link href="#/profile">Profile</Link>
+              <Link href="#/products">Products</Link>
+              <Link href="#/cart">Cart</Link>
+              <Link href="#/add">Add Product</Link>
             </nav>
             <Routes>
               <Route path="/" element={<HomePage />} />
