@@ -46,7 +46,7 @@ export default function ForgotPasswordForm() {
         >
           <Typography>Forgot Password</Typography>
         </Box>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <Box component="form" onSubmit={handleSubmit} className="space-y-4">
           <TextField
             type="email"
             placeholder="Enter your email"
@@ -62,7 +62,7 @@ export default function ForgotPasswordForm() {
           >
             {status === "loading" ? "Sending..." : "Reset Password"}
           </Button>
-        </form>
+        </Box>
         {message && (
           <Typography
             align="center"
