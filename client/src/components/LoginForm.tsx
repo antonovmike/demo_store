@@ -47,7 +47,9 @@ export default function LoginForm() {
 
   return (
     <Divider className="max-w-md mx-auto p-4 border rounded-lg">
-      <Typography className="text-xl font-semibold mb-2">Login</Typography>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
+        Login
+      </Typography>
       <Box
         component="form"
         onSubmit={handleLogin}
