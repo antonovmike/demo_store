@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Divider, Button, Input, Link, Typography } from "@mui/material";
+import { Divider, Button, Link, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
@@ -49,14 +49,14 @@ export default function LoginForm() {
     <Divider className="max-w-md mx-auto p-4 border rounded-lg">
       <Typography className="text-xl font-semibold mb-2">Login</Typography>
       <form onSubmit={handleLogin} className="flex flex-col gap-3">
-        <Input
+        <TextField
           type="text"
           placeholder="Useremail"
           value={useremail}
           onChange={(e) => setUserEmail(e.target.value)}
           className="border p-2 rounded"
         />
-        <Input
+        <TextField
           type="password"
           placeholder="Password"
           value={password}
