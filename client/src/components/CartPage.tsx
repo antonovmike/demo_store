@@ -41,7 +41,6 @@ export default function CartPage() {
                   }),
                 )
               }
-              className="px-2 py-1 bg-gray-200 rounded"
             >
               −
             </Button>
@@ -50,14 +49,10 @@ export default function CartPage() {
               onClick={() =>
                 dispatch(updateQuantity({ id: item.id, qty: item.qty + 1 }))
               }
-              className="px-2 py-1 bg-gray-200 rounded"
             >
               +
             </Button>
-            <Button
-              onClick={() => dispatch(removeItem(item.id))}
-              className="px-3 py-1 bg-red-500 text-white rounded"
-            >
+            <Button onClick={() => dispatch(removeItem(item.id))}>
               Remove
             </Button>
             <TextField
