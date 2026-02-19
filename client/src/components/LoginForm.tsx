@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Divider from "@mui/material/Divider";
-import { Button, Input, Link } from "@mui/material";
+import { Divider, Button, Input, Link, Typography } from "@mui/material";
 
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
@@ -48,7 +47,7 @@ export default function LoginForm() {
 
   return (
     <Divider className="max-w-md mx-auto p-4 border rounded-lg">
-      <h2 className="text-xl font-semibold mb-2">Login</h2>
+      <Typography className="text-xl font-semibold mb-2">Login</Typography>
       <form onSubmit={handleLogin} className="flex flex-col gap-3">
         <Input
           type="text"
