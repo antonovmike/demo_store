@@ -1,11 +1,13 @@
-import type { AxiosError } from "axios";
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import { loginSuccess } from "../store/authSlice";
+
+import type { AxiosError } from "axios";
 
 export default function LoginForm() {
   const [useremail, setUserEmail] = useState("");
@@ -61,12 +63,12 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           className="border p-2 rounded"
         />
-        <button
+        <Button
           type="submit"
           className="bg-green-600 text-white p-2 rounded hover:bg-green-700"
         >
           Login
-        </button>
+        </Button>
       </form>
       {message && <p className="mt-3 text-sm">{message}</p>}
       <div className="mt-4 text-center">
@@ -74,7 +76,7 @@ export default function LoginForm() {
           to="/forgot-password"
           className="text-gray-600 hover:underline text-sm"
         >
-          <button>Forgot password?</button>
+          <Button>Forgot password?</Button>
         </Link>
       </div>
     </div>
