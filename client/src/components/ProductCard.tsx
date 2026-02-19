@@ -10,7 +10,9 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <Box className="border rounded p-4">
-      <h2 className="font-semibold">{product.name}</h2>
+      <Typography variant="h6" fontWeight="bold">
+        {product.name}
+      </Typography>
       <Typography>${Number(product.price)}</Typography>
       <Typography className="text-sm text-gray-500">
         {product.description}
