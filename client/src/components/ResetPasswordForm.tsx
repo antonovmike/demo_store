@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Box, Button, TextField } from "@mui/material";
 
 import api from "../api/axios";
 
@@ -46,15 +47,18 @@ export default function ResetPasswordForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
+      <Box component="form" onSubmit={handleSubmit}>
+        <TextField
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           placeholder="Enter new password"
+          fullWidth
         />
-        <button type="submit">Reset password</button>
-      </form>
+        <Button type="submit" variant="contained" className="mt-2">
+          Reset password
+        </Button>
+      </Box>
       {message && <p className="mt-3 text-sm text-green-600">{message}</p>}
     </>
   );
