@@ -1,5 +1,7 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
 
+import theme from "./theme";
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 import HomePage from "./components/HomePage";
@@ -11,7 +13,6 @@ import ProfilePage from "./components/ProfilePage";
 import ProductsPage from "./components/ProductsPage";
 import AddProductPage from "./components/AddProductPage";
 import PrivateRoute from "./components/PrivateRoute";
-import StyledPage from "./components/StyledPage";
 import StyledLink from "./components/StyledLink";
 import ResetPasswordForm from "./components/ResetPasswordForm.js";
 
@@ -19,7 +20,7 @@ function App() {
   return (
     <AuthProvider>
       <HashRouter>
-        <StyledPage>
+        <ThemeProvider theme={theme}>
           <nav>
             <StyledLink href="#/">Home</StyledLink>
             <StyledLink href="#/register">Register</StyledLink>
@@ -47,7 +48,7 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/add" element={<AddProductPage />} />
           </Routes>
-        </StyledPage>
+        </ThemeProvider>
       </HashRouter>
     </AuthProvider>
   );
