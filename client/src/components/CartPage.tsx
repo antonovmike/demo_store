@@ -19,7 +19,14 @@ export default function CartPage() {
         Cart
       </Typography>
       {items.length === 0 && <Typography>Your cart is empty</Typography>}
-      <Box className="space-y-4">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          mb: 2,
+        }}
+      >
         {items.map((item: CartItem) => (
           <Box key={item.id}>
             <Box>
