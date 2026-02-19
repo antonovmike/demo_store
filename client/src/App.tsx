@@ -1,3 +1,4 @@
+import CssBaseline from "@mui/material/CssBaseline";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 
@@ -21,33 +22,35 @@ function App() {
     <AuthProvider>
       <HashRouter>
         <ThemeProvider theme={theme}>
-          <nav>
-            <StyledLink href="#/">Home</StyledLink>
-            <StyledLink href="#/register">Register</StyledLink>
-            <StyledLink href="#/login">Login</StyledLink>
-            <StyledLink href="#/profile">Profile</StyledLink>
-            <StyledLink href="#/products">Products</StyledLink>
-            <StyledLink href="#/cart">Cart</StyledLink>
-            <StyledLink href="#/add">Add Product</StyledLink>
-          </nav>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-            <Route path="/reset-password" element={<ResetPasswordForm />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route
-              path="/profile"
-              element={
-                <PrivateRoute>
-                  <ProfilePage />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/add" element={<AddProductPage />} />
-          </Routes>
+          <CssBaseline>
+            <nav>
+              <StyledLink href="#/">Home</StyledLink>
+              <StyledLink href="#/register">Register</StyledLink>
+              <StyledLink href="#/login">Login</StyledLink>
+              <StyledLink href="#/profile">Profile</StyledLink>
+              <StyledLink href="#/products">Products</StyledLink>
+              <StyledLink href="#/cart">Cart</StyledLink>
+              <StyledLink href="#/add">Add Product</StyledLink>
+            </nav>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+              <Route path="/reset-password" element={<ResetPasswordForm />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute>
+                    <ProfilePage />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/add" element={<AddProductPage />} />
+            </Routes>
+          </CssBaseline>
         </ThemeProvider>
       </HashRouter>
     </AuthProvider>
