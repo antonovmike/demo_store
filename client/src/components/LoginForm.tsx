@@ -89,7 +89,7 @@ export default function LoginForm() {
         />
         <Button type="submit">Login</Button>
       </Box>
-      {message && <p className="mt-3 text-sm">{message}</p>}
+      {message && <Typography>{message}</Typography>}
       <Divider>
         <Button component={RouterLink} to="/forgot-password" variant="text">
           Forgot password?
