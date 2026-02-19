@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Box, Divider, Button, TextField, Typography } from "@mui/material";
+
 import {
   fetchProducts,
   selectAllProducts,
@@ -7,7 +9,6 @@ import {
   selectProductsError,
 } from "../store/ProductsSlice";
 import ProductCard from "./ProductCard";
-
 import type { AppDispatch } from "../store/store";
 
 export default function ProductsPage() {
@@ -23,21 +24,23 @@ export default function ProductsPage() {
   }, [dispatch, status]);
 
   return (
-    <div className="p-4">
+    <Box className="p-4">
       <h1 className="text-xl font-bold mb-4">Products</h1>
 
-      {status === "loading" && <div>Loading products...</div>}
+      {status === "loading" && <Divider>Loading products...</Divider>}
       {status === "failed" && (
-        <div className="text-red-600">Error loading products: {error}</div>
+        <Divider className="text-red-600">
+          Error loading products: {error}
+        </Divider>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <Box className="grid grid-cols-2 gap-4">
         {Array.isArray(products) ? (
           products.map((p) => <ProductCard key={p.id} product={p} />)
         ) : (
-          <div className="text-red-600">Invalid products response</div>
+          <Divider className="text-red-600">Invalid products response</Divider>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
