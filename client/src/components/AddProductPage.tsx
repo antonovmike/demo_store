@@ -1,5 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  Box,
+  Button,
+  Divider,
+  FormLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
+
 import { addProduct, selectAllProducts } from "../store/ProductsSlice";
 import api from "../api/axios";
 
@@ -26,61 +35,58 @@ export default function AddProductPage() {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Add Product</h1>
-      <form onSubmit={handleAddProduct}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block font-semibold">
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="border rounded w-full py-2 px-3"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="price" className="block font-semibold">
-            Price:
-          </label>
-          <input
-            type="number"
-            id="price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="border rounded w-full py-2 px-3"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="description" className="block font-semibold">
-            Description:
-          </label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="border rounded w-full py-2 px-3"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-        >
-          Add Product
-        </button>
-      </form>
+    <Box>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
+        Add Product
+      </Typography>
+      <Box
+        component="form"
+        onSubmit={handleAddProduct}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          mb: 2,
+        }}
+      >
+        <TextField
+          id="name"
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          variant="outlined"
+          fullWidth
+        />
+        <TextField
+          id="price"
+          label="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          variant="outlined"
+          fullWidth
+        />
+        <TextField
+          id="description"
+          label="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          variant="outlined"
+          fullWidth
+        />
+        <Button type="submit">Add Product</Button>
+      </Box>
 
       {/* List of existing products for test */}
       <ul className="mt-4">
-        <h1>List of existing products:</h1>
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
+          List of existing products:
+        </Typography>
         {products.map((p) => (
           <li key={p.id}>
             {p.name} — ${p.price}
           </li>
         ))}
       </ul>
-    </div>
+    </Box>
   );
 }
