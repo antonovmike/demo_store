@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Divider from "@mui/material/Divider";
 import { Button, Input, Link } from "@mui/material";
 
 import api from "../api/axios";
@@ -46,7 +47,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-lg">
+    <Divider className="max-w-md mx-auto p-4 border rounded-lg">
       <h2 className="text-xl font-semibold mb-2">Login</h2>
       <form onSubmit={handleLogin} className="flex flex-col gap-3">
         <Input
@@ -71,14 +72,14 @@ export default function LoginForm() {
         </Button>
       </form>
       {message && <p className="mt-3 text-sm">{message}</p>}
-      <div className="mt-4 text-center">
+      <Divider className="mt-4 text-center">
         <Link
           href="/forgot-password"
           className="text-gray-600 hover:underline text-sm"
         >
           <Button>Forgot password?</Button>
         </Link>
-      </div>
-    </div>
+      </Divider>
+    </Divider>
   );
 }
