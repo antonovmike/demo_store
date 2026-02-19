@@ -15,6 +15,22 @@ const theme = createTheme({
     fontFamily: "sans-serif",
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          backgroundColor: "#242424",
+          color: "#ffffff",
+          fontFamily: "sans-serif",
+          WebkitFontSmoothing: "antialiased",
+          MozOsxFontSmoothing: "grayscale",
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {
