@@ -6,6 +6,7 @@ import {
   selectUserError,
   selectCurrentUser,
 } from "../store/userSlice";
+import { Box, Divider, Button, TextField, Typography } from "@mui/material";
 
 import type { AppDispatch } from "../store/store";
 
@@ -24,8 +25,10 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-lg">
-      <h2 className="text-xl font-semibold mb-2">Register</h2>
+    <Box className="max-w-md mx-auto p-4 border rounded-lg">
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
+        Register
+      </Typography>
       <form onSubmit={handleRegister} className="flex flex-col gap-3">
         <input
           type="text"
@@ -65,6 +68,6 @@ export default function RegisterForm() {
           ❌ {error || "Registration failed"}
         </p>
       )}
-    </div>
+    </Box>
   );
 }
