@@ -22,9 +22,9 @@ export default function CartPage() {
       <Box className="space-y-4">
         {items.map((item: CartItem) => (
           <Box key={item.id}>
-            <div>
+            <Box>
               {item.name} — ${item.price} × {item.qty}
-            </div>
+            </Box>
             <Button
               onClick={() =>
                 dispatch(
@@ -69,8 +69,8 @@ export default function CartPage() {
           </Box>
         ))}
       </Box>
-      <div>Total: ${total.toFixed(2)}</div>
-      <button onClick={() => dispatch(clearCart())}>Clear Cart</button>
+      <Box>Total: ${total.toFixed(2)}</Box>
+      <Button onClick={() => dispatch(clearCart())}>Clear Cart</Button>
     </Divider>
   );
 }
