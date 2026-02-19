@@ -55,15 +55,11 @@ export default function ResetPasswordForm() {
           placeholder="Enter new password"
           fullWidth
         />
-        <Button type="submit" variant="contained" className="mt-2">
+        <Button type="submit" variant="text">
           Reset password
         </Button>
       </Box>
-      {message && (
-        <Typography className="mt-3 text-sm text-green-600">
-          {message}
-        </Typography>
-      )}
+      {message && <Typography>{message}</Typography>}
     </>
   );
 }

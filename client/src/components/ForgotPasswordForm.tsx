@@ -46,20 +46,15 @@ export default function ForgotPasswordForm() {
         >
           <Typography>Forgot Password</Typography>
         </Box>
-        <Box component="form" onSubmit={handleSubmit} className="space-y-4">
+        <Box component="form" onSubmit={handleSubmit}>
           <TextField
             type="email"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
             required
           />
-          <Button
-            type="submit"
-            disabled={status === "loading"}
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-          >
+          <Button type="submit" disabled={status === "loading"}>
             {status === "loading" ? "Sending..." : "Reset Password"}
           </Button>
         </Box>
