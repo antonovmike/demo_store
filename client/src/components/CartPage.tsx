@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
+import { Box, Divider, Button, TextField, Typography } from "@mui/material";
 
 import { removeItem, updateQuantity, clearCart } from "../store/CartSlice";
-
 import type { CartItem } from "../store/CartSlice";
 import type { RootState } from "../store/store";
 
@@ -14,12 +14,14 @@ export default function CartPage() {
   );
 
   return (
-    <div>
-      <h2>Cart</h2>
-      {items.length === 0 && <div>Your cart is empty</div>}
-      <div className="space-y-4">
+    <Divider>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
+        Cart
+      </Typography>
+      {items.length === 0 && <Typography>Your cart is empty</Typography>}
+      <Box className="space-y-4">
         {items.map((item: CartItem) => (
-          <div key={item.id}>
+          <Box key={item.id}>
             <div>
               {item.name} — ${item.price} × {item.qty}
             </div>
@@ -64,11 +66,11 @@ export default function CartPage() {
                 )
               }
             />
-          </div>
+          </Box>
         ))}
-      </div>
+      </Box>
       <div>Total: ${total.toFixed(2)}</div>
       <button onClick={() => dispatch(clearCart())}>Clear Cart</button>
-    </div>
+    </Divider>
   );
 }
