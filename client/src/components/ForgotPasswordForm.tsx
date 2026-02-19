@@ -1,7 +1,9 @@
 import { useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
 
 import StyledHeader_2 from "./StyledHeader_1";
-import StyledPage from "./StyledPage";
+import theme from "../theme";
 import { requestPasswordReset } from "../api/reset_user_password";
 
 export default function ForgotPasswordForm() {
@@ -32,34 +34,36 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <StyledPage>
-      <StyledHeader_2>Forgot Password</StyledHeader_2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-          required
-        />
-        <button
-          type="submit"
-          disabled={status === "loading"}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-        >
-          {status === "loading" ? "Sending..." : "Reset Password"}
-        </button>
-      </form>
-      {message && (
-        <p
-          className={`mt-4 text-sm ${
-            status === "success" ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {message}
-        </p>
-      )}
-    </StyledPage>
+    <ThemeProvider theme={theme}>
+      <CssBaseline>
+        <StyledHeader_2>Forgot Password</StyledHeader_2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+            required
+          />
+          <button
+            type="submit"
+            disabled={status === "loading"}
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+          >
+            {status === "loading" ? "Sending..." : "Reset Password"}
+          </button>
+        </form>
+        {message && (
+          <p
+            className={`mt-4 text-sm ${
+              status === "success" ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {message}
+          </p>
+        )}
+      </CssBaseline>
+    </ThemeProvider>
   );
 }
