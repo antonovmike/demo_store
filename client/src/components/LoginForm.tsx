@@ -87,15 +87,10 @@ export default function LoginForm() {
             maxWidth: 400,
           }}
         />
-        <Button
-          type="submit"
-          className="bg-green-600 text-white p-2 rounded hover:bg-green-700"
-        >
-          Login
-        </Button>
+        <Button type="submit">Login</Button>
       </Box>
       {message && <p className="mt-3 text-sm">{message}</p>}
-      <Divider className="mt-4 text-center">
+      <Divider>
         <Button component={RouterLink} to="/forgot-password" variant="text">
           Forgot password?
         </Button>
