@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Button,
-  Divider,
-  FormLabel,
+  List,
+  ListItem,
   TextField,
   Typography,
 } from "@mui/material";
@@ -77,16 +77,16 @@ export default function AddProductPage() {
       </Box>
 
       {/* List of existing products for test */}
-      <ul className="mt-4">
+      <List sx={{ mt: 2 }}>
         <Typography variant="h6" fontWeight="bold" gutterBottom>
           List of existing products:
         </Typography>
         {products.map((p) => (
-          <li key={p.id}>
+          <ListItem key={p.id} disablePadding>
             {p.name} — ${p.price}
-          </li>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </Box>
   );
 }
