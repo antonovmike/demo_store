@@ -35,7 +35,7 @@ export default function ProfilePage() {
   }, [token]);
 
   return (
-    <Box className="max-w-md mx-auto p-4 border rounded-lg">
+    <Box>
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         My Profile
       </Typography>
