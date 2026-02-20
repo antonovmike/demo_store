@@ -52,7 +52,7 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    <>
+    <Box>
       <Box component="form" onSubmit={handleSubmit}>
         <TextField
           type="password"
@@ -77,6 +77,6 @@ export default function ResetPasswordForm() {
           {message}
         </Typography>
       )}
-    </>
+    </Box>
   );
 }
