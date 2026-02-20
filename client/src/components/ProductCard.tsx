@@ -9,14 +9,12 @@ export default function ProductCard({ product }: { product: Product }) {
   if (!product) return null;
 
   return (
-    <Box className="border rounded p-4">
+    <Box>
       <Typography variant="h6" fontWeight="bold">
         {product.name}
       </Typography>
       <Typography>${Number(product.price)}</Typography>
-      <Typography className="text-sm text-gray-500">
-        {product.description}
-      </Typography>
+      <Typography>{product.description}</Typography>
 
       <Button
         onClick={() =>
@@ -29,7 +27,6 @@ export default function ProductCard({ product }: { product: Product }) {
             }),
           )
         }
-        className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
       >
         Add to cart
       </Button>
