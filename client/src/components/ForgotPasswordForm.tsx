@@ -31,7 +31,7 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <Divider>
+    <Box>
       <Box
         sx={{
           minHeight: "10vh",
@@ -66,6 +66,6 @@ export default function ForgotPasswordForm() {
       <Button type="submit" disabled={status === "loading"}>
         {status === "loading" ? "Sending..." : "Reset Password"}
       </Button>
-    </Divider>
+    </Box>
   );
 }
