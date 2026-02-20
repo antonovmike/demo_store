@@ -1,9 +1,6 @@
 import { useState } from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 
-import theme from "../theme";
 import { requestPasswordReset } from "../api/reset_user_password";
 
 export default function ForgotPasswordForm() {
@@ -34,30 +31,25 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline>
-        <Box
-          sx={{
-            minHeight: "10vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Typography>Forgot Password</Typography>
-        </Box>
-        <Box component="form" onSubmit={handleSubmit}>
-          <TextField
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <Button type="submit" disabled={status === "loading"}>
-            {status === "loading" ? "Sending..." : "Reset Password"}
-          </Button>
-        </Box>
+    <Divider>
+      <Box
+        sx={{
+          minHeight: "10vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography>Forgot Password</Typography>
+      </Box>
+      <Box component="form" onSubmit={handleSubmit}>
+        <TextField
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
         {message && (
           <Typography
             align="center"
@@ -70,7 +62,10 @@ export default function ForgotPasswordForm() {
             {message}
           </Typography>
         )}
-      </CssBaseline>
-    </ThemeProvider>
+      </Box>
+      <Button type="submit" disabled={status === "loading"}>
+        {status === "loading" ? "Sending..." : "Reset Password"}
+      </Button>
+    </Divider>
   );
 }
