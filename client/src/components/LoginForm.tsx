@@ -46,7 +46,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Divider>
+    <Box>
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Login
       </Typography>
@@ -89,12 +89,22 @@ export default function LoginForm() {
         />
         <Button type="submit">Login</Button>
       </Box>
-      {message && <Typography>{message}</Typography>}
-      <Divider>
-        <Button component={RouterLink} to="/forgot-password" variant="text">
-          Forgot password?
-        </Button>
-      </Divider>
-    </Divider>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          width: "100%",
+          maxWidth: 400,
+        }}
+      >
+        {message && <Typography>{message}</Typography>}
+        <Divider>
+          <Button component={RouterLink} to="/forgot-password" variant="text">
+            Forgot password?
+          </Button>
+        </Divider>
+      </Box>
+    </Box>
   );
 }
