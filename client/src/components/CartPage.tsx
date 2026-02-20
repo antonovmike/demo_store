@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Divider, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { removeItem, updateQuantity, clearCart } from "../store/CartSlice";
 import type { CartItem } from "../store/CartSlice";
@@ -14,7 +14,7 @@ export default function CartPage() {
   );
 
   return (
-    <Divider>
+    <Box>
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Cart
       </Typography>
@@ -76,6 +76,6 @@ export default function CartPage() {
       </Box>
       <Box>Total: ${total.toFixed(2)}</Box>
       <Button onClick={() => dispatch(clearCart())}>Clear Cart</Button>
-    </Divider>
+    </Box>
   );
 }

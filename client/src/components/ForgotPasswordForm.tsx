@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Divider, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { requestPasswordReset } from "../api/reset_user_password";
 
