@@ -50,12 +50,7 @@ export default function ProfilePage() {
           <Typography>
             <strong>Email:</strong> {profile.email}
           </Typography>
-          <Button
-            onClick={logout}
-            className="mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
-          >
-            Logout
-          </Button>
+          <Button onClick={logout}>Logout</Button>
         </Divider>
       ) : (
         <Typography>No profile data</Typography>
