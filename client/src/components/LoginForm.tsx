@@ -46,7 +46,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Divider className="max-w-md mx-auto p-4 border rounded-lg">
+    <Divider>
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Login
       </Typography>
