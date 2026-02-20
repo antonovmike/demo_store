@@ -24,16 +24,14 @@ export default function ProductsPage() {
   }, [dispatch, status]);
 
   return (
-    <Box className="max-w-md mx-auto p-4 border rounded-lg">
+    <Box>
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Products
       </Typography>
 
       {status === "loading" && <Divider>Loading products...</Divider>}
       {status === "failed" && (
-        <Divider className="text-red-600">
-          Error loading products: {error}
-        </Divider>
+        <Divider>Error loading products: {error}</Divider>
       )}
 
       <Box
