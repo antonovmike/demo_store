@@ -45,28 +45,20 @@ export default function RegisterForm() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 rounded"
         />
         <TextField
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 rounded"
         />
         <TextField
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded"
         />
-        <Button
-          type="submit"
-          className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-        >
-          Register
-        </Button>
+        <Button type="submit">Register</Button>
       </Box>
       {status === "succeeded" && user && (
         <Typography variant="body2" sx={{ mt: 3 }}>
