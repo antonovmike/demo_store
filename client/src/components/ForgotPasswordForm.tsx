@@ -40,7 +40,9 @@ export default function ForgotPasswordForm() {
           justifyContent: "center",
         }}
       >
-        <Typography>Forgot Password</Typography>
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
+          Forgot Password
+        </Typography>
       </Box>
       <Box component="form" onSubmit={handleSubmit}>
         <TextField
