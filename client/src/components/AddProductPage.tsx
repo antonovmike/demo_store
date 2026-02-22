@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { FormBox } from "./StyledBox";
 import { addProduct, selectAllProducts } from "../store/ProductsSlice";
 import api from "../api/axios";
 
@@ -42,16 +43,7 @@ export default function AddProductPage() {
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Add Product
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleAddProduct}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          mb: 2,
-        }}
-      >
+      <FormBox onSubmit={handleAddProduct}>
         <TextField
           id="name"
           label="Name"
@@ -77,7 +69,7 @@ export default function AddProductPage() {
           fullWidth
         />
         <Button type="submit">Add Product</Button>
-      </Box>
+      </FormBox>
       {/* List of existing products for test */}
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         {" "}
