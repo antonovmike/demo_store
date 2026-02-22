@@ -46,6 +46,9 @@ export default function ForgotPasswordForm() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+        <Button type="submit" disabled={status === "loading"}>
+          {status === "loading" ? "Sending..." : "Reset Password"}
+        </Button>
         {message && (
           <Typography
             align="center"
@@ -59,9 +62,6 @@ export default function ForgotPasswordForm() {
           </Typography>
         )}
       </Box>
-      <Button type="submit" disabled={status === "loading"}>
-        {status === "loading" ? "Sending..." : "Reset Password"}
-      </Button>
     </Box>
   );
 }
