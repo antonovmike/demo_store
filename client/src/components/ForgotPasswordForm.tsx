@@ -38,7 +38,7 @@ export default function ForgotPasswordForm() {
           Forgot Password
         </Typography>
       </FormBox>
-      <Box component="form" onSubmit={handleSubmit}>
+      <FormBox onSubmit={handleSubmit}>
         <TextField
           type="email"
           placeholder="Enter your email"
@@ -61,7 +61,7 @@ export default function ForgotPasswordForm() {
             {message}
           </Typography>
         )}
-      </Box>
+      </FormBox>
     </Box>
   );
 }
