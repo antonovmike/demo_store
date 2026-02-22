@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
+import { FormBox } from "./StyledBox";
 
 export default function ResetPasswordForm() {
   const [message, setMessage] = useState("");
@@ -53,7 +54,7 @@ export default function ResetPasswordForm() {
 
   return (
     <Box>
-      <Box component="form" onSubmit={handleSubmit}>
+      <FormBox onSubmit={handleSubmit}>
         <TextField
           type="password"
           value={newPassword}
@@ -64,7 +65,7 @@ export default function ResetPasswordForm() {
         <Button type="submit" variant="text">
           Reset password
         </Button>
-      </Box>
+      </FormBox>
       {message && (
         <Typography
           align="center"
