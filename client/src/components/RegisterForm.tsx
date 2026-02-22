@@ -8,6 +8,8 @@ import {
 } from "../store/userSlice";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
+import { FormBox } from "./StyledBox";
+
 import type { AppDispatch } from "../store/store";
 
 export default function RegisterForm() {
@@ -29,17 +31,7 @@ export default function RegisterForm() {
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Register
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleRegister}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          width: "100%",
-          maxWidth: 400,
-        }}
-      >
+      <FormBox onSubmit={handleRegister}>
         <TextField
           type="text"
           placeholder="Username"
@@ -59,7 +51,7 @@ export default function RegisterForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button type="submit">Register</Button>
-      </Box>
+      </FormBox>
       {status === "succeeded" && user && (
         <Typography variant="body2" sx={{ mt: 3 }}>
           ✅ Registered as {user.username} ({user.email})
