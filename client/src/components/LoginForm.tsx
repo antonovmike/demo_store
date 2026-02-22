@@ -4,6 +4,7 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { Box, Divider, Button, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
+import { FormBox } from "./StyledBox";
 import { AuthContext } from "../context/AuthContext";
 import { loginSuccess } from "../store/authSlice";
 
@@ -50,17 +51,7 @@ export default function LoginForm() {
       <Typography variant="h6" fontWeight="bold" gutterBottom>
         Login
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleLogin}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          width: "100%",
-          maxWidth: 400,
-        }}
-      >
+      <FormBox onSubmit={handleLogin}>
         <TextField
           type="text"
           placeholder="Useremail"
@@ -88,23 +79,15 @@ export default function LoginForm() {
           }}
         />
         <Button type="submit">Login</Button>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          width: "100%",
-          maxWidth: 400,
-        }}
-      >
+      </FormBox>
+      <FormBox>
         {message && <Typography>{message}</Typography>}
         <Divider>
           <Button component={RouterLink} to="/forgot-password" variant="text">
             Forgot password?
           </Button>
         </Divider>
-      </Box>
+      </FormBox>
     </Box>
   );
 }
