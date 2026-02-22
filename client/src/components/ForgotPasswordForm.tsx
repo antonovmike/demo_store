@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
+import { FormBox } from "./StyledBox";
 import { requestPasswordReset } from "../api/reset_user_password";
 
 export default function ForgotPasswordForm() {
@@ -32,18 +33,11 @@ export default function ForgotPasswordForm() {
 
   return (
     <Box>
-      <Box
-        sx={{
-          minHeight: "10vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <FormBox>
         <Typography variant="h6" fontWeight="bold" gutterBottom>
           Forgot Password
         </Typography>
-      </Box>
+      </FormBox>
       <Box component="form" onSubmit={handleSubmit}>
         <TextField
           type="email"
