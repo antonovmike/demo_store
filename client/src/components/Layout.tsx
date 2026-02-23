@@ -40,7 +40,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Toolbar>
       </AppBar>
 
-      <Container sx={{ mt: 4, mb: 4 }}>{children}</Container>
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          width: "100%",
+          maxWidth: 400,
+        }}
+      >
+        {children}
+      </Container>
 
       <Box
         component="footer"
