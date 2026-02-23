@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 
 import {
   fetchProducts,
@@ -25,7 +25,12 @@ export default function ProductsPage() {
 
   return (
     <>
-      <Typography variant="h5" fontWeight="bold" gutterBottom>
+      <Typography
+        variant="h5"
+        fontWeight="bold"
+        gutterBottom
+        textAlign={"center"}
+      >
         Products
       </Typography>
 
@@ -37,7 +42,8 @@ export default function ProductsPage() {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          gridTemplateColumns: "repeat(2, 400px)",
+          justifyContent: "center",
           gap: 2,
         }}
       >

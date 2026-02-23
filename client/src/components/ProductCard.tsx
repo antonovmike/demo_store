@@ -20,7 +20,7 @@ export default function ProductCard({ product }: { product: Product }) {
         component="img"
         image={`/images/products/${product.id}.webp`}
         alt={product.name}
-        sx={{ height: 200, objectFit: "cover" }}
+        sx={{ height: 500, objectFit: "cover" }}
       />
 
       <Typography variant="h6" fontWeight="bold">
