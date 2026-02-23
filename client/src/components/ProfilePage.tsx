@@ -36,7 +36,12 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Typography variant="h5" fontWeight="bold" gutterBottom>
+      <Typography
+        textAlign="center"
+        variant="h5"
+        fontWeight="bold"
+        gutterBottom
+      >
         My Profile
       </Typography>
       {profile ? (
