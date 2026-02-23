@@ -1,9 +1,9 @@
 import type { AxiosError } from "axios";
-import api from "../api/axios";
 import { useContext, useEffect, useState } from "react";
+import { Divider, Button, Typography } from "@mui/material";
 
+import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
-
 import type { User } from "../store/userSlice";
 
 export default function ProfilePage() {
@@ -35,29 +35,31 @@ export default function ProfilePage() {
   }, [token]);
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-lg">
-      <h2 className="text-xl font-semibold mb-2">My Profile</h2>
+    <>
+      <Typography
+        textAlign="center"
+        variant="h5"
+        fontWeight="bold"
+        gutterBottom
+      >
+        My Profile
+      </Typography>
       {profile ? (
-        <div>
-          <p>
+        <Divider>
+          <Typography>
             <strong>ID:</strong> {profile.id}
-          </p>
-          <p>
+          </Typography>
+          <Typography>
             <strong>Username:</strong> {profile.username}
-          </p>
-          <p>
+          </Typography>
+          <Typography>
             <strong>Email:</strong> {profile.email}
-          </p>
-          <button
-            onClick={logout}
-            className="mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
-          >
-            Logout
-          </button>
-        </div>
+          </Typography>
+          <Button onClick={logout}>Logout</Button>
+        </Divider>
       ) : (
-        <p>No profile data</p>
+        <Typography>No profile data</Typography>
       )}
-    </div>
+    </>
   );
 }

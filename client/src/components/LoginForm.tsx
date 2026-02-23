@@ -1,11 +1,14 @@
-import type { AxiosError } from "axios";
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { Divider, Button, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
+import { FormBox } from "./StyledBox";
 import { AuthContext } from "../context/AuthContext";
 import { loginSuccess } from "../store/authSlice";
+
+import type { AxiosError } from "axios";
 
 export default function LoginForm() {
   const [useremail, setUserEmail] = useState("");
@@ -28,7 +31,6 @@ export default function LoginForm() {
       });
       setToken(res.data.token);
       setUser({ email: useremail });
-      setUserEmail(useremail);
       dispatch(
         loginSuccess({
           user: { email: useremail },
@@ -44,39 +46,39 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-lg">
-      <h2 className="text-xl font-semibold mb-2">Login</h2>
-      <form onSubmit={handleLogin} className="flex flex-col gap-3">
-        <input
-          type="text"
-          placeholder="Useremail"
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
+        Login
+      </Typography>
+      <Divider sx={{ mb: 3 }} />
+
+      <FormBox onSubmit={handleLogin}>
+        <TextField
+          label="Email"
+          type="email"
           value={useremail}
           onChange={(e) => setUserEmail(e.target.value)}
-          className="border p-2 rounded"
+          variant="outlined"
+          fullWidth
         />
-        <input
+        <TextField
+          label="Password"
           type="password"
-          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded"
+          variant="outlined"
+          fullWidth
         />
-        <button
-          type="submit"
-          className="bg-green-600 text-white p-2 rounded hover:bg-green-700"
-        >
-          Login
-        </button>
-      </form>
-      {message && <p className="mt-3 text-sm">{message}</p>}
-      <div className="mt-4 text-center">
-        <Link
-          to="/forgot-password"
-          className="text-gray-600 hover:underline text-sm"
-        >
-          <button>Forgot password?</button>
-        </Link>
-      </div>
-    </div>
+        <Button type="submit">Login</Button>
+      </FormBox>
+
+      <FormBox>
+        {message && <Typography>{message}</Typography>}
+        <Divider></Divider>
+        <Button component={RouterLink} to="/forgot-password" variant="text">
+          Forgot password?
+        </Button>
+      </FormBox>
+    </>
   );
 }

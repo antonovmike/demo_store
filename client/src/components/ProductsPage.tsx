@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Box, Divider, Typography } from "@mui/material";
+
 import {
   fetchProducts,
   selectAllProducts,
@@ -7,7 +9,6 @@ import {
   selectProductsError,
 } from "../store/ProductsSlice";
 import ProductCard from "./ProductCard";
-
 import type { AppDispatch } from "../store/store";
 
 export default function ProductsPage() {
@@ -23,21 +24,32 @@ export default function ProductsPage() {
   }, [dispatch, status]);
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Products</h1>
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
+        Products
+      </Typography>
 
-      {status === "loading" && <div>Loading products...</div>}
+      {status === "loading" && <Divider>Loading products...</Divider>}
       {status === "failed" && (
-        <div className="text-red-600">Error loading products: {error}</div>
+        <Divider>Error loading products: {error}</Divider>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          gap: 2,
+        }}
+      >
+        {" "}
         {Array.isArray(products) ? (
           products.map((p) => <ProductCard key={p.id} product={p} />)
         ) : (
-          <div className="text-red-600">Invalid products response</div>
-        )}
-      </div>
-    </div>
+          <Divider sx={{ color: "error.main" }}>
+            Invalid products response
+          </Divider>
+        )}{" "}
+      </Box>
+    </>
   );
 }

@@ -1,10 +1,24 @@
-import StyledPage from "./StyledPage";
-import StyledHeader_1 from "./StyledHeader_1";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import { Box, Typography } from "@mui/material";
+
+import theme from "../theme";
 
 export default function HomePage() {
   return (
-    <StyledPage>
-      <StyledHeader_1>Welcome</StyledHeader_1>
-    </StyledPage>
+    <ThemeProvider theme={theme}>
+      <CssBaseline>
+        <Box
+          sx={{
+            minHeight: "10vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography>Welcome</Typography>
+        </Box>
+      </CssBaseline>
+    </ThemeProvider>
   );
 }

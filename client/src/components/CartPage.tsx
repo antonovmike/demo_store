@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { removeItem, updateQuantity, clearCart } from "../store/CartSlice";
-
 import type { CartItem } from "../store/CartSlice";
 import type { RootState } from "../store/store";
 
@@ -14,16 +14,25 @@ export default function CartPage() {
   );
 
   return (
-    <div>
-      <h2>Cart</h2>
-      {items.length === 0 && <div>Your cart is empty</div>}
-      <div className="space-y-4">
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
+        Cart
+      </Typography>
+      {items.length === 0 && <Typography>Your cart is empty</Typography>}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          mb: 2,
+        }}
+      >
         {items.map((item: CartItem) => (
-          <div key={item.id}>
-            <div>
+          <Box key={item.id}>
+            <Box>
               {item.name} — ${item.price} × {item.qty}
-            </div>
-            <button
+            </Box>
+            <Button
               onClick={() =>
                 dispatch(
                   updateQuantity({
@@ -32,28 +41,22 @@ export default function CartPage() {
                   }),
                 )
               }
-              className="px-2 py-1 bg-gray-200 rounded"
             >
               −
-            </button>
+            </Button>
             <span>{item.qty}</span>
-            <button
+            <Button
               onClick={() =>
                 dispatch(updateQuantity({ id: item.id, qty: item.qty + 1 }))
               }
-              className="px-2 py-1 bg-gray-200 rounded"
             >
               +
-            </button>
-            <button
-              onClick={() => dispatch(removeItem(item.id))}
-              className="px-3 py-1 bg-red-500 text-white rounded"
-            >
+            </Button>
+            <Button onClick={() => dispatch(removeItem(item.id))}>
               Remove
-            </button>
-            <input
+            </Button>
+            <TextField
               type="number"
-              min="1"
               value={item.qty}
               onChange={(e) =>
                 dispatch(
@@ -63,12 +66,16 @@ export default function CartPage() {
                   }),
                 )
               }
+              slotProps={{
+                htmlInput: { min: 1 },
+              }}
+              sx={{ width: 80 }}
             />
-          </div>
+          </Box>
         ))}
-      </div>
-      <div>Total: ${total.toFixed(2)}</div>
-      <button onClick={() => dispatch(clearCart())}>Clear Cart</button>
-    </div>
+      </Box>
+      <Box>Total: ${total.toFixed(2)}</Box>
+      <Button onClick={() => dispatch(clearCart())}>Clear Cart</Button>
+    </>
   );
 }

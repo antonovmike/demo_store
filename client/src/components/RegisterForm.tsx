@@ -6,6 +6,9 @@ import {
   selectUserError,
   selectCurrentUser,
 } from "../store/userSlice";
+import { Button, TextField, Typography } from "@mui/material";
+
+import { FormBox } from "./StyledBox";
 
 import type { AppDispatch } from "../store/store";
 
@@ -24,47 +27,47 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-lg">
-      <h2 className="text-xl font-semibold mb-2">Register</h2>
-      <form onSubmit={handleRegister} className="flex flex-col gap-3">
-        <input
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
+        Register
+      </Typography>
+      <FormBox onSubmit={handleRegister}>
+        <TextField
+          label="User name"
           type="text"
-          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 rounded"
+          variant="outlined"
+          fullWidth
         />
-        <input
+        <TextField
+          label="Email"
           type="email"
-          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 rounded"
+          variant="outlined"
+          fullWidth
         />
-        <input
+        <TextField
+          label="Password"
           type="password"
-          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded"
+          variant="outlined"
+          fullWidth
         />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-        >
-          Register
-        </button>
-      </form>
+        <Button type="submit">Register</Button>
+      </FormBox>
       {status === "succeeded" && user && (
-        <p className="mt-3 text-sm">
-          ✅ Registered as {user.username || user.username}
-        </p>
+        <Typography variant="body2" sx={{ mt: 3 }}>
+          ✅ Registered as {user.username} ({user.email})
+        </Typography>
       )}
       {status === "failed" && (
-        <p className="mt-3 text-sm text-red-600">
-          ❌ {error || "Registration failed"}
-        </p>
+        <Typography variant="body2" sx={{ mt: 3, color: "error.main" }}>
+          ❌ Registration failed {error ? `: ${error}` : ""}
+        </Typography>
       )}
-    </div>
+    </>
   );
 }
