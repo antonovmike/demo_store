@@ -57,7 +57,7 @@ const theme = createTheme({
           borderRadius: "8px",
           border: "1px solid transparent",
           padding: "0.6em 1.2em",
-          fontSize: "1em",
+          fontSize: "0.9em",
           fontWeight: 500,
           fontFamily: "inherit",
           backgroundColor: "#1a1a1a",
