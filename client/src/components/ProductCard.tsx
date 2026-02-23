@@ -1,5 +1,11 @@
 import { useDispatch } from "react-redux";
-import { Button, Card, CardMedia, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 
 import { addItem } from "../store/CartSlice";
 import type { Product } from "../store/ProductsSlice";
@@ -16,25 +22,29 @@ export default function ProductCard({ product }: { product: Product }) {
         alt={product.name}
         sx={{ height: 200, objectFit: "cover" }}
       />
+
       <Typography variant="h6" fontWeight="bold">
         {product.name}
       </Typography>
       <Typography>${Number(product.price)}</Typography>
       <Typography>{product.description}</Typography>
-      <Button
-        onClick={() =>
-          dispatch(
-            addItem({
-              id: product.id,
-              name: product.name,
-              price: product.price,
-              qty: 1,
-            }),
-          )
-        }
-      >
-        Add to cart
-      </Button>
+
+      <CardActions sx={{ mt: "auto" }}>
+        <Button
+          onClick={() =>
+            dispatch(
+              addItem({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                qty: 1,
+              }),
+            )
+          }
+        >
+          Add to cart
+        </Button>
+      </CardActions>
     </Card>
   );
 }
