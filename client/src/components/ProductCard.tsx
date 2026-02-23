@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Box, Button, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Card, CardMedia, Typography } from "@mui/material";
 
 import { addItem } from "../store/CartSlice";
 import type { Product } from "../store/ProductsSlice";
@@ -9,7 +9,7 @@ export default function ProductCard({ product }: { product: Product }) {
   if (!product) return null;
 
   return (
-    <Box>
+    <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <Typography variant="h6" fontWeight="bold">
         {product.name}
       </Typography>
@@ -35,6 +35,6 @@ export default function ProductCard({ product }: { product: Product }) {
       >
         Add to cart
       </Button>
-    </Box>
+    </Card>
   );
 }
