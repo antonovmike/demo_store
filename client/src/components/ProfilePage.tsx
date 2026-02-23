@@ -1,6 +1,6 @@
 import type { AxiosError } from "axios";
 import { useContext, useEffect, useState } from "react";
-import { Box, Divider, Button, Typography } from "@mui/material";
+import { Divider, Button, Typography } from "@mui/material";
 
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
@@ -35,8 +35,8 @@ export default function ProfilePage() {
   }, [token]);
 
   return (
-    <Box>
-      <Typography variant="h6" fontWeight="bold" gutterBottom>
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
         My Profile
       </Typography>
       {profile ? (
@@ -55,6 +55,6 @@ export default function ProfilePage() {
       ) : (
         <Typography>No profile data</Typography>
       )}
-    </Box>
+    </>
   );
 }

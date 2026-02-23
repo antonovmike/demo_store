@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 
 import { FormBox } from "./StyledBox";
 import { requestPasswordReset } from "../api/reset_user_password";
@@ -32,7 +32,7 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <Box>
+    <>
       <FormBox>
         <Typography variant="h6" fontWeight="bold" gutterBottom>
           Forgot Password
@@ -44,6 +44,8 @@ export default function ForgotPasswordForm() {
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          variant="outlined"
+          fullWidth
           required
         />
         <Button type="submit" disabled={status === "loading"}>
@@ -62,6 +64,6 @@ export default function ForgotPasswordForm() {
           </Typography>
         )}
       </FormBox>
-    </Box>
+    </>
   );
 }

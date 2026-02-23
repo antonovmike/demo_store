@@ -6,7 +6,7 @@ import {
   selectUserError,
   selectCurrentUser,
 } from "../store/userSlice";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 
 import { FormBox } from "./StyledBox";
 
@@ -27,28 +27,34 @@ export default function RegisterForm() {
   };
 
   return (
-    <Box>
-      <Typography variant="h6" fontWeight="bold" gutterBottom>
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
         Register
       </Typography>
       <FormBox onSubmit={handleRegister}>
         <TextField
+          label="User name"
           type="text"
-          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          variant="outlined"
+          fullWidth
         />
         <TextField
+          label="Email"
           type="email"
-          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          variant="outlined"
+          fullWidth
         />
         <TextField
+          label="Password"
           type="password"
-          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          variant="outlined"
+          fullWidth
         />
         <Button type="submit">Register</Button>
       </FormBox>
@@ -62,6 +68,6 @@ export default function RegisterForm() {
           ❌ Registration failed {error ? `: ${error}` : ""}
         </Typography>
       )}
-    </Box>
+    </>
   );
 }

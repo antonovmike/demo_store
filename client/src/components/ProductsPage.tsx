@@ -24,8 +24,8 @@ export default function ProductsPage() {
   }, [dispatch, status]);
 
   return (
-    <Box>
-      <Typography variant="h6" fontWeight="bold" gutterBottom>
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
         Products
       </Typography>
 
@@ -50,6 +50,6 @@ export default function ProductsPage() {
           </Divider>
         )}{" "}
       </Box>
-    </Box>
+    </>
   );
 }

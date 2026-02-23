@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Button, Divider, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
 import { FormBox } from "./StyledBox";
@@ -53,13 +53,20 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    <Box>
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
+        New password
+      </Typography>
+      <Divider sx={{ mb: 3 }} />
+
       <FormBox onSubmit={handleSubmit}>
         <TextField
+          label="Password"
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           placeholder="Enter new password"
+          variant="outlined"
           fullWidth
         />
         <Button type="submit" variant="text">
@@ -78,6 +85,6 @@ export default function ResetPasswordForm() {
           {message}
         </Typography>
       )}
-    </Box>
+    </>
   );
 }

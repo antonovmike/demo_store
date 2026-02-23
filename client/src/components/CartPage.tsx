@@ -14,8 +14,8 @@ export default function CartPage() {
   );
 
   return (
-    <Box>
-      <Typography variant="h6" fontWeight="bold" gutterBottom>
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
         Cart
       </Typography>
       {items.length === 0 && <Typography>Your cart is empty</Typography>}
@@ -76,6 +76,6 @@ export default function CartPage() {
       </Box>
       <Box>Total: ${total.toFixed(2)}</Box>
       <Button onClick={() => dispatch(clearCart())}>Clear Cart</Button>
-    </Box>
+    </>
   );
 }

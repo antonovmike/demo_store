@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import { Box, Divider, Button, TextField, Typography } from "@mui/material";
+import { Divider, Button, TextField, Typography } from "@mui/material";
 
 import api from "../api/axios";
 import { FormBox } from "./StyledBox";
@@ -31,7 +31,6 @@ export default function LoginForm() {
       });
       setToken(res.data.token);
       setUser({ email: useremail });
-      setUserEmail(useremail);
       dispatch(
         loginSuccess({
           user: { email: useremail },
@@ -47,47 +46,39 @@ export default function LoginForm() {
   };
 
   return (
-    <Box>
-      <Typography variant="h6" fontWeight="bold" gutterBottom>
+    <>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
         Login
       </Typography>
+      <Divider sx={{ mb: 3 }} />
+
       <FormBox onSubmit={handleLogin}>
         <TextField
-          type="text"
-          placeholder="Useremail"
+          label="Email"
+          type="email"
           value={useremail}
           onChange={(e) => setUserEmail(e.target.value)}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            width: "100%",
-            maxWidth: 400,
-          }}
+          variant="outlined"
+          fullWidth
         />
         <TextField
+          label="Password"
           type="password"
-          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            width: "100%",
-            maxWidth: 400,
-          }}
+          variant="outlined"
+          fullWidth
         />
         <Button type="submit">Login</Button>
       </FormBox>
+
       <FormBox>
         {message && <Typography>{message}</Typography>}
-        <Divider>
-          <Button component={RouterLink} to="/forgot-password" variant="text">
-            Forgot password?
-          </Button>
-        </Divider>
+        <Divider></Divider>
+        <Button component={RouterLink} to="/forgot-password" variant="text">
+          Forgot password?
+        </Button>
       </FormBox>
-    </Box>
+    </>
   );
 }
