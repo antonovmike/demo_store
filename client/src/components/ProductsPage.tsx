@@ -42,7 +42,14 @@ export default function ProductsPage() {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "repeat(2, 400px)",
+          // Choose the variant later
+          gridTemplateColumns: "repeat(2, 400px)", // 2 columns 400px max
+          // gridTemplateColumns: "repeat(2, minmax(350px, 1fr))", // 2 columns 350px min
+          // gridTemplateColumns: {
+          //   xs: "1fr", // 1 column on smartphone
+          //   sm: "repeat(2, minmax(350px, 1fr))", // 2 columns on tablet
+          //   md: "repeat(3, minmax(350px, 1fr))", // 3 columns on desctop
+          // },
           justifyContent: "center",
           gap: 2,
         }}
