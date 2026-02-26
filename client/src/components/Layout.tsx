@@ -20,9 +20,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Link component={RouterLink} to="/" sx={{ width: "15%" }}>
             <CardMedia component="img" src={logo} />
           </Link>
-          <Typography variant="h5" sx={{ flexGrow: 1 }}>
-            Demo Store
-          </Typography>
           <Button color="inherit" component={RouterLink} to="/">
             Home
           </Button>
