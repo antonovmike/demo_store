@@ -15,7 +15,7 @@ import logo from "/images/logo-full.png";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Link component={RouterLink} to="/" sx={{ width: "15%" }}>
             <CardMedia component="img" src={logo} />
