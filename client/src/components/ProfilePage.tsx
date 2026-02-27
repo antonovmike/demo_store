@@ -1,45 +1,36 @@
-import type { AxiosError } from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Divider, Button, Typography, Skeleton } from "@mui/material";
 
-import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
-import type { User } from "../store/userSlice";
+import {
+  fetchProfile,
+  selectProfile,
+  selectProfileLoading,
+  selectProfileError,
+} from "../store/profileSlice";
+import type { AppDispatch } from "../store/store";
 
 export default function ProfilePage() {
   const auth = useContext(AuthContext);
   if (!auth) throw new Error("AuthContext not provided");
   const { token, logout } = auth;
-  const [profile, setProfile] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
 
+  const dispatch: AppDispatch = useDispatch();
+  const profile = useSelector(selectProfile);
+  const loading = useSelector(selectProfileLoading);
+
+  selectProfileError;
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        console.log("🔑 Using token:", token);
-        const res = await api.get("/users/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        // Check if the 'loading' works and "Loading profile..."
-        // appears after login before profile is loaded
-        // await new Promise((r) => setTimeout(r, 1000));
-
-        setProfile(res.data);
-      } catch (err) {
-        const error = err as AxiosError<{ error: string }>;
-        console.error(
-          "❌ Failed to fetch profile:",
-          error.response?.status,
-          error.response?.data,
-        );
-        setProfile(null);
-      } finally {
-        setLoading(false);
+    try {
+      if (token) {
+        dispatch(fetchProfile(token));
       }
-    };
-    fetchProfile();
-  }, [token]);
+    } catch (err) {
+      const error = useSelector(selectProfileError);
+      console.error("❌ Failed to fetch profile:", error);
+    }
+  }, [dispatch, token]);
 
   return (
     <>
