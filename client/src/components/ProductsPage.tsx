@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, Pagination, Typography } from "@mui/material";
 
 import {
   fetchProducts,
@@ -17,11 +17,26 @@ export default function ProductsPage() {
   const status = useSelector(selectProductsStatus);
   const error = useSelector(selectProductsError);
 
+  // Pagination
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 4;
+
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchProducts());
     }
   }, [dispatch, status]);
+
+  // Pagination
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedProducts = Array.isArray(products)
+    ? products.slice(startIndex, endIndex)
+    : [];
+
+  const pageCount = Array.isArray(products)
+    ? Math.ceil(products.length / itemsPerPage)
+    : 0;
 
   return (
     <>
@@ -54,15 +69,26 @@ export default function ProductsPage() {
           gap: 2,
         }}
       >
-        {" "}
-        {Array.isArray(products) ? (
-          products.map((p) => <ProductCard key={p.id} product={p} />)
+        {Array.isArray(paginatedProducts) && paginatedProducts.length > 0 ? (
+          paginatedProducts.map((p) => <ProductCard key={p.id} product={p} />)
         ) : (
           <Divider sx={{ color: "error.main" }}>
             Invalid products response
           </Divider>
         )}{" "}
       </Box>
+      {/* Pagination */}
+      {pageCount > 1 && (
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Pagination
+            count={pageCount}
+            page={page}
+            onChange={(_, value) => setPage(value)}
+            shape="rounded"
+            color="primary"
+          />
+        </Box>
+      )}
     </>
   );
 }
