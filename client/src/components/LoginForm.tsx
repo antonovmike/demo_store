@@ -6,7 +6,6 @@ import {
   Divider,
   InputAdornment,
   IconButton,
-  TextField,
   Typography,
   FormControl,
   InputLabel,
@@ -67,14 +66,16 @@ export default function LoginForm() {
       <Divider sx={{ mb: 3 }} />
 
       <FormBox onSubmit={handleLogin}>
-        <TextField
-          label="Email"
-          type="email"
-          value={useremail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          variant="outlined"
-          fullWidth
-        />
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="email">Email</InputLabel>
+          <OutlinedInput
+            id="email"
+            label="Email"
+            required
+            value={useremail}
+            onChange={(e) => setUserEmail(e.target.value)}
+          />
+        </FormControl>
         <FormControl variant="outlined">
           <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
