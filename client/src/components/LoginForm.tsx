@@ -1,7 +1,15 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import { Divider, Button, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Divider,
+  InputAdornment,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import api from "../api/axios";
 import { FormBox } from "./StyledBox";
@@ -45,6 +53,9 @@ export default function LoginForm() {
     }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+  const handleCklickShowPassword = () => setShowPassword((prev) => !prev);
+
   return (
     <>
       <Typography variant="h5" fontWeight="bold" gutterBottom>
@@ -63,8 +74,17 @@ export default function LoginForm() {
         />
         <TextField
           label="Password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={password}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleCklickShowPassword} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           onChange={(e) => setPassword(e.target.value)}
           variant="outlined"
           fullWidth
