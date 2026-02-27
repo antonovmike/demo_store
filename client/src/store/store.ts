@@ -3,6 +3,7 @@ import type { Middleware } from "@reduxjs/toolkit";
 
 import cartReducer from "./CartSlice";
 import productsReducer from "./ProductsSlice";
+import profileReducer from "./profileSlice";
 import userReducer from "./userSlice";
 import authReducer from "./authSlice";
 
@@ -29,6 +30,7 @@ const store = configureStore({
     auth: authReducer,
     cart: cartReducer,
     products: productsReducer,
+    profile: profileReducer,
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -1,7 +1,17 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import { Divider, Button, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Divider,
+  InputAdornment,
+  IconButton,
+  Typography,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import api from "../api/axios";
 import { FormBox } from "./StyledBox";
@@ -45,6 +55,9 @@ export default function LoginForm() {
     }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((prev) => !prev);
+
   return (
     <>
       <Typography variant="h5" fontWeight="bold" gutterBottom>
@@ -53,22 +66,34 @@ export default function LoginForm() {
       <Divider sx={{ mb: 3 }} />
 
       <FormBox onSubmit={handleLogin}>
-        <TextField
-          label="Email"
-          type="email"
-          value={useremail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          variant="outlined"
-          fullWidth
-        />
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="email">Email</InputLabel>
+          <OutlinedInput
+            id="email"
+            label="Email"
+            required
+            value={useremail}
+            onChange={(e) => setUserEmail(e.target.value)}
+          />
+        </FormControl>
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <OutlinedInput
+            id="password"
+            type={showPassword ? "text" : "password"}
+            label="Password"
+            required
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={handleClickShowPassword} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            onChange={(e) => setPassword(e.target.value)}
+            fullWidth
+          />
+        </FormControl>
         <Button type="submit">Login</Button>
       </FormBox>
 

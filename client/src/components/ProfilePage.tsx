@@ -1,38 +1,36 @@
-import type { AxiosError } from "axios";
-import { useContext, useEffect, useState } from "react";
-import { Divider, Button, Typography } from "@mui/material";
+import { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Divider, Button, Typography, Skeleton } from "@mui/material";
 
-import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
-import type { User } from "../store/userSlice";
+import {
+  fetchProfile,
+  selectProfile,
+  selectProfileLoading,
+  selectProfileError,
+} from "../store/profileSlice";
+import type { AppDispatch } from "../store/store";
 
 export default function ProfilePage() {
   const auth = useContext(AuthContext);
   if (!auth) throw new Error("AuthContext not provided");
   const { token, logout } = auth;
-  const [profile, setProfile] = useState<User | null>(null);
 
+  const dispatch: AppDispatch = useDispatch();
+  const profile = useSelector(selectProfile);
+  const loading = useSelector(selectProfileLoading);
+
+  selectProfileError;
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        console.log("🔑 Using token:", token);
-        const res = await api.get("/users/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        console.log("✅ Profile data:", res.data);
-        setProfile(res.data);
-      } catch (err) {
-        const error = err as AxiosError<{ error: string }>;
-        console.error(
-          "❌ Failed to fetch profile:",
-          error.response?.status,
-          error.response?.data,
-        );
-        setProfile(null);
+    try {
+      if (token) {
+        dispatch(fetchProfile(token));
       }
-    };
-    fetchProfile();
-  }, [token]);
+    } catch (err) {
+      const error = useSelector(selectProfileError);
+      console.error("❌ Failed to fetch profile:", error);
+    }
+  }, [dispatch, token]);
 
   return (
     <>
@@ -44,7 +42,15 @@ export default function ProfilePage() {
       >
         My Profile
       </Typography>
-      {profile ? (
+      {loading ? (
+        <Divider sx={{ p: 2 }}>
+          {" "}
+          <Typography variant="body1">Loading profile...</Typography>{" "}
+          <Skeleton variant="text" width={200} />{" "}
+          <Skeleton variant="text" width={150} />{" "}
+          <Skeleton variant="rectangular" width={300} height={40} />{" "}
+        </Divider>
+      ) : profile ? (
         <Divider>
           <Typography>
             <strong>ID:</strong> {profile.id}

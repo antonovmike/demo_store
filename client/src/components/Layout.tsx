@@ -1,24 +1,25 @@
 import {
   AppBar,
+  Box,
+  Button,
+  CardMedia,
+  Link,
   Toolbar,
   Typography,
-  Button,
   Container,
-  Box,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+
+import logo from "/images/logo-full.png";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
-          <Typography variant="h5" sx={{ flexGrow: 1 }}>
-            Demo Store
-          </Typography>
-          <Button color="inherit" component={RouterLink} to="/">
-            Home
-          </Button>
+          <Link component={RouterLink} to="/" sx={{ width: "15%" }}>
+            <CardMedia component="img" src={logo} />
+          </Link>
           <Button color="inherit" component={RouterLink} to="/products">
             Products
           </Button>
