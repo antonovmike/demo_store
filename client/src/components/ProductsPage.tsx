@@ -77,13 +77,18 @@ export default function ProductsPage() {
           </Divider>
         )}{" "}
       </Box>
+
       {/* Pagination */}
+
       {pageCount > 1 && (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <Pagination
             count={pageCount}
             page={page}
-            onChange={(_, value) => setPage(value)}
+            onChange={(_, value) => {
+              setPage(value);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
             shape="rounded"
             color="primary"
           />
