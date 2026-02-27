@@ -8,6 +8,9 @@ import {
   IconButton,
   TextField,
   Typography,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -54,7 +57,7 @@ export default function LoginForm() {
   };
 
   const [showPassword, setShowPassword] = useState(false);
-  const handleCklickShowPassword = () => setShowPassword((prev) => !prev);
+  const handleClickShowPassword = () => setShowPassword((prev) => !prev);
 
   return (
     <>
@@ -72,23 +75,24 @@ export default function LoginForm() {
           variant="outlined"
           fullWidth
         />
-        <TextField
-          label="Password"
-          type={showPassword ? "text" : "password"}
-          value={password}
-          InputProps={{
-            endAdornment: (
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <OutlinedInput
+            id="password"
+            type={showPassword ? "text" : "password"}
+            label="Password"
+            required
+            endAdornment={
               <InputAdornment position="end">
-                <IconButton onClick={handleCklickShowPassword} edge="end">
+                <IconButton onClick={handleClickShowPassword} edge="end">
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
-            ),
-          }}
-          onChange={(e) => setPassword(e.target.value)}
-          variant="outlined"
-          fullWidth
-        />
+            }
+            onChange={(e) => setPassword(e.target.value)}
+            fullWidth
+          />
+        </FormControl>
         <Button type="submit">Login</Button>
       </FormBox>
 
