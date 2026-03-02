@@ -6,6 +6,10 @@ import userService from "../services/userService.js";
 
 import type { Request, Response, NextFunction } from "express";
 
+interface MulterRequest extends Request {
+  file?: Express.Multer.File;
+}
+
 async function getMe(req: Request, res: Response, next: NextFunction) {
   try {
     const user = req.user;
@@ -22,10 +26,18 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function register(req: Request, res: Response, next: NextFunction) {
+async function register(req: MulterRequest, res: Response, next: NextFunction) {
   try {
     const { username, email, password, role } = req.body;
-    const user = await userService.register(username, email, password, role);
+    const avatarPath = req.file ? `/assets/avatars/${req.file.filename}` : null;
+
+    const user = await userService.register(
+      username,
+      email,
+      password,
+      role,
+      avatarPath,
+    );
     res.status(201).json(user);
   } catch (err) {
     const error = err as Error;

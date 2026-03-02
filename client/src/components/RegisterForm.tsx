@@ -21,12 +21,12 @@ export default function RegisterForm() {
   const error = useSelector(selectUserError);
   const user = useSelector(selectCurrentUser);
 
+  const [avatar, setAvatar] = useState<File | null>(null);
+
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(registerUser({ username, email, password }));
+    dispatch(registerUser({ username, email, password, avatar }));
   };
-
-  const [avatar, setAvatar] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -31,17 +31,20 @@ const initialState: UserState = {
 
 export const registerUser = createAsyncThunk<
   User,
-  RegisterPayload,
+  RegisterPayload & { avatar?: File | null },
   { rejectValue: string }
 >(
   "user/registerUser",
-  async ({ username, email, password }, { rejectWithValue }) => {
+  async ({ username, email, password, avatar }, { rejectWithValue }) => {
     try {
-      const res = await api.post("/users/register", {
-        username,
-        email,
-        password,
-      });
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("password", password);
+      if (avatar) {
+        formData.append("avatar", avatar);
+      }
+      const res = await api.post("/users/register", formData);
       // if API returns token: const { user, token } = res.data;
       return res.data;
     } catch (err: any) {

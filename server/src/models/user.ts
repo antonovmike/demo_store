@@ -16,6 +16,7 @@ interface UserAttributes {
   email: string;
   password_hash: string;
   roleId: number;
+  avatarPath?: string | null;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
@@ -35,6 +36,9 @@ export class User
 
   @Column({ type: DataType.STRING, allowNull: false })
   password_hash!: string;
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  avatarPath?: string;
 
   @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER, allowNull: false })
