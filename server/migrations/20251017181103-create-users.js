@@ -32,6 +32,10 @@ export default {
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
+      avatarPath: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
