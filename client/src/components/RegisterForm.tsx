@@ -26,6 +26,22 @@ export default function RegisterForm() {
     dispatch(registerUser({ username, email, password }));
   };
 
+  const [avatar, setAvatar] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    // restrictions: size < 1MB, width/height will be verified later
+    if (file) {
+      if (file.size > 1 * 1024 * 1024) {
+        alert("The file is too large (max. 1MB)");
+        return;
+      }
+      setAvatar(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
   return (
     <>
       <Typography variant="h5" fontWeight="bold" gutterBottom>
@@ -56,6 +72,15 @@ export default function RegisterForm() {
           variant="outlined"
           fullWidth
         />
+        <input type="file" accept="image/*" onChange={handleAvatarChange} />
+        {preview && (
+          <img
+            src={preview}
+            alt="Avatar preview"
+            style={{ width: 120, height: 120, objectFit: "cover" }}
+          />
+        )}
+
         <Button type="submit">Register</Button>
       </FormBox>
       {status === "succeeded" && user && (
