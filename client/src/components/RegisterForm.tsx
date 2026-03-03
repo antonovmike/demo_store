@@ -6,7 +6,7 @@ import {
   selectUserError,
   selectCurrentUser,
 } from "../store/userSlice";
-import { Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { FormBox } from "./StyledBox";
 
@@ -74,10 +74,14 @@ export default function RegisterForm() {
         />
         <input type="file" accept="image/*" onChange={handleAvatarChange} />
         {preview && (
-          <img
+          <Box
+            component="img"
+            sx={{
+              height: 250,
+              width: 250,
+            }}
             src={preview}
             alt="Avatar preview"
-            style={{ width: 120, height: 120, objectFit: "cover" }}
           />
         )}
 
