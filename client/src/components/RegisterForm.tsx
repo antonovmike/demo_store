@@ -72,7 +72,15 @@ export default function RegisterForm() {
           variant="outlined"
           fullWidth
         />
-        <input type="file" accept="image/*" onChange={handleAvatarChange} />
+        <Button variant="outlined" component="label">
+          Upload File
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleAvatarChange}
+            hidden
+          />
+        </Button>
         {preview && (
           <Box
             component="img"
