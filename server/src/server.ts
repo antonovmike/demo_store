@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import basicRoutes from "./routes/basic.js";
 import usersRoutes from "./routes/userRoutes.js";
@@ -12,6 +14,9 @@ import { notFound, errorHandler } from "./middleware/errorHandler.js";
 dotenv.config();
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Enable CORS for specified origin and credentials to connect frontend and backend
 app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
@@ -26,6 +31,9 @@ app.use(express.json());
 app.use("/", basicRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
+
+// Serve avatars folder
+app.use("/avatars", express.static(path.join(__dirname, "assets/avatars")));
 
 // Error handling
 app.use(notFound);

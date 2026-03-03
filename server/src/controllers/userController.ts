@@ -18,6 +18,7 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
       username: user.username,
       email: user.email,
       role: user.role,
+      avatarPath: user.avatarPath,
     });
   } catch (err) {
     const error = err as Error;
@@ -29,7 +30,7 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
 async function register(req: MulterRequest, res: Response, next: NextFunction) {
   try {
     const { username, email, password, role } = req.body;
-    const avatarPath = req.file ? `/assets/avatars/${req.file.filename}` : null;
+    const avatarPath = req.file ? `/avatars/${req.file.filename}` : null;
 
     const user = await userService.register(
       username,

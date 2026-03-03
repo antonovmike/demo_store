@@ -1,6 +1,13 @@
 import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Divider, Button, Typography, Skeleton } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Divider,
+  Button,
+  Typography,
+  Skeleton,
+} from "@mui/material";
 
 import { AuthContext } from "../context/AuthContext";
 import {
@@ -61,6 +68,21 @@ export default function ProfilePage() {
           <Typography>
             <strong>Email:</strong> {profile.email}
           </Typography>
+          <Box
+            component="img"
+            sx={{
+              height: 350,
+              width: 350,
+              maxHeight: { xs: 233, md: 167 },
+              maxWidth: { xs: 350, md: 250 },
+            }}
+            alt={profile.username}
+            src={`http://localhost:3000${profile.avatarPath}`}
+          />
+          <Avatar
+            alt={profile.username}
+            src={`http://localhost:3000${profile.avatarPath}`}
+          />
           <Button onClick={logout}>Logout</Button>
         </Divider>
       ) : (
