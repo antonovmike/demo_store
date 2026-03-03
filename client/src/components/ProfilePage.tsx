@@ -71,10 +71,8 @@ export default function ProfilePage() {
           <Box
             component="img"
             sx={{
-              height: 350,
-              width: 350,
-              maxHeight: { xs: 233, md: 167 },
-              maxWidth: { xs: 350, md: 250 },
+              height: 250,
+              width: 250,
             }}
             alt={profile.username}
             src={`http://localhost:3000${profile.avatarPath}`}
