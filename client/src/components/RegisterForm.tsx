@@ -43,7 +43,9 @@ export default function RegisterForm() {
   };
 
   return (
-    <>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <Typography variant="h5" fontWeight="bold" gutterBottom>
         Register
       </Typography>
@@ -105,6 +107,6 @@ export default function RegisterForm() {
           ❌ Registration failed {error ? `: ${error}` : ""}
         </Typography>
       )}
-    </>
+    </Box>
   );
 }

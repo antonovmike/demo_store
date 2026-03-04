@@ -14,7 +14,9 @@ export default function CartPage() {
   );
 
   return (
-    <>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <Typography variant="h5" fontWeight="bold" gutterBottom>
         Cart
       </Typography>
@@ -76,6 +78,6 @@ export default function CartPage() {
       </Box>
       <Box>Total: ${total.toFixed(2)}</Box>
       <Button onClick={() => dispatch(clearCart())}>Clear Cart</Button>
-    </>
+    </Box>
   );
 }

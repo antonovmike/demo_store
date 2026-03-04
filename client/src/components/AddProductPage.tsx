@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  Box,
   Button,
   Divider,
   List,
@@ -38,7 +39,9 @@ export default function AddProductPage() {
   };
 
   return (
-    <>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <Typography variant="h5" fontWeight="bold" gutterBottom>
         Add Product
       </Typography>
@@ -90,6 +93,6 @@ export default function AddProductPage() {
           Invalid products response
         </Divider>
       )}
-    </>
+    </Box>
   );
 }
