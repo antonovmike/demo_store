@@ -68,15 +68,18 @@ export default function ProfilePage() {
           <Typography>
             <strong>Email:</strong> {profile.email}
           </Typography>
-          <Box
-            component="img"
-            sx={{
-              height: 250,
-              width: 250,
-            }}
-            alt={profile.username}
-            src={`http://localhost:3000${profile.avatarPath}`}
-          />
+          {profile.avatarPath ? (
+            <Box
+              component="img"
+              sx={{ height: 250, width: 250 }}
+              alt={profile.username}
+              src={`http://localhost:3000${profile.avatarPath}`}
+            />
+          ) : (
+            <Avatar sx={{ width: 250, height: 250 }}>
+              {profile.username[0]}
+            </Avatar>
+          )}
           <Avatar
             alt={profile.username}
             src={`http://localhost:3000${profile.avatarPath}`}
