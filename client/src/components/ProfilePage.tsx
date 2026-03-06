@@ -16,6 +16,7 @@ import {
   selectProfileLoading,
   selectProfileError,
 } from "../store/profileSlice";
+
 import type { AppDispatch } from "../store/store";
 
 export default function ProfilePage() {
