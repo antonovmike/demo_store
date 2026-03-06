@@ -9,6 +9,7 @@ import {
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { FormBox } from "./StyledBox";
+
 import { useAvatarUpload } from "../hooks/useAvatarUpload";
 
 import type { AppDispatch } from "../store/store";
