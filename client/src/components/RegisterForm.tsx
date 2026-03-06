@@ -9,6 +9,7 @@ import {
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { FormBox } from "./StyledBox";
+import { useAvatarUpload } from "../hooks/useAvatarUpload";
 
 import type { AppDispatch } from "../store/store";
 
@@ -21,26 +22,12 @@ export default function RegisterForm() {
   const error = useSelector(selectUserError);
   const user = useSelector(selectCurrentUser);
 
-  const [avatar, setAvatar] = useState<File | null>(null);
-
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registerUser({ username, email, password, avatar }));
   };
-  const [preview, setPreview] = useState<string | null>(null);
 
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    // restrictions: size < 1MB, width/height will be verified later
-    if (file) {
-      if (file.size > 1 * 1024 * 1024) {
-        alert("The file is too large (max. 1MB)");
-        return;
-      }
-      setAvatar(file);
-      setPreview(URL.createObjectURL(file));
-    }
-  };
+  const { avatar, preview, handleAvatarChange } = useAvatarUpload();
 
   return (
     <Box
