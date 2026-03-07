@@ -98,15 +98,7 @@ export const updateUserAvatar = createAsyncThunk<
     const formData = new FormData();
     formData.append("avatar", avatar);
 
-    console.log(
-      "Sending PUT /users/me/avatar with formData:",
-      formData.get("avatar"),
-    );
-
     const res = await api.put("/users/me/avatar", formData);
-
-    console.log("Server response:", res.data);
-    console.log("Sending PUT ...", formData.get("avatar"));
 
     return res.data; // updated user with new avatarPath
   } catch (err: any) {

@@ -63,8 +63,6 @@ async function updateAvatar(
       return res.status(400).json({ error: "No file uploaded" });
     }
 
-    console.log("Received file:", req.file);
-
     // req.user should be set with middleware authorisation
     const user = await User.findByPk(req.user.id);
     if (!user) {
@@ -73,8 +71,6 @@ async function updateAvatar(
 
     user.avatarPath = `/avatars/${req.file.filename}`;
     await user.save();
-
-    console.log("Updated user avatar:", user.avatarPath);
 
     res.json({
       id: user.id,
@@ -85,7 +81,7 @@ async function updateAvatar(
     });
   } catch (err) {
     const error = err as Error;
-    console.log("Error updating avatar:", error.message);
+
     next(error);
   }
 }
