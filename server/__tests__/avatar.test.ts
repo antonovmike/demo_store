@@ -40,5 +40,7 @@ describe("Avatar upload", () => {
       .attach("avatar", filePath);
 
     expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("avatarPath");
+    expect(res.body.avatarPath).toMatch(/\.png$/);
   });
 });
