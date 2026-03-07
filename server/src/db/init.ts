@@ -1,10 +1,9 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import pool from "./index.js";
+import { getDirname } from "../utils/paths.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = getDirname(import.meta.url);
 
 async function initDb() {
   const schemaPath = path.join(__dirname, "schema.sql");

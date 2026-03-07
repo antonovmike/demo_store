@@ -10,13 +10,13 @@ import productsRoutes from "./routes/productsRoutes.js";
 
 import logger from "./middleware/logger.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
+import { getDirname } from "./utils/paths.js";
+
+const __dirname = getDirname(import.meta.url);
 
 dotenv.config();
 
 const app = express();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Enable CORS for specified origin and credentials to connect frontend and backend
 app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
