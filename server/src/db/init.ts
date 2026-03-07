@@ -1,12 +1,10 @@
 import fs from "fs";
 import path from "path";
 import pool from "./index.js";
-import { getDirname } from "../utils/paths.js";
-
-const __dirname = getDirname(import.meta.url);
 
 async function initDb() {
-  const schemaPath = path.join(__dirname, "schema.sql");
+  const schemaPath = path.resolve("server/src/schema.sql");
+
   const schema = fs.readFileSync(schemaPath, "utf8");
   try {
     await pool.query(schema);

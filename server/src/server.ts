@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
-import { fileURLToPath } from "url";
 
 import basicRoutes from "./routes/basic.js";
 import usersRoutes from "./routes/userRoutes.js";
@@ -10,9 +9,7 @@ import productsRoutes from "./routes/productsRoutes.js";
 
 import logger from "./middleware/logger.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
-import { getDirname } from "./utils/paths.js";
-
-const __dirname = getDirname(import.meta.url);
+import { AVATAR_DIR } from "./utils/paths.js";
 
 dotenv.config();
 
@@ -33,7 +30,7 @@ app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
 
 // Serve avatars folder
-app.use("/avatars", express.static(path.join(__dirname, "assets/avatars")));
+app.use("/avatars", express.static(AVATAR_DIR));
 
 // Error handling
 app.use(notFound);

@@ -1,12 +1,10 @@
 import multer from "multer";
 import path from "path";
-import { getDirname } from "../utils/paths.js";
-
-const __dirname = getDirname(import.meta.url);
+import { AVATAR_DIR } from "../utils/paths.js";
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
-    cb(null, path.join(__dirname, "../assets/avatars"));
+    cb(null, AVATAR_DIR);
   },
 
   filename: (_req, file, cb) => {
