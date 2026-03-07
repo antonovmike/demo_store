@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Avatar,
@@ -16,8 +16,11 @@ import {
   selectProfileLoading,
   selectProfileError,
 } from "../store/profileSlice";
+import { useAvatarUpload } from "../hooks/useAvatarUpload";
+import { updateUserAvatar } from "../store/userSlice";
 
 import type { AppDispatch } from "../store/store";
+import { FormBox } from "./StyledBox";
 
 export default function ProfilePage() {
   const auth = useContext(AuthContext);
@@ -39,6 +42,16 @@ export default function ProfilePage() {
       console.error("❌ Failed to fetch profile:", error);
     }
   }, [dispatch, token]);
+
+  const { avatar, preview, handleAvatarChange } = useAvatarUpload();
+
+  const handleSaveAvatar = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (avatar) {
+      console.log("ProfilePage.tsx Submitting avatar:", avatar);
+      await dispatch(updateUserAvatar({ avatar }));
+    }
+  };
 
   return (
     <>
@@ -85,6 +98,29 @@ export default function ProfilePage() {
             alt={profile.username}
             src={`http://localhost:3000${profile.avatarPath}`}
           />
+          <FormBox onSubmit={handleSaveAvatar}>
+            <Button variant="outlined" component="label">
+              Change Avatar
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                hidden
+              />
+            </Button>
+            {preview && (
+              <Box
+                component="img"
+                sx={{
+                  height: 250,
+                  width: 250,
+                }}
+                src={preview}
+                alt="Avatar preview"
+              />
+            )}
+            <Button type="submit">Save Avatar</Button>
+          </FormBox>
           <Button onClick={logout}>Logout</Button>
         </Divider>
       ) : (

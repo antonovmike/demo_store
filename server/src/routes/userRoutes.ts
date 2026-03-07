@@ -13,4 +13,11 @@ router.post("/reset-password", userController.resetPassword);
 router.post("/verify-reset-token", userController.verifyResetToken);
 router.post("/confirm-reset-password", userController.confirmResetPassword);
 
+router.put(
+  "/me/avatar",
+  authMiddleware,
+  upload.single("avatar"),
+  userController.updateAvatar,
+);
+
 export default router;

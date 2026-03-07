@@ -89,6 +89,31 @@ const userSlice = createSlice({
   },
 });
 
+export const updateUserAvatar = createAsyncThunk<
+  User,
+  { avatar: File },
+  { rejectValue: string }
+>("user/updateUserAvatar", async ({ avatar }, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+
+    console.log(
+      "Sending PUT /users/me/avatar with formData:",
+      formData.get("avatar"),
+    );
+
+    const res = await api.put("/users/me/avatar", formData);
+
+    console.log("Server response:", res.data);
+    console.log("Sending PUT ...", formData.get("avatar"));
+
+    return res.data; // updated user with new avatarPath
+  } catch (err: any) {
+    return rejectWithValue(err.response?.data || err.message);
+  }
+});
+
 export const { logout, setUser } = userSlice.actions;
 export const selectCurrentUser = (state: { user: UserState }) =>
   state.user.user;
