@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, describe, test, expect } from "@jest/globals";
 import bcrypt from "bcrypt";
 import request from "supertest";
+import path from "path";
 import app from "../src/server";
 
 import { Role, User } from "../src/models";
@@ -29,5 +30,15 @@ describe("Avatar upload", () => {
       password: "123456",
     });
     expect(loginRes.statusCode).toBe(200);
+    const token = loginRes.body.token;
+
+    const filePath = path.join(__dirname, "fixtures", "avatar.png");
+
+    const res = await request(app)
+      .put("/users/me/avatar")
+      .set("Authorization", `Bearer ${token}`)
+      .attach("avatar", filePath);
+
+    expect(res.statusCode).toBe(200);
   });
 });
