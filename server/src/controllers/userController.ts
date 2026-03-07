@@ -77,7 +77,7 @@ async function updateAvatar(
       username: user.username,
       email: user.email,
       role: user.role,
-      avatavPath: user.avatarPath,
+      avatarPath: user.avatarPath,
     });
   } catch (err) {
     const error = err as Error;
