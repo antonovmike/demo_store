@@ -43,7 +43,8 @@ export default function ProfilePage() {
     }
   }, [dispatch, token]);
 
-  const { avatar, preview, handleAvatarChange } = useAvatarUpload();
+  const { avatar, preview, handleAvatarChange, clearPreview } =
+    useAvatarUpload();
 
   const handleSaveAvatar = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,6 +54,8 @@ export default function ProfilePage() {
       if (token) {
         dispatch(fetchProfile(token));
       }
+
+      clearPreview();
     }
   };
 

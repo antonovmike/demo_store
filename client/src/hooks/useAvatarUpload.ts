@@ -17,5 +17,9 @@ export function useAvatarUpload() {
     }
   };
 
-  return { avatar, preview, handleAvatarChange };
+  const clearPreview = () => {
+    setAvatar(null);
+    setPreview(null);
+  };
+  return { avatar, preview, handleAvatarChange, clearPreview };
 }
