@@ -50,6 +50,9 @@ export default function ProfilePage() {
     if (avatar) {
       console.log("ProfilePage.tsx Submitting avatar:", avatar);
       await dispatch(updateUserAvatar({ avatar }));
+      if (token) {
+        dispatch(fetchProfile(token));
+      }
     }
   };
 
