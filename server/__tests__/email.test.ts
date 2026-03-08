@@ -13,6 +13,7 @@ import bcrypt from "bcrypt";
 import app from "../src/server";
 import { User } from "../src/models";
 import { sequelizeInstance as sequelize, Role } from "../src/models";
+import transporter from "../src/services/email/transporter";
 
 beforeAll(async () => {
   await sequelize.sync({ force: true });
@@ -26,19 +27,6 @@ beforeAll(async () => {
   });
 });
 
-function logRoutes() {
-  if (!app._router) {
-    console.log("Router not initialized yet");
-    return;
-  }
-  console.log("Registered routes:");
-  app._router.stack
-    .filter((r: any) => r.route)
-    .forEach((r: any) =>
-      console.log(r.route.path, Object.keys(r.route.methods)),
-    );
-}
-
 // Create mock for nodemailer transporter
 jest.mock("../src/services/email/transporter", () => {
   const sendMailMock = jest.fn();
@@ -48,15 +36,12 @@ jest.mock("../src/services/email/transporter", () => {
   };
 });
 
-import transporter from "../src/services/email/transporter";
-
 afterAll(async () => {
   await sequelize.close();
 });
 
 describe("nodestyle callback api", () => {
   beforeAll(async () => {
-    logRoutes();
     await sequelize.sync({ force: true });
     await Role.bulkCreate([{ name: "user" }, { name: "admin" }]);
     await User.create({
