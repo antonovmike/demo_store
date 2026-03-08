@@ -15,6 +15,7 @@ export interface User {
   username?: string;
   email: string;
   token?: string;
+  avatarPath?: string | null;
 }
 
 interface UserState {
@@ -31,17 +32,20 @@ const initialState: UserState = {
 
 export const registerUser = createAsyncThunk<
   User,
-  RegisterPayload,
+  RegisterPayload & { avatar?: File | null },
   { rejectValue: string }
 >(
   "user/registerUser",
-  async ({ username, email, password }, { rejectWithValue }) => {
+  async ({ username, email, password, avatar }, { rejectWithValue }) => {
     try {
-      const res = await api.post("/users/register", {
-        username,
-        email,
-        password,
-      });
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("password", password);
+      if (avatar) {
+        formData.append("avatar", avatar);
+      }
+      const res = await api.post("/users/register", formData);
       // if API returns token: const { user, token } = res.data;
       return res.data;
     } catch (err: any) {
@@ -83,6 +87,23 @@ const userSlice = createSlice({
           (action.payload as string) || action.error.message || null;
       });
   },
+});
+
+export const updateUserAvatar = createAsyncThunk<
+  User,
+  { avatar: File },
+  { rejectValue: string }
+>("user/updateUserAvatar", async ({ avatar }, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+
+    const res = await api.put("/users/me/avatar", formData);
+
+    return res.data; // updated user with new avatarPath
+  } catch (err: any) {
+    return rejectWithValue(err.response?.data || err.message);
+  }
 });
 
 export const { logout, setUser } = userSlice.actions;

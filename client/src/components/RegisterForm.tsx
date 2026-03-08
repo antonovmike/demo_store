@@ -6,9 +6,10 @@ import {
   selectUserError,
   selectCurrentUser,
 } from "../store/userSlice";
-import { Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { FormBox } from "./StyledBox";
+import { useAvatarUpload } from "../hooks/useAvatarUpload";
 
 import type { AppDispatch } from "../store/store";
 
@@ -23,11 +24,15 @@ export default function RegisterForm() {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(registerUser({ username, email, password }));
+    dispatch(registerUser({ username, email, password, avatar }));
   };
 
+  const { avatar, preview, handleAvatarChange } = useAvatarUpload();
+
   return (
-    <>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <Typography variant="h5" fontWeight="bold" gutterBottom>
         Register
       </Typography>
@@ -56,6 +61,27 @@ export default function RegisterForm() {
           variant="outlined"
           fullWidth
         />
+        <Button variant="outlined" component="label">
+          Upload File
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleAvatarChange}
+            hidden
+          />
+        </Button>
+        {preview && (
+          <Box
+            component="img"
+            sx={{
+              height: 250,
+              width: 250,
+            }}
+            src={preview}
+            alt="Avatar preview"
+          />
+        )}
+
         <Button type="submit">Register</Button>
       </FormBox>
       {status === "succeeded" && user && (
@@ -68,6 +94,6 @@ export default function RegisterForm() {
           ❌ Registration failed {error ? `: ${error}` : ""}
         </Typography>
       )}
-    </>
+    </Box>
   );
 }

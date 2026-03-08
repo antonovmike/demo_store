@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 import { SECRET_KEY } from "../serverConfig.js";
 import userRepository from "../repositories/userRepository.js";
-import { send } from "node:process";
 import sendPasswordResetEmail from "./email/sendPasswordReset.js";
 
 async function register(
@@ -11,6 +10,7 @@ async function register(
   email: string,
   password: string,
   role?: string,
+  avatarPath?: string | null,
 ) {
   if (!username || !email || !password) {
     throw new Error("Username, email and password are required");
@@ -27,6 +27,7 @@ async function register(
     email,
     passwordHash,
     role || "user",
+    avatarPath || null,
   );
 
   return user;

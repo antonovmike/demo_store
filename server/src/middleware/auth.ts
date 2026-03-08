@@ -49,6 +49,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
       username: user.username,
       email: user.email,
       role: user.role?.name,
+      avatarPath: user.avatarPath,
     };
 
     return next();

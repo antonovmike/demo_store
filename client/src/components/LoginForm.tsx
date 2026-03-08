@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import {
+  Box,
   Button,
   Divider,
   InputAdornment,
@@ -59,8 +60,15 @@ export default function LoginForm() {
   const handleClickShowPassword = () => setShowPassword((prev) => !prev);
 
   return (
-    <>
-      <Typography variant="h5" fontWeight="bold" gutterBottom>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Typography
+        textAlign="center"
+        variant="h5"
+        fontWeight="bold"
+        gutterBottom
+      >
         Login
       </Typography>
       <Divider sx={{ mb: 3 }} />
@@ -104,6 +112,6 @@ export default function LoginForm() {
           Forgot password?
         </Button>
       </FormBox>
-    </>
+    </Box>
   );
 }

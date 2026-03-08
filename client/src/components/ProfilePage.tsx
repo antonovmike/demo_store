@@ -1,6 +1,13 @@
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Divider, Button, Typography, Skeleton } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Divider,
+  Button,
+  Typography,
+  Skeleton,
+} from "@mui/material";
 
 import { AuthContext } from "../context/AuthContext";
 import {
@@ -9,7 +16,11 @@ import {
   selectProfileLoading,
   selectProfileError,
 } from "../store/profileSlice";
+import { useAvatarUpload } from "../hooks/useAvatarUpload";
+import { updateUserAvatar } from "../store/userSlice";
+
 import type { AppDispatch } from "../store/store";
+import { FormBox } from "./StyledBox";
 
 export default function ProfilePage() {
   const auth = useContext(AuthContext);
@@ -31,6 +42,22 @@ export default function ProfilePage() {
       console.error("❌ Failed to fetch profile:", error);
     }
   }, [dispatch, token]);
+
+  const { avatar, preview, handleAvatarChange, clearPreview } =
+    useAvatarUpload();
+
+  const handleSaveAvatar = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (avatar) {
+      console.log("ProfilePage.tsx Submitting avatar:", avatar);
+      await dispatch(updateUserAvatar({ avatar }));
+      if (token) {
+        dispatch(fetchProfile(token));
+      }
+
+      clearPreview();
+    }
+  };
 
   return (
     <>
@@ -61,6 +88,45 @@ export default function ProfilePage() {
           <Typography>
             <strong>Email:</strong> {profile.email}
           </Typography>
+          {profile.avatarPath ? (
+            <Box
+              component="img"
+              sx={{ height: 250, width: 250 }}
+              alt={profile.username}
+              src={`http://localhost:3000${profile.avatarPath}`}
+            />
+          ) : (
+            <Avatar sx={{ width: 250, height: 250 }}>
+              {profile.username[0]}
+            </Avatar>
+          )}
+          <Avatar
+            alt={profile.username}
+            src={`http://localhost:3000${profile.avatarPath}`}
+          />
+          <FormBox onSubmit={handleSaveAvatar}>
+            <Button variant="outlined" component="label">
+              Change Avatar
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                hidden
+              />
+            </Button>
+            {preview && (
+              <Box
+                component="img"
+                sx={{
+                  height: 250,
+                  width: 250,
+                }}
+                src={preview}
+                alt="Avatar preview"
+              />
+            )}
+            <Button type="submit">Save Avatar</Button>
+          </FormBox>
           <Button onClick={logout}>Logout</Button>
         </Divider>
       ) : (

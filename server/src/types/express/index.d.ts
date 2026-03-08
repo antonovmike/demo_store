@@ -5,6 +5,7 @@ declare global {
       email: string;
       username: string;
       role: string;
+      avatarPath: string;
     }
 
     interface Request {

@@ -6,6 +6,10 @@ import userService from "../services/userService.js";
 
 import type { Request, Response, NextFunction } from "express";
 
+interface MulterRequest extends Request {
+  file?: Express.Multer.File;
+}
+
 async function getMe(req: Request, res: Response, next: NextFunction) {
   try {
     const user = req.user;
@@ -14,6 +18,7 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
       username: user.username,
       email: user.email,
       role: user.role,
+      avatarPath: user.avatarPath,
     });
   } catch (err) {
     const error = err as Error;
@@ -22,10 +27,18 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function register(req: Request, res: Response, next: NextFunction) {
+async function register(req: MulterRequest, res: Response, next: NextFunction) {
   try {
     const { username, email, password, role } = req.body;
-    const user = await userService.register(username, email, password, role);
+    const avatarPath = req.file ? `/avatars/${req.file.filename}` : null;
+
+    const user = await userService.register(
+      username,
+      email,
+      password,
+      role,
+      avatarPath,
+    );
     res.status(201).json(user);
   } catch (err) {
     const error = err as Error;
@@ -36,6 +49,39 @@ async function register(req: Request, res: Response, next: NextFunction) {
     if (error.message === "User already exists") {
       return res.status(400).json({ error: error.message });
     }
+    next(error);
+  }
+}
+
+async function updateAvatar(
+  req: MulterRequest,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    // req.user should be set with middleware authorisation
+    const user = await User.findByPk(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.avatarPath = `/avatars/${req.file.filename}`;
+    await user.save();
+
+    res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      avatarPath: user.avatarPath,
+    });
+  } catch (err) {
+    const error = err as Error;
+
     next(error);
   }
 }
@@ -109,6 +155,7 @@ export async function confirmResetPassword(req: Request, res: Response) {
 export default {
   getMe,
   register,
+  updateAvatar,
   login,
   resetPassword,
   verifyResetToken,

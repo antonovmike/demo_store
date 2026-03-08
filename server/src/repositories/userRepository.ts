@@ -1,4 +1,3 @@
-import { Op } from "sequelize";
 import { User, Role } from "../models/index.js";
 
 // Create user
@@ -7,6 +6,7 @@ async function createUser(
   email: string,
   passwordHash: string,
   roleName = "user",
+  avatarPath?: string | null,
 ) {
   let role = await Role.findOne({ where: { name: roleName } });
 
@@ -27,12 +27,14 @@ async function createUser(
     email: email,
     password_hash: passwordHash,
     roleId: role.id,
+    avatarPath: avatarPath,
   });
   return {
     id: user.id,
     username: user.username,
     email: user.email,
     role: role.name,
+    avatarPath: user.avatarPath,
   };
 }
 
