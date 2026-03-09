@@ -30,6 +30,6 @@ export async function getCroppedImg(
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (blob) resolve(blob);
-    }, "image/jpeg");
+    });
   });
 }
