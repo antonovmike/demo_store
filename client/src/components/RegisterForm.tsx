@@ -11,6 +11,7 @@ import Cropper, { type Point, type Area } from "react-easy-crop";
 
 import { FormBox } from "./StyledBox";
 import { useAvatarUpload } from "../hooks/useAvatarUpload";
+import { getCroppedImg } from "../utils/getCroppedImg";
 
 import type { AppDispatch } from "../store/store";
 
@@ -25,15 +26,24 @@ export default function RegisterForm() {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(registerUser({ username, email, password, avatar }));
+    let avatarFile: File | undefined;
+    if (preview && croppedAreaPixels) {
+      const croppedBlob = await getCroppedImg(preview, croppedAreaPixels);
+      avatarFile = new File([croppedBlob], "avatar.jpg", {
+        type: "image/jpeg",
+      });
+    }
+    dispatch(registerUser({ username, email, password, avatar: avatarFile }));
   };
 
-  const { avatar, preview, handleAvatarChange } = useAvatarUpload();
+  const { preview, handleAvatarChange } = useAvatarUpload();
 
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
-    console.log(croppedArea, croppedAreaPixels);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+
+  const onCropComplete = (_croppedArea: Area, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels);
   };
 
   return (
