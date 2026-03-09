@@ -3,6 +3,7 @@ import { type Area } from "react-easy-crop";
 export async function getCroppedImg(
   imageSrc: string,
   crop: Area,
+  mimeType: string,
 ): Promise<Blob> {
   const image = new Image();
   image.src = imageSrc;
@@ -30,6 +31,6 @@ export async function getCroppedImg(
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (blob) resolve(blob);
-    });
+    }, mimeType);
   });
 }

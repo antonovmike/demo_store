@@ -27,16 +27,18 @@ export default function RegisterForm() {
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let avatarFile: File | undefined;
-    if (preview && croppedAreaPixels) {
-      const croppedBlob = await getCroppedImg(preview, croppedAreaPixels);
-      avatarFile = new File([croppedBlob], "avatar.jpg", {
-        type: "image/jpeg",
-      });
+    if (preview && croppedAreaPixels && avatar) {
+      const croppedBlob = await getCroppedImg(
+        preview,
+        croppedAreaPixels,
+        avatar.type,
+      );
+      avatarFile = new File([croppedBlob], avatar.name, { type: avatar.type });
     }
     dispatch(registerUser({ username, email, password, avatar: avatarFile }));
   };
 
-  const { preview, handleAvatarChange } = useAvatarUpload();
+  const { avatar, preview, handleAvatarChange } = useAvatarUpload();
 
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
