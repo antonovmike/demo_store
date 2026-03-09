@@ -6,7 +6,8 @@ import {
   selectUserError,
   selectCurrentUser,
 } from "../store/userSlice";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Slider, TextField, Typography } from "@mui/material";
+import Cropper, { type Point, type Area } from "react-easy-crop";
 
 import { FormBox } from "./StyledBox";
 import { useAvatarUpload } from "../hooks/useAvatarUpload";
@@ -28,6 +29,12 @@ export default function RegisterForm() {
   };
 
   const { avatar, preview, handleAvatarChange } = useAvatarUpload();
+
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
+    console.log(croppedArea, croppedAreaPixels);
+  };
 
   return (
     <Box
@@ -71,16 +78,27 @@ export default function RegisterForm() {
           />
         </Button>
         {preview && (
-          <Box
-            component="img"
-            sx={{
-              height: 250,
-              width: 250,
-            }}
-            src={preview}
-            alt="Avatar preview"
-          />
+          <Box sx={{ position: "relative", width: 250, height: 250 }}>
+            {" "}
+            <Cropper
+              image={preview}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={onCropComplete}
+            />
+          </Box>
         )}
+        <Slider
+          value={zoom}
+          min={1}
+          max={3}
+          step={0.1}
+          aria-labelledby="Zoom"
+          onChange={(_, value) => setZoom(Number(value))}
+        />
 
         <Button type="submit">Register</Button>
       </FormBox>
