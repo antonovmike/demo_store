@@ -82,7 +82,7 @@ describe("Avatar upload", () => {
     fireEvent.change(fileInput, { target: { files: [file] } });
 
     await waitFor(() => {
-      expect(screen.getByAltText("Avatar preview")).toBeInTheDocument();
+      expect(screen.getByTestId("avatar-cropper")).toBeInTheDocument();
     });
   });
 

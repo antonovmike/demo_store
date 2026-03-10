@@ -136,8 +136,10 @@ export default function ProfilePage() {
               />
             </Button>
             {preview && (
-              <Box sx={{ position: "relative", width: 250, height: 250 }}>
-                {" "}
+              <Box
+                sx={{ position: "relative", width: 250, height: 250 }}
+                data-testid="avatar-cropper"
+              >
                 <Cropper
                   image={preview}
                   crop={crop}
