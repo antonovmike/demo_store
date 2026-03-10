@@ -6,10 +6,12 @@ import {
   selectUserError,
   selectCurrentUser,
 } from "../store/userSlice";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Slider, TextField, Typography } from "@mui/material";
+import Cropper, { type Point, type Area } from "react-easy-crop";
 
 import { FormBox } from "./StyledBox";
 import { useAvatarUpload } from "../hooks/useAvatarUpload";
+import { getCroppedImg } from "../utils/getCroppedImg";
 
 import type { AppDispatch } from "../store/store";
 
@@ -24,10 +26,27 @@ export default function RegisterForm() {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(registerUser({ username, email, password, avatar }));
+    let avatarFile: File | undefined;
+    if (preview && croppedAreaPixels && avatar) {
+      const croppedBlob = await getCroppedImg(
+        preview,
+        croppedAreaPixels,
+        avatar.type,
+      );
+      avatarFile = new File([croppedBlob], avatar.name, { type: avatar.type });
+    }
+    dispatch(registerUser({ username, email, password, avatar: avatarFile }));
   };
 
   const { avatar, preview, handleAvatarChange } = useAvatarUpload();
+
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+
+  const onCropComplete = (_croppedArea: Area, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  };
 
   return (
     <Box
@@ -71,16 +90,27 @@ export default function RegisterForm() {
           />
         </Button>
         {preview && (
-          <Box
-            component="img"
-            sx={{
-              height: 250,
-              width: 250,
-            }}
-            src={preview}
-            alt="Avatar preview"
-          />
+          <Box sx={{ position: "relative", width: 250, height: 250 }}>
+            {" "}
+            <Cropper
+              image={preview}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={onCropComplete}
+            />
+          </Box>
         )}
+        <Slider
+          value={zoom}
+          min={1}
+          max={3}
+          step={0.1}
+          aria-labelledby="Zoom"
+          onChange={(_, value) => setZoom(Number(value))}
+        />
 
         <Button type="submit">Register</Button>
       </FormBox>

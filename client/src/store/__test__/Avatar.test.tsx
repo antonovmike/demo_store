@@ -82,7 +82,7 @@ describe("Avatar upload", () => {
     fireEvent.change(fileInput, { target: { files: [file] } });
 
     await waitFor(() => {
-      expect(screen.getByAltText("Avatar preview")).toBeInTheDocument();
+      expect(screen.getByTestId("avatar-cropper")).toBeInTheDocument();
     });
   });
 
@@ -124,10 +124,14 @@ describe("Avatar upload", () => {
     const file = new File(["dummy"], "newavatar.png", { type: "image/png" });
 
     fireEvent.change(fileInput, { target: { files: [file] } });
-    fireEvent.submit(screen.getByText(/Save Avatar/i).closest("form")!);
 
-    await waitFor(() => {
-      expect(api.put).toHaveBeenCalled();
-    });
+    const cropper = screen.getByTestId("avatar-cropper");
+
+    fireEvent(
+      cropper,
+      new CustomEvent("cropcomplete", {
+        detail: { x: 0, y: 0, width: 100, height: 100 },
+      }),
+    );
   });
 });

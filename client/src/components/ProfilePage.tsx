@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Avatar,
@@ -7,7 +7,9 @@ import {
   Button,
   Typography,
   Skeleton,
+  Slider,
 } from "@mui/material";
+import Cropper, { type Point, type Area } from "react-easy-crop";
 
 import { AuthContext } from "../context/AuthContext";
 import {
@@ -21,6 +23,7 @@ import { updateUserAvatar } from "../store/userSlice";
 
 import type { AppDispatch } from "../store/store";
 import { FormBox } from "./StyledBox";
+import { getCroppedImg } from "../utils/getCroppedImg";
 
 export default function ProfilePage() {
   const auth = useContext(AuthContext);
@@ -48,15 +51,33 @@ export default function ProfilePage() {
 
   const handleSaveAvatar = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (avatar) {
-      console.log("ProfilePage.tsx Submitting avatar:", avatar);
-      await dispatch(updateUserAvatar({ avatar }));
-      if (token) {
-        dispatch(fetchProfile(token));
+    if (preview && croppedAreaPixels && avatar) {
+      let avatarFile: File | undefined;
+      if (preview && croppedAreaPixels && avatar) {
+        const croppedBlob = await getCroppedImg(
+          preview,
+          croppedAreaPixels,
+          avatar.type,
+        );
+        avatarFile = new File([croppedBlob], avatar.name, {
+          type: avatar.type,
+        });
+        await dispatch(updateUserAvatar({ avatar: avatarFile }));
+        if (token) {
+          dispatch(fetchProfile(token));
+        }
       }
 
       clearPreview();
     }
+  };
+
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+
+  const onCropComplete = (_croppedArea: Area, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels);
   };
 
   return (
@@ -116,15 +137,28 @@ export default function ProfilePage() {
             </Button>
             {preview && (
               <Box
-                component="img"
-                sx={{
-                  height: 250,
-                  width: 250,
-                }}
-                src={preview}
-                alt="Avatar preview"
-              />
+                sx={{ position: "relative", width: 250, height: 250 }}
+                data-testid="avatar-cropper"
+              >
+                <Cropper
+                  image={preview}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1}
+                  onCropChange={setCrop}
+                  onZoomChange={setZoom}
+                  onCropComplete={onCropComplete}
+                />
+              </Box>
             )}
+            <Slider
+              value={zoom}
+              min={1}
+              max={3}
+              step={0.1}
+              aria-labelledby="Zoom"
+              onChange={(_, value) => setZoom(Number(value))}
+            />
             <Button type="submit">Save Avatar</Button>
           </FormBox>
           <Button onClick={logout}>Logout</Button>
