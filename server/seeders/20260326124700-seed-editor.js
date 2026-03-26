@@ -10,7 +10,7 @@ export default {
       `SELECT id FROM "Roles" WHERE name = 'editor' LIMIT 1;`,
     );
 
-    const roleId = editorRole[3]?.id;
+    const roleId = editorRole[0]?.id;
 
     await queryInterface.bulkInsert("Users", [
       {
