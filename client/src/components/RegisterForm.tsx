@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  registerUser,
-  selectUserStatus,
-  selectUserError,
-  selectCurrentUser,
-} from "../store/userSlice";
-import { Box, Button, Slider, TextField, Typography } from "@mui/material";
+  Box,
+  Button,
+  Checkbox,
+  Slider,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Cropper, { type Point, type Area } from "react-easy-crop";
 
 import { FormBox } from "./StyledBox";
@@ -14,6 +15,12 @@ import { useAvatarUpload } from "../hooks/useAvatarUpload";
 import { getCroppedImg } from "../utils/getCroppedImg";
 
 import type { AppDispatch } from "../store/store";
+import {
+  registerUser,
+  selectUserStatus,
+  selectUserError,
+  selectCurrentUser,
+} from "../store/userSlice";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -80,6 +87,12 @@ export default function RegisterForm() {
           variant="outlined"
           fullWidth
         />
+
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <Checkbox />
+          <Typography>Create user of type Editor</Typography>
+        </div>
+
         <Button variant="outlined" component="label">
           Upload File
           <input
