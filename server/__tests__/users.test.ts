@@ -105,12 +105,14 @@ describe("User routes", () => {
       username: "Alice",
       email: "alice@example.com",
       password: "123456",
+      roleId: "1",
     });
 
     const res = await request(app).post("/users/register").send({
       username: "Alice",
       email: "alice@example.com",
       password: "123456",
+      roleId: "1",
     });
     expect(res.statusCode).toBe(400);
     expect(res.body).toHaveProperty("error", "User already exists");
