@@ -26,6 +26,7 @@ export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
   const dispatch: AppDispatch = useDispatch();
   const status = useSelector(selectUserStatus);
   const error = useSelector(selectUserError);
@@ -42,7 +43,14 @@ export default function RegisterForm() {
       );
       avatarFile = new File([croppedBlob], avatar.name, { type: avatar.type });
     }
-    dispatch(registerUser({ username, email, password, avatar: avatarFile }));
+
+    const roleId = role === "editor" ? 3 : 1;
+
+    console.log(`role: ${role} | roleID: ${roleId}`);
+
+    dispatch(
+      registerUser({ username, email, password, avatar: avatarFile, roleId }),
+    );
   };
 
   const { avatar, preview, handleAvatarChange } = useAvatarUpload();
@@ -89,7 +97,10 @@ export default function RegisterForm() {
         />
 
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Checkbox />
+          <Checkbox
+            checked={role === "editor"}
+            onChange={(e) => setRole(e.target.checked ? "editor" : "user")}
+          />
           <Typography>Create user of type Editor</Typography>
         </div>
 

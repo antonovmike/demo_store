@@ -8,6 +8,7 @@ interface RegisterPayload {
   username: string;
   email: string;
   password: string;
+  roleId: number;
 }
 
 export interface User {
