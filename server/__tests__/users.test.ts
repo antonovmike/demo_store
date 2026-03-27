@@ -163,12 +163,14 @@ describe("User routes", () => {
       username: "Alice",
       email: "alice@example.com",
       password: "123456",
+      roleId: "1",
     });
 
     const loginRes = await request(app).post("/users/login").send({
       username: "Alice",
       email: "alice@example.com",
       password: "123456",
+      roleId: "1",
     });
 
     const token = loginRes.body.token;
