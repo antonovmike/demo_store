@@ -5,14 +5,13 @@ async function createUser(
   username: string,
   email: string,
   passwordHash: string,
-  roleName: string,
+  roleID: string,
   avatarPath?: string | null,
 ) {
-  // roleName contains roleID of type string
-  let role = await Role.findByPk(Number(roleName));
+  let role = await Role.findByPk(Number(roleID));
 
   if (!role) {
-    console.warn(`⚠️ Role '${roleName}' not found. Falling back to 'user'.`);
+    console.warn(`⚠️ Role '${roleID}' not found. Falling back to 'user'.`);
     role = await Role.findOne({ where: { name: "user" } });
 
     if (!role) {
