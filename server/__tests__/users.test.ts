@@ -52,6 +52,7 @@ describe("User routes", () => {
       username: "Alice",
       email: "alice@example.com",
       password: "123456",
+      roleId: "1",
     });
 
     expect(res.statusCode).toBe(201);
