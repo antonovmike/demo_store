@@ -109,6 +109,9 @@ export default function ProfilePage() {
           <Typography>
             <strong>Email:</strong> {profile.email}
           </Typography>
+          <Typography>
+            <strong>Role:</strong> {profile.role}
+          </Typography>
           {profile.avatarPath ? (
             <Box
               component="img"

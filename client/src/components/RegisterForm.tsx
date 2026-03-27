@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  registerUser,
-  selectUserStatus,
-  selectUserError,
-  selectCurrentUser,
-} from "../store/userSlice";
-import { Box, Button, Slider, TextField, Typography } from "@mui/material";
+  Box,
+  Button,
+  Checkbox,
+  Slider,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Cropper, { type Point, type Area } from "react-easy-crop";
 
 import { FormBox } from "./StyledBox";
@@ -14,11 +15,18 @@ import { useAvatarUpload } from "../hooks/useAvatarUpload";
 import { getCroppedImg } from "../utils/getCroppedImg";
 
 import type { AppDispatch } from "../store/store";
+import {
+  registerUser,
+  selectUserStatus,
+  selectUserError,
+  selectCurrentUser,
+} from "../store/userSlice";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
   const dispatch: AppDispatch = useDispatch();
   const status = useSelector(selectUserStatus);
   const error = useSelector(selectUserError);
@@ -35,7 +43,14 @@ export default function RegisterForm() {
       );
       avatarFile = new File([croppedBlob], avatar.name, { type: avatar.type });
     }
-    dispatch(registerUser({ username, email, password, avatar: avatarFile }));
+
+    const roleId = role === "editor" ? 3 : 1;
+
+    console.log(`role: ${role} | roleID: ${roleId}`);
+
+    dispatch(
+      registerUser({ username, email, password, avatar: avatarFile, roleId }),
+    );
   };
 
   const { avatar, preview, handleAvatarChange } = useAvatarUpload();
@@ -80,6 +95,15 @@ export default function RegisterForm() {
           variant="outlined"
           fullWidth
         />
+
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <Checkbox
+            checked={role === "editor"}
+            onChange={(e) => setRole(e.target.checked ? "editor" : "user")}
+          />
+          <Typography>Create user of type Editor</Typography>
+        </div>
+
         <Button variant="outlined" component="label">
           Upload File
           <input
