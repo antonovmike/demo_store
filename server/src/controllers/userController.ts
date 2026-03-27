@@ -29,14 +29,14 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
 
 async function register(req: MulterRequest, res: Response, next: NextFunction) {
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, roleId } = req.body;
     const avatarPath = req.file ? `/avatars/${req.file.filename}` : null;
 
     const user = await userService.register(
       username,
       email,
       password,
-      role,
+      roleId,
       avatarPath,
     );
     res.status(201).json(user);

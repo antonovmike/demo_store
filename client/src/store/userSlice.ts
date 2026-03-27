@@ -37,15 +37,22 @@ export const registerUser = createAsyncThunk<
   { rejectValue: string }
 >(
   "user/registerUser",
-  async ({ username, email, password, avatar }, { rejectWithValue }) => {
+  async (
+    { username, email, password, roleId, avatar },
+    { rejectWithValue },
+  ) => {
     try {
       const formData = new FormData();
+
       formData.append("username", username);
       formData.append("email", email);
       formData.append("password", password);
+      formData.append("roleId", roleId.toString());
+
       if (avatar) {
         formData.append("avatar", avatar);
       }
+
       const res = await api.post("/users/register", formData);
       // if API returns token: const { user, token } = res.data;
       return res.data;
