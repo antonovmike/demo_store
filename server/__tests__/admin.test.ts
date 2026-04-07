@@ -43,7 +43,7 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await sequelize.sync({ force: true });
-  await Role.bulkCreate([{ name: "user" }, { name: "admin" }]);
+  await Role.bulkCreate([{ name: "user" }, { name: "admin" }, { name: "editor" }]);
 });
 
 // Close Sequelize connection
@@ -86,4 +86,74 @@ describe("Admin routes", () => {
 
     expect(res.statusCode).toBe(200);
   });
+
+  test("POST /admin/change-password denies editor", async () => {
+    const editorRole = await Role.findOne({ where: { name: "editor" } });
+    const userRole = await Role.findOne({ where: { name: "user" } });
+
+    console.log("editorRole", editorRole);
+    console.log("userRole", userRole);
+
+    await User.create({
+      username: "EditorUser",
+      email: "editor@example.com",
+      password_hash: await bcrypt.hash("editorpass", 10),
+      roleId: editorRole!.id,
+    });
+
+    const targetUser = await User.create({
+      username: "TargetUser",
+      email: "target@example.com",
+      password_hash: await bcrypt.hash("oldpass", 10),
+      roleId: userRole!.id,
+    });
+
+    const loginRes = await request(app).post("/users/login").send({
+      email: "editor@example.com",
+      password: "editorpass",
+    });
+    const token = loginRes.body.token;
+
+    const res = await request(app)
+      .post("/admin/change-password")
+      .set("Authorization", `Bearer ${token}`)
+      .send({ userId: targetUser.id, newPassword: "newpass123" });
+
+    expect(res.statusCode).toBe(403);
+    expect(res.body).toHaveProperty("error", "Forbidden: insufficient role");
+  });
+
+  // test("POST /admin/change-password denies regular user", async () => {
+  //   const userRole = await Role.findOne({ where: { name: "user" } });
+
+  //   console.log("userRole", userRole);
+
+  //   await User.create({
+  //     username: "RegularUser",
+  //     email: "user@example.com",
+  //     password_hash: await bcrypt.hash("userpass", 10),
+  //     roleId: userRole!.id,
+  //   });
+
+  //   const targetUser = await User.create({
+  //     username: "TargetUser",
+  //     email: "target@example.com",
+  //     password_hash: await bcrypt.hash("oldpass", 10),
+  //     roleId: userRole!.id,
+  //   });
+
+  //   const loginRes = await request(app).post("/users/login").send({
+  //     email: "user@example.com",
+  //     password: "userpass",
+  //   });
+  //   const token = loginRes.body.token;
+
+  //   const res = await request(app)
+  //     .post("/admin/change-password")
+  //     .set("Authorization", `Bearer ${token}`)
+  //     .send({ userId: targetUser.id, newPassword: "newpass123" });
+
+  //   expect(res.statusCode).toBe(403);
+  //   expect(res.body).toHaveProperty("error", "Forbidden: insufficient role");
+  // });
 });
