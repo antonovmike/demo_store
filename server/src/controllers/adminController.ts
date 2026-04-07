@@ -11,7 +11,11 @@ async function changeUserPassword(req: Request, res: Response) {
     if (!userId || !newPassword) {
       return res.status(400).json({ error: "User ID and new password are required" });
     }
-    
+    // Admins are not working with their own profile, but with another user whose password 
+    // they want to change.
+    // In this case, req.user contains the admin’s own data, while userId is included in the 
+    // request body and points to the target user. Therefore, a separate database query is 
+    // needed to find the specific user for whom the admin is changing the password.
     const user = await User.findByPk(userId)
 
     if (!user) {

@@ -12,6 +12,12 @@ interface MulterRequest extends Request {
 
 async function getMe(req: Request, res: Response, next: NextFunction) {
   try {
+    // This is the context of the current client that made the request.
+    // This object is created in authMiddleware (authenticate.ts). 
+    // After verifying the JWT and looking up the user in the database, 
+    // the data for the currently logged-in user (including id, username, 
+    // email, role, etc) is stored in req.user.
+
     const user = req.user;
     res.json({
       id: user.id,
