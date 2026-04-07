@@ -8,7 +8,16 @@ const { Product } = models;
 async function createProduct() {}
 
 // Get a list of products (for everyone)
-async function listProducts() {}
+async function listProducts(req: Request, res: Response) {
+  try {
+    const products = await Product.findAll();
+    return res.json(products);
+  } catch (err) {
+    const error = err as Error;
+    console.error("Error fetching products:", error.message);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
 
 export default {
   createProduct,
