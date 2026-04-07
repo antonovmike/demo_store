@@ -15,7 +15,7 @@ async function createProduct(req: Request, res: Response) {
 
     const product = await Product.create({ name, price, description });
 
-    return res.status(2001).json(product);
+    return res.status(201).json(product);
   } catch (err) {
     const error = err as Error;
     console.error("Error creating product:", error.message);
@@ -24,7 +24,7 @@ async function createProduct(req: Request, res: Response) {
 }
 
 // Get a list of products (for everyone)
-async function listProducts(req: Request, res: Response) {
+async function listProducts(_req: Request, res: Response) {
   try {
     const products = await Product.findAll();
     return res.json(products);

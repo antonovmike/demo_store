@@ -2,6 +2,9 @@ import express from "express";
 import models from "../models/index.js";
 
 import auth from "../middleware/authenticate.js";
+import authMiddleware from "../middleware/authenticate.js";
+import { authorize } from "../middleware/authorize.js";
+import productController from "../controllers/productController.js";
 import checkRole from "../middleware/checkRole.js";
 import type { HttpError } from "../middleware/errorHandler.js";
 
@@ -11,15 +14,7 @@ const router = express.Router();
 
 // Everyone can view products
 // GET /products
-router.get("/", async (req, res, next) => {
-  try {
-    const products = await Product.findAll();
-    res.json(products);
-  } catch (err) {
-    console.error("Error fetching products:", err);
-    next(err);
-  }
-});
+router.get("/", productController.listProducts);
 
 // GET /products/:id
 router.get("/:id", async (req, res, next) => {
@@ -37,20 +32,12 @@ router.get("/:id", async (req, res, next) => {
 
 // Only admin can create, update, delete products
 // POST /products
-router.post("/", auth, checkRole("admin"), async (req, res, next) => {
-  try {
-    const { name, price, description } = req.body;
-    if (!name || !price) {
-      return res.status(400).json({ error: "Name and price are required" });
-    }
-    const product = await Product.create({ name, price, description });
-    res.status(201).json(product);
-  } catch (err) {
-    const error = err as HttpError;
-    console.error("Error creating product:", error.message);
-    next(error);
-  }
-});
+router.post(
+  "/",
+  authMiddleware,
+  authorize(["editor", "admin"]), // 2 - "admin", 3 - "editor"
+  productController.createProduct,
+);
 
 // PUT /products/:id
 router.put("/:id", auth, checkRole("admin"), async (req, res, next) => {
