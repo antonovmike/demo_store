@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import basicRoutes from "./routes/basic.js";
 import usersRoutes from "./routes/userRoutes.js";
 import productsRoutes from "./routes/productsRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 import logger from "./middleware/logger.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
@@ -27,6 +28,8 @@ app.use(express.json());
 app.use("/", basicRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
+app.use("/admin", adminRoutes);
+app.use("/change-password", adminRoutes);
 
 // Serve avatars folder
 app.use("/avatars", express.static(AVATAR_DIR));

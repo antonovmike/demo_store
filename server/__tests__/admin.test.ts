@@ -19,7 +19,7 @@ beforeAll(async () => {
   await sequelize.sync({ force: true });
 
   // Create default roles
-  await Role.bulkCreate([{ name: "user" }, { name: "admin" }]);
+  await Role.bulkCreate([{ name: "user" }, { name: "admin" }, { name: "editor" }]);
   // Create test users
   await User.create({
     username: "Alice",
@@ -32,6 +32,12 @@ beforeAll(async () => {
     email: "admin@example.com",
     password_hash: await bcrypt.hash("adminpass", 10),
     roleId: 2, // admin role
+  });
+  await User.create({
+    username: "EditorUser",
+    email: "editor@example.com",
+    password_hash: await bcrypt.hash("editorpass", 10),
+    roleId: 3, // editor role
   });
 });
 
@@ -50,7 +56,34 @@ describe("Admin routes", () => {
     const adminRole = await Role.findOne({ where: { name: "admin" } });
     const userRole = await Role.findOne({ where: { name: "user" } });
 
-    expect(adminRole).not.toBeNull();
-    expect(userRole).not.toBeNull();
+     console.log("adminRole", adminRole);
+     console.log("userRole", userRole);
+
+    const admin = await User.create({
+      username: "AdminUser",
+      email: "admin@example.com",
+      password_hash: await bcrypt.hash("adminpass", 10),
+      roleId: adminRole!.id,
+    });
+
+    const targetUser = await User.create({
+      username: "TargetUser",
+      email: "target@example.com",
+      password_hash: await bcrypt.hash("oldpass", 10),
+      roleId: userRole!.id,
+    });
+    
+    const loginRes = await request(app).post("/users/login").send({
+      email: "admin@example.com",
+      password: "adminpass",
+    });
+    const token = loginRes.body.token;
+
+    const res = await request(app)
+      .post("/admin/change-password")
+      .set("Authorization", `Bearer ${token}`)
+      .send({ userId: targetUser.id, newPassword: "newpass123" });
+
+    expect(res.statusCode).toBe(200);
   });
 });

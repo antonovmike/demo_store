@@ -7,6 +7,6 @@ import adminController from "../controllers/adminController.js";
 const router = express.Router();
 
 // Only admin users can change passwords
-router.put("/change-password", authMiddleware, authorize(["admin"]), adminController.changeUserPassword);
+router.post("/change-password", authMiddleware, authorize(["admin"]), adminController.changeUserPassword);
 
 export default router;
