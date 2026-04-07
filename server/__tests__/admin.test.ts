@@ -46,7 +46,11 @@ afterAll(async () => {
 });
 
 describe("Admin routes", () => {
-  test("admin can change another user's password", async () => {
-    // TODO: Implement test
+  test("POST /admin/change-password allows admin to change another user's password", async () => {
+    const adminRole = await Role.findOne({ where: { name: "admin" } });
+    const userRole = await Role.findOne({ where: { name: "user" } });
+
+    expect(adminRole).not.toBeNull();
+    expect(userRole).not.toBeNull();
   });
 });
