@@ -1,7 +1,7 @@
 import express from "express";
 import models from "../models/index.js";
 
-import auth from "../middleware/auth.js";
+import auth from "../middleware/authenticate.js";
 import checkRole from "../middleware/checkRole.js";
 import type { HttpError } from "../middleware/errorHandler.js";
 

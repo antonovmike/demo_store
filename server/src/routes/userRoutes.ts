@@ -1,6 +1,6 @@
 import express from "express";
 
-import authMiddleware from "../middleware/auth.js";
+import authMiddleware from "../middleware/authenticate.js";
 import userController from "../controllers/userController.js";
 import { upload } from "../multipart/form-data.js";
 
