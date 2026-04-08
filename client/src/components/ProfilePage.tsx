@@ -20,10 +20,11 @@ import {
 } from "../store/profileSlice";
 import { useAvatarUpload } from "../hooks/useAvatarUpload";
 import { updateUserAvatar } from "../store/userSlice";
-
-import type { AppDispatch } from "../store/store";
 import { FormBox } from "./StyledBox";
 import { getCroppedImg } from "../utils/getCroppedImg";
+import { API_SERVER_URL } from "../clientConfig";
+
+import type { AppDispatch } from "../store/store";
 
 export default function ProfilePage() {
   const auth = useContext(AuthContext);
@@ -117,7 +118,7 @@ export default function ProfilePage() {
               component="img"
               sx={{ height: 250, width: 250 }}
               alt={profile.username}
-              src={`http://localhost:3000${profile.avatarPath}`}
+              src={`${API_SERVER_URL}${profile.avatarPath}`}
             />
           ) : (
             <Avatar sx={{ width: 250, height: 250 }}>
@@ -126,7 +127,7 @@ export default function ProfilePage() {
           )}
           <Avatar
             alt={profile.username}
-            src={`http://localhost:3000${profile.avatarPath}`}
+            src={`${API_SERVER_URL}${profile.avatarPath}`}
           />
           <FormBox onSubmit={handleSaveAvatar}>
             <Button variant="outlined" component="label">
