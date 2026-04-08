@@ -6,6 +6,7 @@ import productsReducer from "./ProductsSlice";
 import profileReducer from "./profileSlice";
 import userReducer from "./userSlice";
 import authReducer from "./authSlice";
+import adminReducer from "./adminSlice";
 
 const localStorageMiddleware: Middleware = (storeAPI) => (next) => (action) => {
   const result = next(action);
@@ -32,6 +33,7 @@ const store = configureStore({
     products: productsReducer,
     profile: profileReducer,
     user: userReducer,
+    admin: adminReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(localStorageMiddleware),

@@ -1,8 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+import api from "../api/axios";
+
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import api from "../api/axios";
+export const fetchCurrentUser = createAsyncThunk<User>(
+  "user/fetchCurrentUser",
+  async () => {
+    console.log("Calling /users/me");
+    const res = await api.get("/users/me", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    console.log("Response:", res.data);
+    return res.data;
+  },
+);
 
 interface RegisterPayload {
   username: string;
@@ -15,6 +27,7 @@ export interface User {
   id?: string;
   username?: string;
   email: string;
+  role?: string;
   token?: string;
   avatarPath?: string | null;
 }
@@ -93,6 +106,15 @@ const userSlice = createSlice({
         state.status = "failed";
         state.error =
           (action.payload as string) || action.error.message || null;
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        console.log("fetchCurrentUser payload:", action.payload);
+        state.status = "succeeded";
+        state.user = action.payload; // User contains role
+      })
+      .addCase(fetchCurrentUser.rejected, (state) => {
+        state.status = "failed";
+        state.user = null;
       });
   },
 });

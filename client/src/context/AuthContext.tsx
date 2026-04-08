@@ -3,15 +3,16 @@ import { useDispatch } from "react-redux";
 
 import { AuthContext } from "./AuthContext";
 import { initCart, clearCart } from "../store/CartSlice";
-import { setUser as setUserRedux } from "../store/userSlice";
+import { fetchCurrentUser, setUser as setUserRedux } from "../store/userSlice";
 import { logout as logoutRedux } from "../store/authSlice";
 import store from "../store/store";
 
 import type { ReactNode } from "react";
 import type { User } from "../store/userSlice";
+import type { AppDispatch } from "../store/store";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -39,9 +40,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [user, dispatch]);
 
   useEffect(() => {
-    if (token) localStorage.setItem("token", token);
-    else localStorage.removeItem("token");
-  }, [token]);
+    if (token) {
+      dispatch(fetchCurrentUser());
+    } else {
+      dispatch(setUserRedux(null));
+      dispatch(clearCart());
+    }
+  }, [token, dispatch]);
 
   const logout = () => {
     if (user?.email) {

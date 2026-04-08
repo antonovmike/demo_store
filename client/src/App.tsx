@@ -16,6 +16,7 @@ import ProductsPage from "./components/ProductsPage";
 import AddProductPage from "./components/AddProductPage";
 import PrivateRoute from "./components/PrivateRoute";
 import ResetPasswordForm from "./components/ResetPasswordForm.js";
+import ChangePasswordPage from "./components/ChangePasswordPage.js";
 
 function App() {
   return (
@@ -90,6 +91,10 @@ function App() {
                     <AddProductPage />
                   </Layout>
                 }
+              />
+              <Route
+                path="/admin/change-password"
+                element={<ChangePasswordPage />}
               />
             </Routes>
           </CssBaseline>
