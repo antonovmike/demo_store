@@ -1,5 +1,14 @@
 # User Manual
 
+## Temporary
+
+Change password page address: http://localhost:5173/#/admin/change-password
+Check backend response:
+
+```bash
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIcurl -H "Authorization: Bearer <TOKEN> http://localhost:3000/admin/users
+```
+
 ## Table of Contents
 
 1. [Introduction](#introduction)
